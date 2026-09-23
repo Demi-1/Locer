@@ -13,12 +13,16 @@ href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
     box-sizing:border-box;
 }
 
-body{
+html,body{
     margin:0;
+    width:100%;
+    height:100%;
+}
+
+body{
     font-family:Arial, sans-serif;
-    background:#f5f7fb;
-    color:#202124;
-    height:100vh;
+    background:#0d0f12;
+    color:#f1f3f5;
     overflow:hidden;
 }
 
@@ -27,43 +31,59 @@ body{
     height:100vh;
 }
 
+/* SIDEBAR */
+
 .sidebar{
     width:245px;
-    background:#ffffff;
-    border-right:1px solid #e2e5ea;
+    background:#15181d;
+    border-right:1px solid #292d34;
     display:flex;
     flex-direction:column;
     padding:15px;
 }
 
 .logo{
-    font-size:22px;
+    font-size:23px;
     font-weight:bold;
     margin-bottom:18px;
 }
 
 .new-chat{
-    border:0;
-    background:#202124;
-    color:white;
+    width:100%;
+    border:1px solid #343941;
+    background:#20242b;
+    color:#fff;
     border-radius:12px;
     padding:12px;
     cursor:pointer;
     font-size:15px;
-    margin-bottom:15px;
+    margin-bottom:12px;
 }
 
 .new-chat:hover{
-    opacity:.9;
+    background:#292e36;
 }
 
 .login{
-    border:1px solid #ddd;
-    background:white;
+    width:100%;
+    border:1px solid #343941;
+    background:#1b1f25;
+    color:#fff;
     border-radius:12px;
     padding:10px;
     cursor:pointer;
-    margin-bottom:15px;
+    margin-bottom:12px;
+}
+
+.login:hover{
+    background:#242931;
+}
+
+.user-info{
+    font-size:12px;
+    color:#9299a5;
+    margin-bottom:10px;
+    word-break:break-word;
 }
 
 .chat-list{
@@ -82,7 +102,7 @@ body{
 }
 
 .chat-item:hover{
-    background:#f0f2f5;
+    background:#20242b;
 }
 
 .chat-title{
@@ -90,31 +110,42 @@ body{
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
+    color:#dfe3e8;
 }
 
 .delete-chat{
     border:0;
     background:transparent;
+    color:#aab0b8;
     cursor:pointer;
     font-size:15px;
 }
+
+.delete-chat:hover{
+    color:#fff;
+}
+
+/* MAIN */
 
 .main{
     flex:1;
     display:flex;
     flex-direction:column;
     min-width:0;
+    background:#0d0f12;
 }
 
 .header{
     height:60px;
-    border-bottom:1px solid #e2e5ea;
-    background:white;
+    border-bottom:1px solid #292d34;
+    background:#111419;
     display:flex;
     align-items:center;
     padding:0 20px;
     font-weight:bold;
 }
+
+/* MESSAGES */
 
 .messages{
     flex:1;
@@ -134,11 +165,11 @@ body{
 }
 
 .welcome p{
-    color:#6b7280;
+    color:#9299a5;
 }
 
 .message{
-    max-width:850px;
+    max-width:900px;
     margin:0 auto 18px auto;
     display:flex;
 }
@@ -151,35 +182,38 @@ body{
     max-width:80%;
     padding:12px 16px;
     border-radius:16px;
-    line-height:1.5;
+    line-height:1.55;
     white-space:pre-wrap;
     word-wrap:break-word;
 }
 
 .message.user .bubble{
-    background:#202124;
-    color:white;
+    background:#303640;
+    color:#fff;
     border-bottom-right-radius:5px;
 }
 
 .message.assistant .bubble{
-    background:white;
-    border:1px solid #e2e5ea;
+    background:#181b20;
+    border:1px solid #2b3038;
+    color:#e8eaed;
     border-bottom-left-radius:5px;
 }
 
+/* INPUT */
+
 .input-area{
-    background:white;
-    border-top:1px solid #e2e5ea;
+    background:#0d0f12;
+    border-top:1px solid #292d34;
     padding:14px;
 }
 
 .input-box{
     max-width:900px;
     margin:auto;
-    border:1px solid #d5d9df;
+    border:1px solid #343941;
     border-radius:16px;
-    background:white;
+    background:#15181d;
     overflow:hidden;
 }
 
@@ -193,6 +227,12 @@ textarea{
     padding:15px;
     font-size:16px;
     font-family:inherit;
+    background:#15181d;
+    color:#fff;
+}
+
+textarea::placeholder{
+    color:#777e89;
 }
 
 .controls{
@@ -217,12 +257,22 @@ textarea{
 }
 
 .photo-btn{
-    background:#f0f2f5;
+    background:#242931;
+    color:#fff;
+}
+
+.photo-btn:hover{
+    background:#2d333c;
 }
 
 .send-btn{
-    background:#202124;
-    color:white;
+    background:#fff;
+    color:#111;
+    font-weight:bold;
+}
+
+.send-btn:hover{
+    background:#e7e9ec;
 }
 
 .send-btn:disabled{
@@ -233,7 +283,7 @@ textarea{
 .photo-preview{
     display:none;
     padding:8px 12px;
-    border-top:1px solid #eee;
+    border-top:1px solid #292d34;
 }
 
 .photo-preview img{
@@ -242,18 +292,29 @@ textarea{
     border-radius:10px;
 }
 
-.user-info{
-    font-size:13px;
-    color:#666;
-    margin-bottom:10px;
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+    width:8px;
 }
 
-.error{
-    color:#b00020;
-    white-space:pre-wrap;
+::-webkit-scrollbar-track{
+    background:#0d0f12;
 }
+
+::-webkit-scrollbar-thumb{
+    background:#30353d;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#414751;
+}
+
+/* MOBILE */
 
 @media(max-width:700px){
+
     .sidebar{
         width:190px;
     }
@@ -265,6 +326,11 @@ textarea{
     .messages{
         padding:12px;
     }
+
+    .welcome{
+        margin-top:50px;
+    }
+
 }
 </style>
 </head>
@@ -273,82 +339,96 @@ textarea{
 
 <div class="app">
 
-    <aside class="sidebar">
+<aside class="sidebar">
 
-        <div class="logo">🤖 Locer</div>
+    <div class="logo">🤖 Locer</div>
 
-        <button class="new-chat" id="newChat">
-            ＋ Новый чат
-        </button>
+    <button class="new-chat" id="newChat">
+        ＋ Новый чат
+    </button>
 
-        <button class="login" id="loginBtn">
-            🔐 Войти через Google
-        </button>
+    <button class="login" id="loginBtn">
+        🔐 Войти через Google
+    </button>
 
-        <div class="user-info" id="userInfo"></div>
+    <div class="user-info" id="userInfo"></div>
 
-        <div class="chat-list" id="chatList"></div>
+    <div class="chat-list" id="chatList"></div>
 
-    </aside>
+</aside>
 
-    <main class="main">
 
-        <div class="header">
-            Locer AI
+<main class="main">
+
+    <div class="header">
+        Locer AI
+    </div>
+
+    <div class="messages" id="messages">
+
+        <div class="welcome" id="welcome">
+
+            <h1>Привет! 👋</h1>
+
+            <p>
+                Я Locer — дружелюбный AI-помощник.
+                Задавай вопросы, присылай задания и фотографии 📷
+            </p>
+
         </div>
 
-        <div class="messages" id="messages">
+    </div>
 
-            <div class="welcome" id="welcome">
-                <h1>Привет! 👋</h1>
-                <p>
-                    Я Locer — дружелюбный AI-помощник.
-                    Задавай вопросы, присылай задания и фотографии 📷
-                </p>
+
+    <div class="input-area">
+
+        <div class="input-box">
+
+            <textarea
+                id="messageInput"
+                placeholder="Напиши сообщение..."
+                rows="1"></textarea>
+
+
+            <div class="photo-preview" id="photoPreview">
+
+                <img id="previewImage">
+
             </div>
 
-        </div>
 
-        <div class="input-area">
+            <div class="controls">
 
-            <div class="input-box">
+                <div class="left-controls">
 
-                <textarea
-                    id="messageInput"
-                    placeholder="Напиши сообщение..."
-                    rows="1"></textarea>
-
-                <div class="photo-preview" id="photoPreview">
-                    <img id="previewImage">
-                </div>
-
-                <div class="controls">
-
-                    <div class="left-controls">
-
-                        <button class="photo-btn" id="photoBtn">
-                            📷 Фото
-                        </button>
-
-                        <input
-                            type="file"
-                            id="photoInput"
-                            accept="image/*"
-                            hidden>
-
-                    </div>
-
-                    <button class="send-btn" id="sendBtn">
-                        Отправить ➤
+                    <button
+                        class="photo-btn"
+                        id="photoBtn">
+                        📷 Фото
                     </button>
 
+                    <input
+                        type="file"
+                        id="photoInput"
+                        accept="image/*"
+                        hidden>
+
                 </div>
+
+
+                <button
+                    class="send-btn"
+                    id="sendBtn">
+                    Отправить ➤
+                </button>
 
             </div>
 
         </div>
 
-    </main>
+    </div>
+
+</main>
 
 </div>
 
@@ -410,9 +490,6 @@ const provider = new GoogleAuthProvider();
 const messagesEl =
     document.getElementById("messages");
 
-const welcomeEl =
-    document.getElementById("welcome");
-
 const input =
     document.getElementById("messageInput");
 
@@ -458,21 +535,24 @@ let selectedImage = null;
 
 
 /* =========================
-   LOGIN
+   GOOGLE LOGIN
 ========================= */
 
 loginBtn.addEventListener("click", async () => {
 
-    try {
+    try{
 
-        await signInWithPopup(auth, provider);
+        await signInWithPopup(
+            auth,
+            provider
+        );
 
-    } catch(error) {
+    }catch(error){
 
         console.error(error);
 
         alert(
-            "Не удалось войти через Google:\n" +
+            "Ошибка входа через Google:\n" +
             error.message
         );
 
@@ -481,215 +561,210 @@ loginBtn.addEventListener("click", async () => {
 });
 
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(
+    auth,
+    async (user) => {
 
-    currentUser = user;
+        currentUser = user;
 
-    if(user){
+        if(user){
 
-        loginBtn.textContent =
-            "✅ " +
-            (user.displayName || "Вы вошли");
+            loginBtn.textContent =
+                "✅ " +
+                (user.displayName || "Вы вошли");
 
-        userInfo.textContent =
-            user.email || "";
+            userInfo.textContent =
+                user.email || "";
 
-        await loadChats();
+            await loadChats();
 
-    }else{
+        }else{
 
-        loginBtn.textContent =
-            "🔐 Войти через Google";
+            loginBtn.textContent =
+                "🔐 Войти через Google";
 
-        userInfo.textContent = "";
+            userInfo.textContent = "";
 
-        chatList.innerHTML = "";
+            chatList.innerHTML = "";
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================
    NEW CHAT
 ========================= */
 
-newChatBtn.addEventListener("click", () => {
+newChatBtn.addEventListener(
+    "click",
+    () => {
 
-    currentChatId = null;
+        currentChatId = null;
 
-    chatHistory = [];
+        chatHistory = [];
 
-    messagesEl.innerHTML = `
-        <div class="welcome" id="welcome">
-            <h1>Привет! 👋</h1>
-            <p>
-                Я Locer — дружелюбный AI-помощник.
-                Задавай вопросы и присылай задания 📚
-            </p>
-        </div>
-    `;
+        messagesEl.innerHTML = `
+            <div class="welcome">
+                <h1>Привет! 👋</h1>
+                <p>
+                    Я Locer — дружелюбный AI-помощник.
+                    Задавай вопросы и присылай задания 📚
+                </p>
+            </div>
+        `;
 
-});
+    }
+);
 
 
 /* =========================
    PHOTO
 ========================= */
 
-photoBtn.addEventListener("click", () => {
+photoBtn.addEventListener(
+    "click",
+    () => {
 
-    photoInput.click();
+        photoInput.click();
 
-});
-
-
-photoInput.addEventListener("change", () => {
-
-    const file = photoInput.files[0];
-
-    if(!file) return;
-
-    if(file.size > 8 * 1024 * 1024){
-
-        alert("Фото слишком большое. Максимум 8 МБ.");
-
-        photoInput.value = "";
-
-        return;
     }
+);
 
-    const reader = new FileReader();
 
-    reader.onload = () => {
+photoInput.addEventListener(
+    "change",
+    () => {
 
-        selectedImage = reader.result;
+        const file =
+            photoInput.files[0];
 
-        previewImage.src = selectedImage;
+        if(!file) return;
 
-        photoPreview.style.display = "block";
+        if(
+            file.size >
+            8 * 1024 * 1024
+        ){
 
-    };
+            alert(
+                "Фото слишком большое. Максимум 8 МБ."
+            );
 
-    reader.readAsDataURL(file);
+            photoInput.value = "";
 
-});
+            return;
+
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload = () => {
+
+            selectedImage =
+                reader.result;
+
+            previewImage.src =
+                selectedImage;
+
+            photoPreview.style.display =
+                "block";
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+    }
+);
 
 
 /* =========================
    TEXTAREA
 ========================= */
 
-input.addEventListener("input", () => {
+input.addEventListener(
+    "input",
+    () => {
 
-    input.style.height = "auto";
+        input.style.height =
+            "auto";
 
-    input.style.height =
-        Math.min(input.scrollHeight, 180) + "px";
-
-});
-
-
-input.addEventListener("keydown", (event) => {
-
-    if(event.key === "Enter" && !event.shiftKey){
-
-        event.preventDefault();
-
-        send();
+        input.style.height =
+            Math.min(
+                input.scrollHeight,
+                180
+            ) + "px";
 
     }
+);
 
-});
+
+input.addEventListener(
+    "keydown",
+    (event) => {
+
+        if(
+            event.key === "Enter" &&
+            !event.shiftKey
+        ){
+
+            event.preventDefault();
+
+            send();
+
+        }
+
+    }
+);
 
 
 /* =========================
-   MESSAGE DISPLAY
+   ADD MESSAGE
 ========================= */
 
-function addMessage(role, text){
-
-    if(welcomeEl){
-        welcomeEl.remove();
-    }
+function addMessage(
+    role,
+    text
+){
 
     const wrapper =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     wrapper.className =
         "message " + role;
 
+
     const bubble =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    bubble.className = "bubble";
+    bubble.className =
+        "bubble";
 
-    bubble.textContent = text;
 
-    wrapper.appendChild(bubble);
+    bubble.textContent =
+        text;
 
-    messagesEl.appendChild(wrapper);
+
+    wrapper.appendChild(
+        bubble
+    );
+
+
+    messagesEl.appendChild(
+        wrapper
+    );
+
 
     messagesEl.scrollTop =
         messagesEl.scrollHeight;
-
-}
-
-
-/* =========================
-   LATEX RENDER
-========================= */
-
-async function renderMath(){
-
-    if(!window.renderMathInElement){
-
-        return;
-    }
-
-    document.querySelectorAll(".bubble").forEach(el => {
-
-        try{
-
-            window.renderMathInElement(el, {
-
-                delimiters: [
-                    {
-                        left: "$$",
-                        right: "$$",
-                        display: true
-                    },
-                    {
-                        left: "\\[",
-                        right: "\\]",
-                        display: true
-                    },
-                    {
-                        left: "$",
-                        right: "$",
-                        display: false
-                    },
-                    {
-                        left: "\\(",
-                        right: "\\)",
-                        display: false
-                    }
-                ],
-
-                throwOnError:false
-
-            });
-
-        }catch(error){
-
-            console.error(
-                "Ошибка KaTeX:",
-                error
-            );
-
-        }
-
-    });
 
 }
 
@@ -703,10 +778,16 @@ async function send(){
     const messageText =
         input.value.trim();
 
-    if(!messageText && !selectedImage){
+
+    if(
+        !messageText &&
+        !selectedImage
+    ){
 
         return;
+
     }
+
 
     if(!currentUser){
 
@@ -715,9 +796,12 @@ async function send(){
         );
 
         return;
+
     }
 
+
     sendBtn.disabled = true;
+
 
     try{
 
@@ -725,11 +809,13 @@ async function send(){
             messageText ||
             "Посмотри на это изображение и помоги мне разобраться с заданием. Объясни понятно и пошагово.";
 
+
         addMessage(
             "user",
             messageText ||
             "📷 Отправлено изображение"
         );
+
 
         chatHistory.push({
 
@@ -740,60 +826,56 @@ async function send(){
         });
 
 
-        /*
-         * ВАЖНО:
-         * Сейчас Worker работает с текстом.
-         * Изображение не отправляем в YandexGPT,
-         * чтобы снова не получить ошибку
-         * messages[1].content must be a string.
-         */
-
         const apiMessages =
-            chatHistory.map(message => ({
+            chatHistory.map(
+                message => ({
 
-                role: message.role,
+                    role:
+                        message.role,
 
-                content: String(
-                    message.content || ""
-                )
+                    content:
+                        String(
+                            message.content || ""
+                        )
 
-            }));
-
-
-        const response = await fetch(
-            "https://locer-ai.ivan-ostanin1914.workers.dev",
-            {
-
-                method:"POST",
-
-                headers:{
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body:JSON.stringify({
-                    messages:apiMessages
                 })
-
-            }
-        );
+            );
 
 
-        let data = null;
+        const response =
+            await fetch(
+                "https://locer-ai.ivan-ostanin1914.workers.dev",
+                {
+
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            messages:
+                                apiMessages
+                        })
+
+                }
+            );
+
+
+        let data;
+
 
         try{
 
-            data = await response.json();
+            data =
+                await response.json();
 
         }catch(error){
 
-            const raw =
-                await response.text()
-                    .catch(() => "");
-
             throw new Error(
-                "Сервер вернул неправильный ответ.\n" +
-                raw
+                "Сервер вернул неправильный ответ."
             );
 
         }
@@ -808,21 +890,25 @@ async function send(){
             let errorText =
                 "Ошибка сервера";
 
+
             if(
-                typeof data?.error === "string"
+                typeof data?.error ===
+                "string"
             ){
 
                 errorText =
                     data.error;
 
-            }else if(
+            }
+            else if(
                 data?.error?.message
             ){
 
                 errorText =
                     data.error.message;
 
-            }else if(
+            }
+            else if(
                 data?.details
             ){
 
@@ -832,7 +918,9 @@ async function send(){
             }
 
 
-            if(data?.yandex_status){
+            if(
+                data?.yandex_status
+            ){
 
                 errorText +=
                     "\nКод Yandex: " +
@@ -841,12 +929,15 @@ async function send(){
             }
 
 
-            if(data?.yandex_response){
+            if(
+                data?.yandex_response
+            ){
 
                 console.error(
                     "Ответ Yandex:",
                     data.yandex_response
                 );
+
 
                 try{
 
@@ -863,19 +954,22 @@ async function send(){
             }
 
 
-            throw new Error(errorText);
+            throw new Error(
+                errorText
+            );
 
         }
 
 
         const answer =
-            data?.choices?.[0]?.message?.content;
+            data?.choices?.[0]
+                ?.message?.content;
 
 
         if(!answer){
 
             throw new Error(
-                "Yandex AI не вернул текст ответа."
+                "Yandex AI не вернул ответ."
             );
 
         }
@@ -901,27 +995,24 @@ async function send(){
 
         input.value = "";
 
-        input.style.height = "auto";
+        input.style.height =
+            "auto";
+
 
         selectedImage = null;
 
         photoInput.value = "";
 
-        photoPreview.style.display = "none";
+        photoPreview.style.display =
+            "none";
 
         previewImage.src = "";
-
-
-        setTimeout(
-            renderMath,
-            50
-        );
 
 
     }catch(error){
 
         console.error(
-            "Ошибка Locer:",
+            "Locer error:",
             error
         );
 
@@ -929,13 +1020,16 @@ async function send(){
         addMessage(
             "assistant",
             "❌ " +
-            (error?.message ||
-            "Неизвестная ошибка")
+            (
+                error?.message ||
+                "Неизвестная ошибка"
+            )
         );
 
     }finally{
 
-        sendBtn.disabled = false;
+        sendBtn.disabled =
+            false;
 
     }
 
@@ -962,15 +1056,10 @@ async function saveChat(){
 
     if(!chatHistory.length) return;
 
+
     try{
 
         if(currentChatId){
-
-            /*
-             * Для простоты новый документ
-             * создаётся при новом чате.
-             * Существующий чат здесь не перезаписываем.
-             */
 
             return;
 
@@ -980,14 +1069,15 @@ async function saveChat(){
         const firstMessage =
             chatHistory.find(
                 message =>
-                    message.role === "user"
+                    message.role ===
+                    "user"
             );
 
 
         const title =
             firstMessage?.content
                 ?.slice(0,40)
-                ||
+            ||
             "Новый чат";
 
 
@@ -1003,7 +1093,8 @@ async function saveChat(){
 
                     title:title,
 
-                    messages:chatHistory,
+                    messages:
+                        chatHistory,
 
                     createdAt:
                         serverTimestamp()
@@ -1039,9 +1130,11 @@ async function loadChats(){
 
     if(!currentUser) return;
 
+
     try{
 
         chatList.innerHTML = "";
+
 
         const chatsRef =
             collection(
@@ -1134,11 +1227,17 @@ async function loadChats(){
                 );
 
 
-                item.appendChild(title);
+                item.appendChild(
+                    title
+                );
 
-                item.appendChild(deleteBtn);
+                item.appendChild(
+                    deleteBtn
+                );
 
-                chatList.appendChild(item);
+                chatList.appendChild(
+                    item
+                );
 
             }
         );
@@ -1160,14 +1259,21 @@ async function loadChats(){
    OPEN CHAT
 ========================= */
 
-function openChat(id, data){
+function openChat(
+    id,
+    data
+){
 
-    currentChatId = id;
+    currentChatId =
+        id;
+
 
     chatHistory =
-        Array.isArray(data.messages)
-            ? data.messages
-            : [];
+        Array.isArray(
+            data.messages
+        )
+        ? data.messages
+        : [];
 
 
     messagesEl.innerHTML = "";
@@ -1184,12 +1290,6 @@ function openChat(id, data){
         }
     );
 
-
-    setTimeout(
-        renderMath,
-        50
-    );
-
 }
 
 
@@ -1197,9 +1297,12 @@ function openChat(id, data){
    DELETE CHAT
 ========================= */
 
-async function deleteChat(id){
+async function deleteChat(
+    id
+){
 
     if(!currentUser) return;
+
 
     try{
 
@@ -1214,19 +1317,27 @@ async function deleteChat(id){
         );
 
 
-        if(currentChatId === id){
+        if(
+            currentChatId === id
+        ){
 
             currentChatId = null;
 
             chatHistory = [];
 
+
             messagesEl.innerHTML = `
                 <div class="welcome">
-                    <h1>Привет! 👋</h1>
+
+                    <h1>
+                        Привет! 👋
+                    </h1>
+
                     <p>
-                        Я Locer — дружелюбный
-                        AI-помощник.
+                        Я Locer —
+                        дружелюбный AI-помощник.
                     </p>
+
                 </div>
             `;
 
@@ -1243,6 +1354,7 @@ async function deleteChat(id){
             error
         );
 
+
         alert(
             "Не удалось удалить чат."
         );
@@ -1250,36 +1362,6 @@ async function deleteChat(id){
     }
 
 }
-
-
-/* =========================
-   KATEX
-========================= */
-
-const katexScript =
-    document.createElement("script");
-
-katexScript.src =
-    "https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js";
-
-document.head.appendChild(katexScript);
-
-
-const autoRenderScript =
-    document.createElement("script");
-
-autoRenderScript.src =
-    "https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js";
-
-autoRenderScript.onload = () => {
-
-    renderMath();
-
-};
-
-document.head.appendChild(
-    autoRenderScript
-);
 
 </script>
 
