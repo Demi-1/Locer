@@ -1305,17 +1305,1909 @@ async function deleteChat(
             )
         );
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locer — AI</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#0d0f12;
+    color:#f1f3f5;
+    overflow:hidden;
+}
+
+.app{
+    display:flex;
+    height:100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    width:245px;
+    background:#15181d;
+    border-right:1px solid #292d34;
+    display:flex;
+    flex-direction:column;
+    padding:15px;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+.new-chat,
+.login{
+    width:100%;
+    border:1px solid #343941;
+    color:#fff;
+    border-radius:12px;
+    padding:11px;
+    cursor:pointer;
+    font-size:15px;
+    margin-bottom:12px;
+}
+
+.new-chat{
+    background:#20242b;
+}
+
+.login{
+    background:#1b1f25;
+}
+
+.new-chat:hover,
+.login:hover{
+    background:#292e36;
+}
+
+.user-info{
+    font-size:12px;
+    color:#9299a5;
+    margin-bottom:10px;
+    word-break:break-word;
+}
+
+.chat-list{
+    flex:1;
+    overflow-y:auto;
+}
+
+.chat-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:9px;
+    border-radius:10px;
+    margin-bottom:5px;
+    cursor:pointer;
+}
+
+.chat-item:hover{
+    background:#20242b;
+}
+
+.chat-title{
+    flex:1;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    color:#dfe3e8;
+}
+
+.delete-chat{
+    border:0;
+    background:transparent;
+    color:#aab0b8;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.delete-chat:hover{
+    color:#fff;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+    background:#0d0f12;
+}
+
+.header{
+    height:60px;
+    border-bottom:1px solid #292d34;
+    background:#111419;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    font-weight:bold;
+}
+
+.header-title{
+    font-size:16px;
+}
+
+.settings-btn{
+    border:1px solid #343941;
+    background:#20242b;
+    color:#fff;
+    border-radius:10px;
+    padding:8px 12px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.settings-btn:hover{
+    background:#2b3038;
+}
+
+/* =========================
+   MESSAGES
+========================= */
+
+.messages{
+    flex:1;
+    overflow-y:auto;
+    padding:25px;
+}
+
+.welcome{
+    max-width:750px;
+    margin:70px auto;
+    text-align:center;
+}
+
+.welcome h1{
+    font-size:36px;
+    margin-bottom:10px;
+}
+
+.welcome p{
+    color:#9299a5;
+}
+
+.message{
+    max-width:900px;
+    margin:0 auto 18px auto;
+    display:flex;
+}
+
+.message.user{
+    justify-content:flex-end;
+}
+
+.bubble{
+    max-width:80%;
+    padding:12px 16px;
+    border-radius:16px;
+    line-height:1.55;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+}
+
+.message.user .bubble{
+    background:#303640;
+    color:#fff;
+    border-bottom-right-radius:5px;
+}
+
+.message.assistant .bubble{
+    background:#181b20;
+    border:1px solid #2b3038;
+    color:#e8eaed;
+    border-bottom-left-radius:5px;
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.input-area{
+    background:#0d0f12;
+    border-top:1px solid #292d34;
+    padding:14px;
+}
+
+.input-box{
+    max-width:900px;
+    margin:auto;
+    border:1px solid #343941;
+    border-radius:16px;
+    background:#15181d;
+    overflow:hidden;
+}
+
+textarea{
+    width:100%;
+    min-height:55px;
+    max-height:180px;
+    resize:none;
+    border:0;
+    outline:0;
+    padding:15px;
+    font-size:16px;
+    font-family:inherit;
+    background:#15181d;
+    color:#fff;
+}
+
+textarea::placeholder{
+    color:#777e89;
+}
+
+.controls{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:8px;
+}
+
+.left-controls{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.photo-btn,
+.send-btn{
+    border:0;
+    border-radius:10px;
+    padding:9px 13px;
+    cursor:pointer;
+}
+
+.photo-btn{
+    background:#242931;
+    color:#fff;
+}
+
+.photo-btn:hover{
+    background:#2d333c;
+}
+
+.send-btn{
+    background:#fff;
+    color:#111;
+    font-weight:bold;
+}
+
+.send-btn:hover{
+    background:#e7e9ec;
+}
+
+.send-btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.photo-preview{
+    display:none;
+    padding:8px 12px;
+    border-top:1px solid #292d34;
+}
+
+.photo-preview img{
+    max-width:180px;
+    max-height:120px;
+    border-radius:10px;
+}
+
+/* =========================
+   SETTINGS PANEL
+========================= */
+
+.settings-panel{
+    position:fixed;
+    top:0;
+    right:-390px;
+    width:390px;
+    max-width:92vw;
+    height:100vh;
+    background:#15181d;
+    border-left:1px solid #343941;
+    z-index:1000;
+    transition:right .25s ease;
+    display:flex;
+    flex-direction:column;
+    box-shadow:-10px 0 30px rgba(0,0,0,.35);
+}
+
+.settings-panel.open{
+    right:0;
+}
+
+.settings-header{
+    height:60px;
+    padding:0 16px;
+    border-bottom:1px solid #292d34;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.settings-header h2{
+    margin:0;
+    font-size:18px;
+}
+
+.close-settings{
+    border:0;
+    background:#242931;
+    color:#fff;
+    border-radius:9px;
+    cursor:pointer;
+    padding:8px 11px;
+    font-size:16px;
+}
+
+.settings-content{
+    padding:16px;
+    overflow-y:auto;
+}
+
+.settings-section{
+    margin-bottom:14px;
+}
+
+.settings-section button{
+    width:100%;
+    text-align:left;
+    border:1px solid #343941;
+    background:#20242b;
+    color:#fff;
+    border-radius:11px;
+    padding:12px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.settings-section button:hover{
+    background:#292e36;
+}
+
+.developer-panel{
+    display:none;
+    margin-top:12px;
+}
+
+.developer-panel.open{
+    display:block;
+}
+
+.dev-status{
+    padding:11px;
+    border-radius:10px;
+    background:#20242b;
+    border:1px solid #343941;
+    margin-bottom:10px;
+    font-size:13px;
+}
+
+.dev-label{
+    color:#9299a5;
+    margin-bottom:5px;
+    font-size:12px;
+}
+
+.dev-value{
+    color:#fff;
+    word-break:break-word;
+}
+
+.dev-box{
+    background:#0d0f12;
+    border:1px solid #343941;
+    border-radius:10px;
+    padding:10px;
+    margin-bottom:10px;
+}
+
+.dev-box pre{
+    margin:0;
+    white-space:pre-wrap;
+    word-break:break-word;
+    color:#dfe3e8;
+    font-size:11px;
+    max-height:180px;
+    overflow:auto;
+}
+
+.clear-logs{
+    width:100%;
+    border:1px solid #343941;
+    background:#242931;
+    color:#fff;
+    padding:10px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.clear-logs:hover{
+    background:#2d333c;
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.settings-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:999;
+    display:none;
+}
+
+.settings-overlay.open{
+    display:block;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:190px;
+    }
+
+    .bubble{
+        max-width:90%;
+    }
+
+    .messages{
+        padding:12px;
+    }
+
+    .welcome{
+        margin-top:50px;
+    }
+
+    .settings-panel{
+        width:360px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+    <div class="logo">🤖 Locer</div>
+
+    <button class="new-chat" id="newChat">
+        ＋ Новый чат
+    </button>
+
+    <button class="login" id="loginBtn">
+        🔐 Войти через Google
+    </button>
+
+    <div class="user-info" id="userInfo"></div>
+
+    <div class="chat-list" id="chatList"></div>
+
+</aside>
+
+
+<main class="main">
+
+    <div class="header">
+
+        <div class="header-title">
+            Locer AI
+        </div>
+
+        <button
+            class="settings-btn"
+            id="settingsBtn">
+            ⚙️ Настройки
+        </button>
+
+    </div>
+
+
+    <div class="messages" id="messages">
+
+        <div class="welcome">
+
+            <h1>Привет! 👋</h1>
+
+            <p>
+                Я Locer — дружелюбный AI-помощник.
+                Задавай вопросы и присылай задания 📚
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="input-area">
+
+        <div class="input-box">
+
+            <textarea
+                id="messageInput"
+                placeholder="Напиши сообщение..."
+                rows="1"></textarea>
+
+
+            <div
+                class="photo-preview"
+                id="photoPreview">
+
+                <img id="previewImage">
+
+            </div>
+
+
+            <div class="controls">
+
+                <div class="left-controls">
+
+                    <button
+                        class="photo-btn"
+                        id="photoBtn">
+                        📷 Фото
+                    </button>
+
+                    <input
+                        type="file"
+                        id="photoInput"
+                        accept="image/*"
+                        hidden>
+
+                </div>
+
+
+                <button
+                    class="send-btn"
+                    id="sendBtn">
+                    Отправить ➤
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+</div>
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<div
+    class="settings-overlay"
+    id="settingsOverlay">
+</div>
+
+
+<aside
+    class="settings-panel"
+    id="settingsPanel">
+
+    <div class="settings-header">
+
+        <h2>⚙️ Настройки</h2>
+
+        <button
+            class="close-settings"
+            id="closeSettings">
+            ✕
+        </button>
+
+    </div>
+
+
+    <div class="settings-content">
+
+        <div class="settings-section">
+
+            <button id="developerBtn">
+                🛠️ Для разработчиков
+            </button>
+
+            <div
+                class="developer-panel"
+                id="developerPanel">
+
+
+                <div class="dev-status">
+
+                    <div class="dev-label">
+                        Состояние Worker
+                    </div>
+
+                    <div
+                        class="dev-value"
+                        id="devStatus">
+                        Ожидание запроса
+                    </div>
+
+                </div>
+
+
+                <div class="dev-status">
+
+                    <div class="dev-label">
+                        HTTP-код
+                    </div>
+
+                    <div
+                        class="dev-value"
+                        id="devHttp">
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="dev-status">
+
+                    <div class="dev-label">
+                        API
+                    </div>
+
+                    <div
+                        class="dev-value">
+                        Yandex Responses API
+                    </div>
+
+                </div>
+
+
+                <div class="dev-status">
+
+                    <div class="dev-label">
+                        Модель
+                    </div>
+
+                    <div
+                        class="dev-value">
+                        YandexGPT 5 Lite
+                    </div>
+
+                </div>
+
+
+                <div class="dev-box">
+
+                    <div class="dev-label">
+                        Последний запрос
+                    </div>
+
+                    <pre id="devRequest">—</pre>
+
+                </div>
+
+
+                <div class="dev-box">
+
+                    <div class="dev-label">
+                        Ответ Worker / Yandex
+                    </div>
+
+                    <pre id="devResponse">—</pre>
+
+                </div>
+
+
+                <div class="dev-box">
+
+                    <div class="dev-label">
+                        Последняя ошибка
+                    </div>
+
+                    <pre id="devError">—</pre>
+
+                </div>
+
+
+                <button
+                    class="clear-logs"
+                    id="clearLogs">
+                    🧹 Очистить данные
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<script type="module">
+
+/* =========================
+   FIREBASE
+========================= */
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
+import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    deleteDoc,
+    doc,
+    query,
+    orderBy,
+    serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCRlSjT9cwWyFD_rx_vqiGahEuZkeMHsRI",
+
+    authDomain:
+        "locer-5b749.firebaseapp.com",
+
+    projectId:
+        "locer-5b749",
+
+    storageBucket:
+        "locer-5b749.firebasestorage.app",
+
+    messagingSenderId:
+        "81394379218",
+
+    appId:
+        "1:81394379218:web:545d4e8390f630a5ee400b",
+
+    measurementId:
+        "G-6GZ1HZPR65"
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+const provider =
+    new GoogleAuthProvider();
+
+
+/* =========================
+   WORKER
+========================= */
+
+const WORKER_URL =
+    "https://locer-ai.ivan-ostanin1914.workers.dev";
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const messagesEl =
+    document.getElementById("messages");
+
+const input =
+    document.getElementById("messageInput");
+
+const sendBtn =
+    document.getElementById("sendBtn");
+
+const newChatBtn =
+    document.getElementById("newChat");
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+const userInfo =
+    document.getElementById("userInfo");
+
+const chatList =
+    document.getElementById("chatList");
+
+const photoBtn =
+    document.getElementById("photoBtn");
+
+const photoInput =
+    document.getElementById("photoInput");
+
+const photoPreview =
+    document.getElementById("photoPreview");
+
+const previewImage =
+    document.getElementById("previewImage");
+
+
+/* SETTINGS */
+
+const settingsBtn =
+    document.getElementById("settingsBtn");
+
+const settingsPanel =
+    document.getElementById("settingsPanel");
+
+const settingsOverlay =
+    document.getElementById("settingsOverlay");
+
+const closeSettings =
+    document.getElementById("closeSettings");
+
+const developerBtn =
+    document.getElementById("developerBtn");
+
+const developerPanel =
+    document.getElementById("developerPanel");
+
+const clearLogs =
+    document.getElementById("clearLogs");
+
+const devStatus =
+    document.getElementById("devStatus");
+
+const devHttp =
+    document.getElementById("devHttp");
+
+const devRequest =
+    document.getElementById("devRequest");
+
+const devResponse =
+    document.getElementById("devResponse");
+
+const devError =
+    document.getElementById("devError");
+
+
+/* =========================
+   STATE
+========================= */
+
+let currentUser = null;
+
+let currentChatId = null;
+
+let chatHistory = [];
+
+let selectedImage = null;
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+function openSettings(){
+
+    settingsPanel.classList.add("open");
+
+    settingsOverlay.classList.add("open");
+
+}
+
+
+function closeSettingsPanel(){
+
+    settingsPanel.classList.remove("open");
+
+    settingsOverlay.classList.remove("open");
+
+}
+
+
+settingsBtn.addEventListener(
+    "click",
+    openSettings
+);
+
+
+closeSettings.addEventListener(
+    "click",
+    closeSettingsPanel
+);
+
+
+settingsOverlay.addEventListener(
+    "click",
+    closeSettingsPanel
+);
+
+
+developerBtn.addEventListener(
+    "click",
+    () => {
+
+        developerPanel.classList.toggle("open");
+
+    }
+);
+
+
+/* =========================
+   DEVELOPER LOGS
+========================= */
+
+function setDevRequest(data){
+
+    try{
+
+        devRequest.textContent =
+            JSON.stringify(
+                data,
+                null,
+                2
+            );
+
+    }catch(error){
+
+        devRequest.textContent =
+            String(data);
+
+    }
+
+}
+
+
+function setDevResponse(data){
+
+    try{
+
+        devResponse.textContent =
+            JSON.stringify(
+                data,
+                null,
+                2
+            );
+
+    }catch(error){
+
+        devResponse.textContent =
+            String(data);
+
+    }
+
+}
+
+
+function setDevError(error){
+
+    devError.textContent =
+        error
+        ? (
+            error.message ||
+            String(error)
+        )
+        : "—";
+
+}
+
+
+clearLogs.addEventListener(
+    "click",
+    () => {
+
+        devStatus.textContent =
+            "Ожидание запроса";
+
+        devHttp.textContent =
+            "—";
+
+        devRequest.textContent =
+            "—";
+
+        devResponse.textContent =
+            "—";
+
+        devError.textContent =
+            "—";
+
+    }
+);
+
+
+/* =========================
+   GOOGLE LOGIN
+========================= */
+
+loginBtn.addEventListener(
+    "click",
+    async () => {
+
+        try{
+
+            await signInWithPopup(
+                auth,
+                provider
+            );
+
+        }catch(error){
+
+            console.error(error);
+
+            alert(
+                "Ошибка входа через Google:\n" +
+                error.message
+            );
+
+        }
+
+    }
+);
+
+
+onAuthStateChanged(
+    auth,
+    async (user) => {
+
+        currentUser =
+            user;
+
+        if(user){
+
+            loginBtn.textContent =
+                "✅ " +
+                (
+                    user.displayName ||
+                    "Вы вошли"
+                );
+
+            userInfo.textContent =
+                user.email || "";
+
+            await loadChats();
+
+        }else{
+
+            loginBtn.textContent =
+                "🔐 Войти через Google";
+
+            userInfo.textContent =
+                "";
+
+            chatList.innerHTML =
+                "";
+
+        }
+
+    }
+);
+
+
+/* =========================
+   NEW CHAT
+========================= */
+
+newChatBtn.addEventListener(
+    "click",
+    () => {
+
+        currentChatId =
+            null;
+
+        chatHistory =
+            [];
+
+        messagesEl.innerHTML = `
+
+            <div class="welcome">
+
+                <h1>Привет! 👋</h1>
+
+                <p>
+                    Я Locer — дружелюбный AI-помощник.
+                    Задавай вопросы и присылай задания 📚
+                </p>
+
+            </div>
+
+        `;
+
+    }
+);
+
+
+/* =========================
+   PHOTO
+========================= */
+
+photoBtn.addEventListener(
+    "click",
+    () => {
+
+        photoInput.click();
+
+    }
+);
+
+
+photoInput.addEventListener(
+    "change",
+    () => {
+
+        const file =
+            photoInput.files[0];
+
+        if(!file) return;
+
+
+        if(
+            file.size >
+            8 * 1024 * 1024
+        ){
+
+            alert(
+                "Фото слишком большое. Максимум 8 МБ."
+            );
+
+            photoInput.value =
+                "";
+
+            return;
+
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            () => {
+
+                selectedImage =
+                    reader.result;
+
+                previewImage.src =
+                    selectedImage;
+
+                photoPreview.style.display =
+                    "block";
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/* =========================
+   TEXTAREA
+========================= */
+
+input.addEventListener(
+    "input",
+    () => {
+
+        input.style.height =
+            "auto";
+
+        input.style.height =
+            Math.min(
+                input.scrollHeight,
+                180
+            ) + "px";
+
+    }
+);
+
+
+input.addEventListener(
+    "keydown",
+    (event) => {
+
+        if(
+            event.key === "Enter" &&
+            !event.shiftKey
+        ){
+
+            event.preventDefault();
+
+            send();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   ADD MESSAGE
+========================= */
+
+function addMessage(
+    role,
+    text
+){
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+    wrapper.className =
+        "message " + role;
+
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+    bubble.className =
+        "bubble";
+
+
+    bubble.textContent =
+        String(
+            text || ""
+        );
+
+
+    wrapper.appendChild(
+        bubble
+    );
+
+
+    messagesEl.appendChild(
+        wrapper
+    );
+
+
+    messagesEl.scrollTop =
+        messagesEl.scrollHeight;
+
+}
+
+
+/* =========================
+   SEND
+========================= */
+
+async function send(){
+
+    const messageText =
+        input.value.trim();
+
+
+    if(
+        selectedImage
+    ){
+
+        alert(
+            "📷 Анализ фотографий пока не подключён. Сейчас сначала проверяем текстовый режим."
+        );
+
+        return;
+
+    }
+
+
+    if(!messageText){
+
+        return;
+
+    }
+
+
+    if(!currentUser){
+
+        alert(
+            "Сначала войди через Google 🔐"
+        );
+
+        return;
+
+    }
+
+
+    sendBtn.disabled =
+        true;
+
+
+    devStatus.textContent =
+        "🟡 Отправка запроса...";
+
+    devHttp.textContent =
+        "—";
+
+    devError.textContent =
+        "—";
+
+
+    const requestBody = {
+
+        message:
+            messageText
+
+    };
+
+
+    setDevRequest(
+        requestBody
+    );
+
+
+    try{
+
+        addMessage(
+            "user",
+            messageText
+        );
+
+
+        chatHistory.push({
+
+            role:
+                "user",
+
+            content:
+                messageText
+
+        });
+
+
+        const response =
+            await fetch(
+                WORKER_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers:{
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            requestBody
+                        )
+
+                }
+            );
+
+
+        devHttp.textContent =
+            String(
+                response.status
+            );
+
+
+        let data;
+
+
+        try{
+
+            data =
+                await response.json();
+
+        }catch(error){
+
+            throw new Error(
+                "Worker вернул неправильный JSON-ответ."
+            );
+
+        }
+
+
+        setDevResponse(
+            data
+        );
+
+
+        if(!response.ok){
+
+            let errorText =
+                "Ошибка сервера";
+
+
+            if(
+                typeof data?.error ===
+                "string"
+            ){
+
+                errorText =
+                    data.error;
+
+            }
+
+
+            if(
+                data?.message
+            ){
+
+                errorText +=
+                    "\n" +
+                    data.message;
+
+            }
+
+
+            if(
+                data?.yandex_status
+            ){
+
+                errorText +=
+                    "\nКод Yandex: " +
+                    data.yandex_status;
+
+            }
+
+
+            if(
+                data?.yandex_response
+            ){
+
+                errorText +=
+                    "\nОтвет Yandex:\n" +
+                    JSON.stringify(
+                        data.yandex_response,
+                        null,
+                        2
+                    );
+
+            }
+
+
+            throw new Error(
+                errorText
+            );
+
+        }
+
+
+        const answer =
+            data?.answer;
+
+
+        if(
+            !answer ||
+            typeof answer !== "string"
+        ){
+
+            throw new Error(
+                "Yandex AI не вернул ответ."
+            );
+
+        }
+
+
+        addMessage(
+            "assistant",
+            answer
+        );
+
+
+        chatHistory.push({
+
+            role:
+                "assistant",
+
+            content:
+                answer
+
+        });
+
+
+        await saveChat();
+
+
+        input.value =
+            "";
+
+        input.style.height =
+            "auto";
+
+
+        selectedImage =
+            null;
+
+        photoInput.value =
+            "";
+
+        photoPreview.style.display =
+            "none";
+
+        previewImage.src =
+            "";
+
+
+        devStatus.textContent =
+            "🟢 Успешно";
+
+        devError.textContent =
+            "—";
+
+
+    }catch(error){
+
+        console.error(
+            "Locer error:",
+            error
+        );
+
+
+        devStatus.textContent =
+            "🔴 Ошибка";
+
+        setDevError(
+            error
+        );
+
+
+        addMessage(
+            "assistant",
+            "❌ " +
+            (
+                error?.message ||
+                "Неизвестная ошибка"
+            )
+        );
+
+    }finally{
+
+        sendBtn.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =========================
+   SEND BUTTON
+========================= */
+
+sendBtn.addEventListener(
+    "click",
+    send
+);
+
+
+/* =========================
+   SAVE CHAT
+========================= */
+
+async function saveChat(){
+
+    if(!currentUser)
+        return;
+
+    if(!chatHistory.length)
+        return;
+
+
+    try{
+
+        if(currentChatId){
+
+            return;
+
+        }
+
+
+        const firstMessage =
+            chatHistory.find(
+                message =>
+                    message.role ===
+                    "user"
+            );
+
+
+        const title =
+            firstMessage?.content
+                ?.slice(0,40)
+            ||
+            "Новый чат";
+
+
+        const chatRef =
+            await addDoc(
+                collection(
+                    db,
+                    "users",
+                    currentUser.uid,
+                    "chats"
+                ),
+                {
+
+                    title:
+                        title,
+
+                    messages:
+                        chatHistory,
+
+                    createdAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+        currentChatId =
+            chatRef.id;
+
+
+        await loadChats();
+
+
+    }catch(error){
+
+        console.error(
+            "Ошибка сохранения:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================
+   LOAD CHATS
+========================= */
+
+async function loadChats(){
+
+    if(!currentUser)
+        return;
+
+
+    try{
+
+        chatList.innerHTML =
+            "";
+
+
+        const chatsRef =
+            collection(
+                db,
+                "users",
+                currentUser.uid,
+                "chats"
+            );
+
+
+        const q =
+            query(
+                chatsRef,
+                orderBy(
+                    "createdAt",
+                    "desc"
+                )
+            );
+
+
+        const snapshot =
+            await getDocs(q);
+
+
+        snapshot.forEach(
+            chatDoc => {
+
+                const data =
+                    chatDoc.data();
+
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "chat-item";
+
+
+                const title =
+                    document.createElement(
+                        "div"
+                    );
+
+                title.className =
+                    "chat-title";
+
+
+                title.textContent =
+                    data.title ||
+                    "Новый чат";
+
+
+                title.addEventListener(
+                    "click",
+                    () => {
+
+                        openChat(
+                            chatDoc.id,
+                            data
+                        );
+
+                    }
+                );
+
+
+                const deleteBtn =
+                    document.createElement(
+                        "button"
+                    );
+
+                deleteBtn.className =
+                    "delete-chat";
+
+                deleteBtn.textContent =
+                    "🗑️";
+
+
+                deleteBtn.addEventListener(
+                    "click",
+                    async event => {
+
+                        event.stopPropagation();
+
+                        await deleteChat(
+                            chatDoc.id
+                        );
+
+                    }
+                );
+
+
+                item.appendChild(
+                    title
+                );
+
+                item.appendChild(
+                    deleteBtn
+                );
+
+                chatList.appendChild(
+                    item
+                );
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Ошибка загрузки чатов:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================
+   OPEN CHAT
+========================= */
+
+function openChat(
+    id,
+    data
+){
+
+    currentChatId =
+        id;
+
+
+    chatHistory =
+        Array.isArray(
+            data.messages
+        )
+        ? data.messages
+        : [];
+
+
+    messagesEl.innerHTML =
+        "";
+
+
+    chatHistory.forEach(
+        message => {
+
+            addMessage(
+                message.role,
+                message.content
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   DELETE CHAT
+========================= */
+
+async function deleteChat(
+    id
+){
+
+    if(!currentUser)
+        return;
+
+
+    try{
+
+        await deleteDoc(
+            doc(
+                db,
+                "users",
+                currentUser.uid,
+                "chats",
+                id
+            )
+        );
+
 
         if(
             currentChatId === id
         ){
 
-            currentChatId = null;
+            currentChatId =
+                null;
 
-            chatHistory = [];
+            chatHistory =
+                [];
 
 
             messagesEl.innerHTML = `
+
                 <div class="welcome">
 
                     <h1>
@@ -1328,6 +3220,7 @@ async function deleteChat(
                     </p>
 
                 </div>
+
             `;
 
         }
