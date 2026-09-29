@@ -577,41 +577,27 @@ textarea::placeholder{
 
 <div class="app">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
         <div class="logo">
             🤖 Locer
         </div>
 
-        <button
-            type="button"
-            class="new-chat"
-            id="newChat">
+        <button type="button" class="new-chat" id="newChat">
             ＋ Новый чат
         </button>
 
-        <button
-            type="button"
-            class="login"
-            id="loginBtn">
+        <button type="button" class="login" id="loginBtn">
             🔐 Войти через Google
         </button>
 
-        <div
-            class="user-info"
-            id="userInfo">
-        </div>
+        <div class="user-info" id="userInfo"></div>
 
-        <div
-            class="chat-list"
-            id="chatList">
-        </div>
+        <div class="chat-list" id="chatList"></div>
 
     </aside>
 
 
-    <!-- MAIN -->
     <main class="main">
 
         <div class="header">
@@ -620,19 +606,14 @@ textarea::placeholder{
                 Locer AI
             </div>
 
-            <button
-                type="button"
-                class="settings-btn"
-                id="settingsBtn">
+            <button type="button" class="settings-btn" id="settingsBtn">
                 ⚙️ Настройки
             </button>
 
         </div>
 
 
-        <div
-            class="messages"
-            id="messages">
+        <div class="messages" id="messages">
 
             <div class="welcome">
 
@@ -650,7 +631,6 @@ textarea::placeholder{
         </div>
 
 
-        <!-- INPUT -->
         <div class="input-area">
 
             <div class="input-box">
@@ -661,13 +641,9 @@ textarea::placeholder{
                     rows="1"></textarea>
 
 
-                <div
-                    class="photo-preview"
-                    id="photoPreview">
+                <div class="photo-preview" id="photoPreview">
 
-                    <img
-                        id="previewImage"
-                        alt="Предпросмотр">
+                    <img id="previewImage" alt="Предпросмотр">
 
                     <button
                         type="button"
@@ -717,19 +693,10 @@ textarea::placeholder{
 </div>
 
 
-<!-- SETTINGS OVERLAY -->
-
-<div
-    class="settings-overlay"
-    id="settingsOverlay">
-</div>
+<div class="settings-overlay" id="settingsOverlay"></div>
 
 
-<!-- SETTINGS PANEL -->
-
-<aside
-    class="settings-panel"
-    id="settingsPanel">
+<aside class="settings-panel" id="settingsPanel">
 
     <div class="settings-header">
 
@@ -751,16 +718,12 @@ textarea::placeholder{
 
         <div class="settings-section">
 
-            <button
-                type="button"
-                id="developerBtn">
+            <button type="button" id="developerBtn">
                 🛠️ Для разработчиков
             </button>
 
 
-            <div
-                class="developer-panel"
-                id="developerPanel">
+            <div class="developer-panel" id="developerPanel">
 
                 <div class="dev-status">
 
@@ -768,9 +731,7 @@ textarea::placeholder{
                         Состояние Worker
                     </div>
 
-                    <div
-                        class="dev-value"
-                        id="devStatus">
+                    <div class="dev-value" id="devStatus">
                         Ожидание запроса
                     </div>
 
@@ -783,9 +744,7 @@ textarea::placeholder{
                         HTTP-код
                     </div>
 
-                    <div
-                        class="dev-value"
-                        id="devHttp">
+                    <div class="dev-value" id="devHttp">
                         —
                     </div>
 
@@ -799,7 +758,7 @@ textarea::placeholder{
                     </div>
 
                     <div class="dev-value">
-                        Yandex Responses API
+                        Google Gemini API
                     </div>
 
                 </div>
@@ -812,7 +771,7 @@ textarea::placeholder{
                     </div>
 
                     <div class="dev-value">
-                        YandexGPT 5 Lite
+                        Gemini 3.8 Flash
                     </div>
 
                 </div>
@@ -832,7 +791,7 @@ textarea::placeholder{
                 <div class="dev-box">
 
                     <div class="dev-label">
-                        Ответ Worker / Yandex
+                        Ответ Worker / Gemini
                     </div>
 
                     <pre id="devResponse">—</pre>
@@ -871,13 +830,7 @@ textarea::placeholder{
 
 /* =====================================================
    LOCER — ОСНОВНОЙ ИНТЕРФЕЙС
-   Интерфейс НЕ зависит от Firebase.
 ===================================================== */
-
-
-/* =========================
-   WORKER
-========================= */
 
 const WORKER_URL =
     "https://locer-ai.ivan-ostanin1914.workers.dev";
@@ -1145,6 +1098,9 @@ newChatBtn.addEventListener(
 
         showWelcome();
 
+        input.value = "";
+        input.style.height = "auto";
+
         input.focus();
 
     }
@@ -1322,6 +1278,20 @@ function addMessage(
 
 
 /* =========================
+   CLEAR INPUT
+========================= */
+
+function clearInput(){
+
+    input.value = "";
+
+    input.style.height =
+        "auto";
+
+}
+
+
+/* =========================
    SEND
 ========================= */
 
@@ -1363,6 +1333,14 @@ async function send(){
 
 
     sendBtn.disabled = true;
+
+
+    /* ==========================================
+       ОЧИЩАЕМ ПОЛЕ СРАЗУ ПОСЛЕ НАЖАТИЯ
+    ========================================== */
+
+    clearInput();
+
 
     devStatus.textContent =
         "🟡 Отправка запроса...";
@@ -1478,21 +1456,21 @@ async function send(){
             }
 
 
-            if(data?.yandex_status){
+            if(data?.gemini_status){
 
                 errorText +=
-                    "\nКод Yandex: " +
-                    data.yandex_status;
+                    "\nКод Gemini: " +
+                    data.gemini_status;
 
             }
 
 
-            if(data?.yandex_response){
+            if(data?.gemini_response){
 
                 errorText +=
-                    "\nОтвет Yandex:\n" +
+                    "\nОтвет Gemini:\n" +
                     JSON.stringify(
-                        data.yandex_response,
+                        data.gemini_response,
                         null,
                         2
                     );
@@ -1517,7 +1495,7 @@ async function send(){
         ){
 
             throw new Error(
-                "Yandex AI не вернул текстовый ответ."
+                "Gemini AI не вернул текстовый ответ."
             );
 
         }
@@ -1541,12 +1519,6 @@ async function send(){
 
 
         await saveChat();
-
-
-        input.value = "";
-
-        input.style.height =
-            "auto";
 
 
         selectedImage = null;
@@ -1610,7 +1582,6 @@ sendBtn.addEventListener(
 
 /* =====================================================
    FIREBASE
-   Загружается отдельно от интерфейса.
 ===================================================== */
 
 async function initFirebase(){
@@ -1861,8 +1832,6 @@ async function saveChat(){
             "Новый чат";
 
 
-        /* Новый чат */
-
         if(!currentChatId){
 
             const chatRef =
@@ -1890,8 +1859,6 @@ async function saveChat(){
                 chatRef.id;
 
         }else{
-
-            /* Обновляем существующий */
 
             await firestore.updateDoc(
                 firestore.doc(
