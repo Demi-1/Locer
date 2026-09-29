@@ -3,572 +3,256 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Locer — AI</title>
+<title>Locer AI</title>
 
 <style>
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-html,body{
-    margin:0;
-    width:100%;
-    height:100%;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f1117;
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
 }
 
-body{
-    font-family:Arial,sans-serif;
-    background:#0d0f12;
-    color:#f1f3f5;
-    overflow:hidden;
+.app {
+    display: flex;
+    height: 100vh;
 }
 
-button,
-textarea{
-    font-family:inherit;
-}
-
-button{
-    -webkit-tap-highlight-color:transparent;
-}
-
-.app{
-    display:flex;
-    height:100vh;
-    width:100%;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar{
-    width:245px;
-    flex-shrink:0;
-    background:#15181d;
-    border-right:1px solid #292d34;
-    display:flex;
-    flex-direction:column;
-    padding:15px;
-}
-
-.logo{
-    font-size:23px;
-    font-weight:bold;
-    margin-bottom:18px;
-}
-
-.new-chat,
-.login{
-    width:100%;
-    border:1px solid #343941;
-    color:#fff;
-    border-radius:12px;
-    padding:11px;
-    cursor:pointer;
-    font-size:15px;
-    margin-bottom:12px;
-}
-
-.new-chat{
-    background:#20242b;
-}
-
-.login{
-    background:#1b1f25;
-}
-
-.new-chat:hover,
-.login:hover{
-    background:#292e36;
-}
-
-.new-chat:active,
-.login:active,
-.settings-btn:active,
-.photo-btn:active,
-.send-btn:active{
-    transform:scale(.98);
-}
-
-.user-info{
-    font-size:12px;
-    color:#9299a5;
-    margin-bottom:10px;
-    word-break:break-word;
-}
-
-.chat-list{
-    flex:1;
-    overflow-y:auto;
-}
-
-.chat-item{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    padding:9px;
-    border-radius:10px;
-    margin-bottom:5px;
-    cursor:pointer;
-}
-
-.chat-item:hover{
-    background:#20242b;
-}
-
-.chat-title{
-    flex:1;
-    overflow:hidden;
-    white-space:nowrap;
-    text-overflow:ellipsis;
-    color:#dfe3e8;
-}
-
-.delete-chat{
-    border:0;
-    background:transparent;
-    color:#aab0b8;
-    cursor:pointer;
-    font-size:15px;
-    padding:4px;
-}
-
-.delete-chat:hover{
-    color:#fff;
-}
-
-/* =========================
-   MAIN
-========================= */
-
-.main{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    min-width:0;
-    background:#0d0f12;
-}
-
-.header{
-    height:60px;
-    flex-shrink:0;
-    border-bottom:1px solid #292d34;
-    background:#111419;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 20px;
-    font-weight:bold;
-}
-
-.header-title{
-    font-size:16px;
-}
-
-.settings-btn{
-    border:1px solid #343941;
-    background:#20242b;
-    color:#fff;
-    border-radius:10px;
-    padding:8px 12px;
-    cursor:pointer;
-    font-size:15px;
-}
-
-.settings-btn:hover{
-    background:#2b3038;
-}
-
-/* =========================
-   MESSAGES
-========================= */
-
-.messages{
-    flex:1;
-    min-height:0;
-    overflow-y:auto;
-    padding:25px;
-}
+/* SIDEBAR */
 
-.welcome{
-    max-width:750px;
-    margin:70px auto;
-    text-align:center;
+.sidebar {
+    width: 270px;
+    background: #171a22;
+    border-right: 1px solid #292d38;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
-.welcome h1{
-    font-size:36px;
-    margin-bottom:10px;
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 18px;
 }
 
-.welcome p{
-    color:#9299a5;
-    line-height:1.6;
+.new-chat {
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    border-radius: 10px;
+    background: #2b6cff;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
 }
 
-.message{
-    max-width:900px;
-    margin:0 auto 18px auto;
-    display:flex;
+.new-chat:hover {
+    background: #1e5ce0;
 }
 
-.message.user{
-    justify-content:flex-end;
+.login {
+    margin-top: 10px;
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #363b48;
+    border-radius: 10px;
+    background: #20242e;
+    color: white;
+    cursor: pointer;
 }
 
-.bubble{
-    max-width:80%;
-    padding:12px 16px;
-    border-radius:16px;
-    line-height:1.55;
-    white-space:pre-wrap;
-    word-wrap:break-word;
-    overflow-wrap:anywhere;
+.login:hover {
+    background: #292e3a;
 }
 
-.message.user .bubble{
-    background:#303640;
-    color:#fff;
-    border-bottom-right-radius:5px;
+.saved-title {
+    margin-top: 25px;
+    color: #8d94a5;
+    font-size: 13px;
 }
 
-.message.assistant .bubble{
-    background:#181b20;
-    border:1px solid #2b3038;
-    color:#e8eaed;
-    border-bottom-left-radius:5px;
+.chats {
+    margin-top: 8px;
+    overflow-y: auto;
+    flex: 1;
 }
 
-/* =========================
-   INPUT
-========================= */
-
-.input-area{
-    flex-shrink:0;
-    background:#0d0f12;
-    border-top:1px solid #292d34;
-    padding:14px;
-}
-
-.input-box{
-    max-width:900px;
-    margin:auto;
-    border:1px solid #343941;
-    border-radius:16px;
-    background:#15181d;
-    overflow:hidden;
-}
-
-textarea{
-    display:block;
-    width:100%;
-    min-height:55px;
-    max-height:180px;
-    resize:none;
-    border:0;
-    outline:0;
-    padding:15px;
-    font-size:16px;
-    background:#15181d;
-    color:#fff;
-}
-
-textarea::placeholder{
-    color:#777e89;
-}
-
-.controls{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:8px;
-}
-
-.left-controls{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.photo-btn,
-.send-btn{
-    border:0;
-    border-radius:10px;
-    padding:9px 13px;
-    cursor:pointer;
-}
-
-.photo-btn{
-    background:#242931;
-    color:#fff;
-}
-
-.photo-btn:hover{
-    background:#2d333c;
-}
-
-.send-btn{
-    background:#fff;
-    color:#111;
-    font-weight:bold;
-}
-
-.send-btn:hover{
-    background:#e7e9ec;
-}
-
-.send-btn:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-}
-
-.photo-preview{
-    display:none;
-    padding:8px 12px;
-    border-top:1px solid #292d34;
-    position:relative;
-}
-
-.photo-preview img{
-    max-width:180px;
-    max-height:120px;
-    border-radius:10px;
-    display:block;
-}
-
-.remove-photo{
-    position:absolute;
-    left:205px;
-    top:8px;
-    border:0;
-    background:#292d34;
-    color:#fff;
-    border-radius:8px;
-    cursor:pointer;
-    padding:6px 9px;
-}
-
-/* =========================
-   SETTINGS
-========================= */
-
-.settings-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-    z-index:999;
-    display:none;
-}
-
-.settings-overlay.open{
-    display:block;
-}
-
-.settings-panel{
-    position:fixed;
-    top:0;
-    right:0;
-    width:390px;
-    max-width:92vw;
-    height:100vh;
-    background:#15181d;
-    border-left:1px solid #343941;
-    z-index:1000;
-
-    transform:translateX(100%);
-    transition:transform .25s ease;
-
-    display:flex;
-    flex-direction:column;
-
-    box-shadow:-10px 0 30px rgba(0,0,0,.35);
-}
-
-.settings-panel.open{
-    transform:translateX(0);
-}
-
-.settings-header{
-    height:60px;
-    flex-shrink:0;
-    padding:0 16px;
-    border-bottom:1px solid #292d34;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.settings-header h2{
-    margin:0;
-    font-size:18px;
+.chat-item {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #dfe3ec;
+    font-size: 14px;
 }
 
-.close-settings{
-    border:0;
-    background:#242931;
-    color:#fff;
-    border-radius:9px;
-    cursor:pointer;
-    padding:8px 11px;
-    font-size:16px;
+.chat-item:hover {
+    background: #242934;
 }
 
-.settings-content{
-    padding:16px;
-    overflow-y:auto;
-}
+/* MAIN */
 
-.settings-section{
-    margin-bottom:14px;
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
 
-.settings-section > button{
-    width:100%;
-    text-align:left;
-    border:1px solid #343941;
-    background:#20242b;
-    color:#fff;
-    border-radius:11px;
-    padding:12px;
-    cursor:pointer;
-    font-size:14px;
+.header {
+    height: 60px;
+    border-bottom: 1px solid #292d38;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.settings-section > button:hover{
-    background:#292e36;
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px;
 }
 
-.developer-panel{
-    display:none;
-    margin-top:12px;
+.message {
+    max-width: 850px;
+    margin: 0 auto 18px auto;
+    padding: 15px 17px;
+    border-radius: 14px;
+    line-height: 1.55;
+    white-space: pre-wrap;
 }
 
-.developer-panel.open{
-    display:block;
+.user {
+    background: #2563eb;
+    margin-left: auto;
 }
 
-.dev-status{
-    padding:11px;
-    border-radius:10px;
-    background:#20242b;
-    border:1px solid #343941;
-    margin-bottom:10px;
-    font-size:13px;
+.ai {
+    background: #1b1f29;
+    border: 1px solid #292e3a;
+    margin-right: auto;
 }
 
-.dev-label{
-    color:#9299a5;
-    margin-bottom:5px;
-    font-size:12px;
-}
+/* THINKING */
 
-.dev-value{
-    color:#fff;
-    word-break:break-word;
+.thinking {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #aeb6c8;
+    font-size: 15px;
 }
 
-.dev-box{
-    background:#0d0f12;
-    border:1px solid #343941;
-    border-radius:10px;
-    padding:10px;
-    margin-bottom:10px;
+.thinking-icon {
+    font-size: 19px;
 }
 
-.dev-box pre{
-    margin:0;
-    white-space:pre-wrap;
-    word-break:break-word;
-    color:#dfe3e8;
-    font-size:11px;
-    max-height:180px;
-    overflow:auto;
+.dots span {
+    animation: blink 1.4s infinite;
+    opacity: 0.2;
 }
 
-.clear-logs{
-    width:100%;
-    border:1px solid #343941;
-    background:#242931;
-    color:#fff;
-    padding:10px;
-    border-radius:10px;
-    cursor:pointer;
+.dots span:nth-child(2) {
+    animation-delay: 0.2s;
 }
 
-.clear-logs:hover{
-    background:#2d333c;
+.dots span:nth-child(3) {
+    animation-delay: 0.4s;
 }
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:700px){
 
-    .sidebar{
-        width:190px;
-        padding:10px;
+@keyframes blink {
+    0%, 80%, 100% {
+        opacity: 0.2;
     }
 
-    .logo{
-        font-size:20px;
+    40% {
+        opacity: 1;
     }
-
-    .message{
-        width:100%;
-    }
-
-    .bubble{
-        max-width:90%;
-    }
-
-    .messages{
-        padding:12px;
-    }
-
-    .welcome{
-        margin-top:50px;
-    }
-
-    .welcome h1{
-        font-size:30px;
-    }
-
-    .settings-panel{
-        width:360px;
-    }
-
 }
 
-@media(max-width:500px){
+/* INPUT */
 
-    .sidebar{
-        width:170px;
+.input-area {
+    border-top: 1px solid #292d38;
+    padding: 15px;
+}
+
+.input-box {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+textarea {
+    flex: 1;
+    resize: none;
+    min-height: 48px;
+    max-height: 160px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #343a47;
+    background: #191d26;
+    color: white;
+    outline: none;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+}
+
+textarea:focus {
+    border-color: #3b82f6;
+}
+
+.send {
+    width: 50px;
+    height: 48px;
+    border: 0;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.send:hover {
+    background: #1d4ed8;
+}
+
+.send:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.status {
+    max-width: 900px;
+    margin: 7px auto 0;
+    font-size: 12px;
+    color: #777f91;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+    .sidebar {
+        display: none;
     }
 
-    .header{
-        padding:0 10px;
+    .messages {
+        padding: 15px;
     }
 
-    .header-title{
-        font-size:14px;
+    .message {
+        max-width: 95%;
     }
-
-    .settings-btn{
-        font-size:13px;
-        padding:7px 9px;
-    }
-
-    .input-area{
-        padding:8px;
-    }
-
-    .photo-btn,
-    .send-btn{
-        padding:8px 10px;
-    }
-
 }
 </style>
 </head>
@@ -579,111 +263,61 @@ textarea::placeholder{
 
     <aside class="sidebar">
 
-        <div class="logo">
-            🤖 Locer
-        </div>
+        <div class="logo">🤖 Locer</div>
 
-        <button type="button" class="new-chat" id="newChat">
+        <button class="new-chat" onclick="newChat()">
             ＋ Новый чат
         </button>
 
-        <button type="button" class="login" id="loginBtn">
-            🔐 Войти через Google
+        <button class="login" onclick="loginGoogle()">
+            Войти через Google
         </button>
 
-        <div class="user-info" id="userInfo"></div>
+        <div class="saved-title">
+            Сохранённые чаты
+        </div>
 
-        <div class="chat-list" id="chatList"></div>
+        <div class="chats" id="chats"></div>
 
     </aside>
-
 
     <main class="main">
 
         <div class="header">
-
-            <div class="header-title">
-                Locer AI
-            </div>
-
-            <button type="button" class="settings-btn" id="settingsBtn">
-                ⚙️ Настройки
-            </button>
-
+            Locer AI
         </div>
-
 
         <div class="messages" id="messages">
 
-            <div class="welcome">
-
-                <h1>
-                    Привет! 👋
-                </h1>
-
-                <p>
-                    Я Locer — дружелюбный AI-помощник.
-                    Задавай вопросы и присылай задания 📚
-                </p>
-
+            <div class="message ai">
+                Привет! 👋 Я Locer — твой дружелюбный AI-помощник.
+                Чем я могу помочь тебе сегодня? 😊
             </div>
 
         </div>
-
 
         <div class="input-area">
 
             <div class="input-box">
 
                 <textarea
-                    id="messageInput"
+                    id="input"
                     placeholder="Напиши сообщение..."
-                    rows="1"></textarea>
+                    rows="1"
+                ></textarea>
 
+                <button
+                    class="send"
+                    id="sendBtn"
+                    onclick="send()"
+                >
+                    ➤
+                </button>
 
-                <div class="photo-preview" id="photoPreview">
+            </div>
 
-                    <img id="previewImage" alt="Предпросмотр">
-
-                    <button
-                        type="button"
-                        class="remove-photo"
-                        id="removePhoto">
-                        ✕
-                    </button>
-
-                </div>
-
-
-                <div class="controls">
-
-                    <div class="left-controls">
-
-                        <button
-                            type="button"
-                            class="photo-btn"
-                            id="photoBtn">
-                            📷 Фото
-                        </button>
-
-                        <input
-                            type="file"
-                            id="photoInput"
-                            accept="image/*"
-                            hidden>
-
-                    </div>
-
-
-                    <button
-                        type="button"
-                        class="send-btn"
-                        id="sendBtn">
-                        Отправить ➤
-                    </button>
-
-                </div>
-
+            <div class="status" id="status">
+                Google Gemini AI
             </div>
 
         </div>
@@ -692,1034 +326,124 @@ textarea::placeholder{
 
 </div>
 
+<script type="module">
 
-<div class="settings-overlay" id="settingsOverlay"></div>
-
-
-<aside class="settings-panel" id="settingsPanel">
-
-    <div class="settings-header">
-
-        <h2>
-            ⚙️ Настройки
-        </h2>
-
-        <button
-            type="button"
-            class="close-settings"
-            id="closeSettings">
-            ✕
-        </button>
-
-    </div>
-
-
-    <div class="settings-content">
-
-        <div class="settings-section">
-
-            <button type="button" id="developerBtn">
-                🛠️ Для разработчиков
-            </button>
-
-
-            <div class="developer-panel" id="developerPanel">
-
-                <div class="dev-status">
-
-                    <div class="dev-label">
-                        Состояние Worker
-                    </div>
-
-                    <div class="dev-value" id="devStatus">
-                        Ожидание запроса
-                    </div>
-
-                </div>
-
-
-                <div class="dev-status">
-
-                    <div class="dev-label">
-                        HTTP-код
-                    </div>
-
-                    <div class="dev-value" id="devHttp">
-                        —
-                    </div>
-
-                </div>
-
-
-                <div class="dev-status">
-
-                    <div class="dev-label">
-                        API
-                    </div>
-
-                    <div class="dev-value">
-                        Google Gemini API
-                    </div>
-
-                </div>
-
-
-                <div class="dev-status">
-
-                    <div class="dev-label">
-                        Модель
-                    </div>
-
-                    <div class="dev-value">
-                        Gemini 3.8 Flash
-                    </div>
-
-                </div>
-
-
-                <div class="dev-box">
-
-                    <div class="dev-label">
-                        Последний запрос
-                    </div>
-
-                    <pre id="devRequest">—</pre>
-
-                </div>
-
-
-                <div class="dev-box">
-
-                    <div class="dev-label">
-                        Ответ Worker / Gemini
-                    </div>
-
-                    <pre id="devResponse">—</pre>
-
-                </div>
-
-
-                <div class="dev-box">
-
-                    <div class="dev-label">
-                        Последняя ошибка
-                    </div>
-
-                    <pre id="devError">—</pre>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="clear-logs"
-                    id="clearLogs">
-                    🧹 Очистить данные
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</aside>
-
-
-<script>
-
-/* =====================================================
-   LOCER — ОСНОВНОЙ ИНТЕРФЕЙС
-===================================================== */
+/* =========================
+   НАСТРОЙКИ
+========================= */
 
 const WORKER_URL =
     "https://locer-ai.ivan-ostanin1914.workers.dev";
 
+const input = document.getElementById("input");
+const sendBtn = document.getElementById("sendBtn");
+const messages = document.getElementById("messages");
+const status = document.getElementById("status");
 
-/* =========================
-   ELEMENTS
-========================= */
-
-const messagesEl =
-    document.getElementById("messages");
-
-const input =
-    document.getElementById("messageInput");
-
-const sendBtn =
-    document.getElementById("sendBtn");
-
-const newChatBtn =
-    document.getElementById("newChat");
-
-const loginBtn =
-    document.getElementById("loginBtn");
-
-const userInfo =
-    document.getElementById("userInfo");
-
-const chatList =
-    document.getElementById("chatList");
-
-const photoBtn =
-    document.getElementById("photoBtn");
-
-const photoInput =
-    document.getElementById("photoInput");
-
-const photoPreview =
-    document.getElementById("photoPreview");
-
-const previewImage =
-    document.getElementById("previewImage");
-
-const removePhoto =
-    document.getElementById("removePhoto");
-
-
-/* SETTINGS */
-
-const settingsBtn =
-    document.getElementById("settingsBtn");
-
-const settingsPanel =
-    document.getElementById("settingsPanel");
-
-const settingsOverlay =
-    document.getElementById("settingsOverlay");
-
-const closeSettings =
-    document.getElementById("closeSettings");
-
-const developerBtn =
-    document.getElementById("developerBtn");
-
-const developerPanel =
-    document.getElementById("developerPanel");
-
-const clearLogs =
-    document.getElementById("clearLogs");
-
-const devStatus =
-    document.getElementById("devStatus");
-
-const devHttp =
-    document.getElementById("devHttp");
-
-const devRequest =
-    document.getElementById("devRequest");
-
-const devResponse =
-    document.getElementById("devResponse");
-
-const devError =
-    document.getElementById("devError");
-
-
-/* =========================
-   STATE
-========================= */
-
-let currentUser = null;
 let currentChatId = null;
 let chatHistory = [];
-let selectedImage = null;
+
+
+/* =========================
+   FIREBASE
+========================= */
 
 let firebaseReady = false;
-let firebaseAuth = null;
-let firebaseDb = null;
-let firebaseProvider = null;
-
-
-/* =========================
-   SETTINGS
-========================= */
-
-function openSettings(){
-
-    settingsPanel.classList.add("open");
-    settingsOverlay.classList.add("open");
-
-}
-
-function closeSettingsPanel(){
-
-    settingsPanel.classList.remove("open");
-    settingsOverlay.classList.remove("open");
-
-}
-
-settingsBtn.addEventListener(
-    "click",
-    openSettings
-);
-
-closeSettings.addEventListener(
-    "click",
-    closeSettingsPanel
-);
-
-settingsOverlay.addEventListener(
-    "click",
-    closeSettingsPanel
-);
-
-developerBtn.addEventListener(
-    "click",
-    function(){
-
-        developerPanel.classList.toggle("open");
-
-    }
-);
-
-
-/* =========================
-   DEVELOPER LOGS
-========================= */
-
-function setDevRequest(data){
-
-    try{
-
-        devRequest.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
-
-    }catch(error){
-
-        devRequest.textContent =
-            String(data);
-
-    }
-
-}
-
-
-function setDevResponse(data){
-
-    try{
-
-        devResponse.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
-
-    }catch(error){
-
-        devResponse.textContent =
-            String(data);
-
-    }
-
-}
-
-
-function setDevError(error){
-
-    if(!error){
-
-        devError.textContent = "—";
-        return;
-
-    }
-
-    devError.textContent =
-        error.message ||
-        String(error);
-
-}
-
-
-clearLogs.addEventListener(
-    "click",
-    function(){
-
-        devStatus.textContent =
-            "Ожидание запроса";
-
-        devHttp.textContent =
-            "—";
-
-        devRequest.textContent =
-            "—";
-
-        devResponse.textContent =
-            "—";
-
-        devError.textContent =
-            "—";
-
-    }
-);
-
-
-/* =========================
-   WELCOME
-========================= */
-
-function showWelcome(){
-
-    messagesEl.innerHTML = `
-
-        <div class="welcome">
-
-            <h1>
-                Привет! 👋
-            </h1>
-
-            <p>
-                Я Locer — дружелюбный AI-помощник.
-                Задавай вопросы и присылай задания 📚
-            </p>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================
-   NEW CHAT
-========================= */
-
-newChatBtn.addEventListener(
-    "click",
-    function(){
-
-        currentChatId = null;
-        chatHistory = [];
-
-        showWelcome();
-
-        input.value = "";
-        input.style.height = "auto";
-
-        input.focus();
-
-    }
-);
-
-
-/* =========================
-   PHOTO
-========================= */
-
-photoBtn.addEventListener(
-    "click",
-    function(){
-
-        photoInput.click();
-
-    }
-);
-
-
-photoInput.addEventListener(
-    "change",
-    function(){
-
-        const file =
-            photoInput.files &&
-            photoInput.files[0];
-
-        if(!file){
-            return;
-        }
-
-        if(
-            file.size >
-            8 * 1024 * 1024
-        ){
-
-            alert(
-                "Фото слишком большое. Максимум 8 МБ."
-            );
-
-            photoInput.value = "";
-            return;
-
-        }
-
-
-        const reader =
-            new FileReader();
-
-
-        reader.onload =
-            function(){
-
-                selectedImage =
-                    reader.result;
-
-                previewImage.src =
-                    selectedImage;
-
-                photoPreview.style.display =
-                    "block";
-
-            };
-
-
-        reader.onerror =
-            function(){
-
-                alert(
-                    "Не удалось открыть фотографию."
-                );
-
-            };
-
-
-        reader.readAsDataURL(file);
-
-    }
-);
-
-
-removePhoto.addEventListener(
-    "click",
-    function(){
-
-        selectedImage = null;
-
-        photoInput.value = "";
-
-        previewImage.src = "";
-
-        photoPreview.style.display =
-            "none";
-
-    }
-);
-
-
-/* =========================
-   TEXTAREA
-========================= */
-
-input.addEventListener(
-    "input",
-    function(){
-
-        input.style.height = "auto";
-
-        input.style.height =
-            Math.min(
-                input.scrollHeight,
-                180
-            ) + "px";
-
-    }
-);
-
-
-input.addEventListener(
-    "keydown",
-    function(event){
-
-        if(
-            event.key === "Enter" &&
-            !event.shiftKey
-        ){
-
-            event.preventDefault();
-
-            send();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   ADD MESSAGE
-========================= */
-
-function addMessage(
-    role,
-    text
-){
-
-    const wrapper =
-        document.createElement("div");
-
-    wrapper.className =
-        "message " + role;
-
-
-    const bubble =
-        document.createElement("div");
-
-    bubble.className =
-        "bubble";
-
-
-    bubble.textContent =
-        String(text ?? "");
-
-
-    wrapper.appendChild(bubble);
-
-    messagesEl.appendChild(wrapper);
-
-
-    messagesEl.scrollTop =
-        messagesEl.scrollHeight;
-
-}
-
-
-/* =========================
-   CLEAR INPUT
-========================= */
-
-function clearInput(){
-
-    input.value = "";
-
-    input.style.height =
-        "auto";
-
-}
-
-
-/* =========================
-   SEND
-========================= */
-
-async function send(){
-
-    const messageText =
-        input.value.trim();
-
-
-    if(!messageText){
-
-        if(selectedImage){
-
-            alert(
-                "📷 Анализ фотографий пока не подключён.\nНапиши текстовое сообщение."
-            );
-
-        }
-
-        return;
-
-    }
-
-
-    if(!currentUser){
-
-        alert(
-            "Сначала войди через Google 🔐"
-        );
-
-        return;
-
-    }
-
-
-    if(sendBtn.disabled){
-        return;
-    }
-
-
-    sendBtn.disabled = true;
-
-
-    /* ==========================================
-       ОЧИЩАЕМ ПОЛЕ СРАЗУ ПОСЛЕ НАЖАТИЯ
-    ========================================== */
-
-    clearInput();
-
-
-    devStatus.textContent =
-        "🟡 Отправка запроса...";
-
-    devHttp.textContent =
-        "—";
-
-    devError.textContent =
-        "—";
-
-
-    const requestBody = {
-
-        message:
-            messageText
-
-    };
-
-
-    setDevRequest(
-        requestBody
+let auth = null;
+let db = null;
+let currentUser = null;
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCRlSjT9cwWyFD_rx_vqiGahEuZkeMHsRI",
+    authDomain: "locer-5b749.firebaseapp.com",
+    projectId: "locer-5b749",
+    storageBucket: "locer-5b749.firebasestorage.app",
+    messagingSenderId: "81394379218",
+    appId: "1:81394379218:web:545d4e8390f630a5ee400b",
+    measurementId: "G-6GZ1HZPR65"
+};
+
+try {
+
+    const {
+        initializeApp
+    } = await import(
+        "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"
     );
 
+    const {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithPopup,
+        onAuthStateChanged
+    } = await import(
+        "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"
+    );
 
-    try{
+    const {
+        getFirestore,
+        collection,
+        doc,
+        addDoc,
+        setDoc,
+        getDocs,
+        getDoc,
+        deleteDoc,
+        query,
+        orderBy,
+        serverTimestamp
+    } = await import(
+        "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js"
+    );
 
-        addMessage(
-            "user",
-            messageText
-        );
+    const app = initializeApp(firebaseConfig);
 
+    auth = getAuth(app);
+    db = getFirestore(app);
 
-        chatHistory.push({
+    window.firebaseFunctions = {
+        GoogleAuthProvider,
+        signInWithPopup,
+        onAuthStateChanged,
+        collection,
+        doc,
+        addDoc,
+        setDoc,
+        getDocs,
+        getDoc,
+        deleteDoc,
+        query,
+        orderBy,
+        serverTimestamp
+    };
 
-            role:
-                "user",
+    firebaseReady = true;
 
-            content:
-                messageText
+    onAuthStateChanged(auth, async user => {
 
-        });
+        currentUser = user;
 
+        if (user) {
 
-        const response =
-            await fetch(
-                WORKER_URL,
-                {
+            document.querySelector(".login").textContent =
+                "👤 " + (user.displayName || "Google");
 
-                    method:
-                        "POST",
+            await loadChats();
 
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
+        } else {
 
-                    body:
-                        JSON.stringify(
-                            requestBody
-                        )
+            document.querySelector(".login").textContent =
+                "Войти через Google";
 
-                }
-            );
-
-
-        devHttp.textContent =
-            String(response.status);
-
-
-        let data;
-
-
-        try{
-
-            data =
-                await response.json();
-
-        }catch(error){
-
-            throw new Error(
-                "Worker вернул неправильный JSON-ответ."
-            );
-
-        }
-
-
-        setDevResponse(data);
-
-
-        if(!response.ok){
-
-            let errorText =
-                "Ошибка сервера";
-
-
-            if(
-                typeof data?.error ===
-                "string"
-            ){
-
-                errorText =
-                    data.error;
-
-            }
-
-
-            if(data?.message){
-
-                errorText +=
-                    "\n" +
-                    data.message;
-
-            }
-
-
-            if(data?.gemini_status){
-
-                errorText +=
-                    "\nКод Gemini: " +
-                    data.gemini_status;
-
-            }
-
-
-            if(data?.gemini_response){
-
-                errorText +=
-                    "\nОтвет Gemini:\n" +
-                    JSON.stringify(
-                        data.gemini_response,
-                        null,
-                        2
-                    );
-
-            }
-
-
-            throw new Error(
-                errorText
-            );
+            document.getElementById("chats").innerHTML = "";
 
         }
 
+    });
 
-        const answer =
-            data?.answer;
+} catch (error) {
 
-
-        if(
-            !answer ||
-            typeof answer !== "string"
-        ){
-
-            throw new Error(
-                "Gemini AI не вернул текстовый ответ."
-            );
-
-        }
-
-
-        addMessage(
-            "assistant",
-            answer
-        );
-
-
-        chatHistory.push({
-
-            role:
-                "assistant",
-
-            content:
-                answer
-
-        });
-
-
-        await saveChat();
-
-
-        selectedImage = null;
-
-        photoInput.value = "";
-
-        previewImage.src = "";
-
-        photoPreview.style.display =
-            "none";
-
-
-        devStatus.textContent =
-            "🟢 Успешно";
-
-        devError.textContent =
-            "—";
-
-
-    }catch(error){
-
-        console.error(
-            "Locer error:",
-            error
-        );
-
-
-        devStatus.textContent =
-            "🔴 Ошибка";
-
-        setDevError(error);
-
-
-        addMessage(
-            "assistant",
-            "❌ " +
-            (
-                error?.message ||
-                "Неизвестная ошибка"
-            )
-        );
-
-    }finally{
-
-        sendBtn.disabled = false;
-
-    }
-
-}
-
-
-/* =========================
-   SEND BUTTON
-========================= */
-
-sendBtn.addEventListener(
-    "click",
-    send
-);
-
-
-/* =====================================================
-   FIREBASE
-===================================================== */
-
-async function initFirebase(){
-
-    try{
-
-        const firebaseApp =
-            await import(
-                "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"
-            );
-
-        const firebaseAuthModule =
-            await import(
-                "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"
-            );
-
-        const firebaseFirestore =
-            await import(
-                "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js"
-            );
-
-
-        const firebaseConfig = {
-
-            apiKey:
-                "AIzaSyCRlSjT9cwWyFD_rx_vqiGahEuZkeMHsRI",
-
-            authDomain:
-                "locer-5b749.firebaseapp.com",
-
-            projectId:
-                "locer-5b749",
-
-            storageBucket:
-                "locer-5b749.firebasestorage.app",
-
-            messagingSenderId:
-                "81394379218",
-
-            appId:
-                "1:81394379218:web:545d4e8390f630a5ee400b",
-
-            measurementId:
-                "G-6GZ1HZPR65"
-
-        };
-
-
-        const app =
-            firebaseApp.initializeApp(
-                firebaseConfig
-            );
-
-
-        firebaseAuth =
-            firebaseAuthModule.getAuth(app);
-
-
-        firebaseDb =
-            firebaseFirestore.getFirestore(app);
-
-
-        firebaseProvider =
-            new firebaseAuthModule.GoogleAuthProvider();
-
-
-        firebaseReady = true;
-
-
-        firebaseAuthModule.onAuthStateChanged(
-            firebaseAuth,
-            async function(user){
-
-                currentUser = user;
-
-
-                if(user){
-
-                    loginBtn.textContent =
-                        "✅ " +
-                        (
-                            user.displayName ||
-                            "Вы вошли"
-                        );
-
-                    userInfo.textContent =
-                        user.email || "";
-
-
-                    await loadChats();
-
-                }else{
-
-                    loginBtn.textContent =
-                        "🔐 Войти через Google";
-
-                    userInfo.textContent =
-                        "";
-
-                    chatList.innerHTML =
-                        "";
-
-                }
-
-            }
-        );
-
-
-        console.log(
-            "Firebase успешно подключён."
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Firebase error:",
-            error
-        );
-
-
-        firebaseReady = false;
-
-
-        userInfo.textContent =
-            "Firebase не загрузился";
-
-
-        loginBtn.textContent =
-            "🔐 Войти через Google";
-
-
-        devStatus.textContent =
-            "🟠 Firebase не загружен";
-
-        setDevError(error);
-
-    }
+    console.error("Firebase:", error);
 
 }
 
@@ -1728,167 +452,412 @@ async function initFirebase(){
    GOOGLE LOGIN
 ========================= */
 
-loginBtn.addEventListener(
-    "click",
-    async function(){
+window.loginGoogle = async function() {
 
-        if(!firebaseReady){
+    if (!firebaseReady) {
+        alert("Firebase ещё загружается. Попробуй ещё раз.");
+        return;
+    }
 
-            alert(
-                "Firebase ещё не загрузился.\nОбнови страницу и попробуй снова."
-            );
+    try {
 
-            return;
+        const provider =
+            new window.firebaseFunctions.GoogleAuthProvider();
 
-        }
+        await window.firebaseFunctions.signInWithPopup(
+            auth,
+            provider
+        );
 
+    } catch (error) {
 
-        try{
+        console.error(error);
 
-            const authModule =
-                await import(
-                    "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"
-                );
-
-
-            await authModule.signInWithPopup(
-                firebaseAuth,
-                firebaseProvider
-            );
-
-
-        }catch(error){
-
-            console.error(error);
-
-
-            alert(
-                "Ошибка входа через Google:\n" +
-                (
-                    error?.message ||
-                    error
-                )
-            );
-
-        }
+        alert(
+            "Ошибка входа: " +
+            (error.message || "неизвестная ошибка")
+        );
 
     }
-);
+
+};
 
 
 /* =========================
-   SAVE CHAT
+   НОВЫЙ ЧАТ
 ========================= */
 
-async function saveChat(){
+window.newChat = function() {
 
-    if(!currentUser){
-        return;
+    currentChatId = null;
+    chatHistory = [];
+
+    messages.innerHTML = `
+        <div class="message ai">
+            Привет! 👋 Я Locer — твой дружелюбный AI-помощник.
+            Чем я могу помочь тебе сегодня? 😊
+        </div>
+    `;
+
+    input.value = "";
+    input.style.height = "auto";
+
+    status.textContent = "Google Gemini AI";
+
+};
+
+
+/* =========================
+   INPUT
+========================= */
+
+input.addEventListener("input", () => {
+
+    input.style.height = "auto";
+    input.style.height =
+        Math.min(input.scrollHeight, 160) + "px";
+
+});
+
+
+input.addEventListener("keydown", event => {
+
+    if (event.key === "Enter" && !event.shiftKey) {
+
+        event.preventDefault();
+        send();
+
     }
 
-    if(!firebaseReady){
-        return;
+});
+
+
+/* =========================
+   ОЧИСТКА INPUT
+========================= */
+
+function clearInput() {
+
+    input.value = "";
+    input.style.height = "auto";
+
+}
+
+
+/* =========================
+   ПОКАЗАТЬ THINKING
+========================= */
+
+function showThinking() {
+
+    removeThinking();
+
+    const div = document.createElement("div");
+
+    div.className = "message ai";
+    div.id = "thinkingMessage";
+
+    div.innerHTML = `
+        <div class="thinking">
+            <span class="thinking-icon">🤔</span>
+            <span>Locer думает</span>
+            <span class="dots">
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+            </span>
+        </div>
+    `;
+
+    messages.appendChild(div);
+
+    messages.scrollTop = messages.scrollHeight;
+
+}
+
+
+/* =========================
+   УБРАТЬ THINKING
+========================= */
+
+function removeThinking() {
+
+    const old =
+        document.getElementById("thinkingMessage");
+
+    if (old) {
+        old.remove();
     }
 
-    if(!chatHistory.length){
-        return;
-    }
+}
 
 
-    try{
+/* =========================
+   ДОБАВИТЬ СООБЩЕНИЕ
+========================= */
 
-        const firestore =
-            await import(
-                "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js"
+function addMessage(text, type) {
+
+    const div = document.createElement("div");
+
+    div.className =
+        "message " + type;
+
+    div.textContent = text;
+
+    messages.appendChild(div);
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+    return div;
+
+}
+
+
+/* =========================
+   ОТПРАВКА
+========================= */
+
+window.send = async function() {
+
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    if (sendBtn.disabled) return;
+
+    addMessage(text, "user");
+
+    chatHistory.push({
+        role: "user",
+        content: text
+    });
+
+    sendBtn.disabled = true;
+
+    /*
+       Очищаем поле сразу после отправки
+    */
+    clearInput();
+
+    /*
+       Показываем "Locer думает..."
+    */
+    showThinking();
+
+    status.textContent =
+        "🤔 Locer думает...";
+
+    try {
+
+        const response = await fetch(
+            WORKER_URL,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: text
+                })
+            }
+        );
+
+        let data = {};
+
+        try {
+            data = await response.json();
+        } catch {
+            data = {};
+        }
+
+        removeThinking();
+
+        if (!response.ok) {
+
+            console.error(
+                "Gemini error:",
+                data
             );
 
+            /*
+               503 превращаем в нормальное
+               сообщение для пользователя
+            */
 
-        const chatsRef =
-            firestore.collection(
-                firebaseDb,
-                "users",
-                currentUser.uid,
-                "chats"
-            );
+            if (
+                response.status === 503 ||
+                data.gemini_status === 503
+            ) {
 
-
-        const firstMessage =
-            chatHistory.find(
-                function(message){
-
-                    return (
-                        message.role ===
-                        "user"
-                    );
-
-                }
-            );
-
-
-        const title =
-            firstMessage?.content
-                ?.slice(0,40)
-            ||
-            "Новый чат";
-
-
-        if(!currentChatId){
-
-            const chatRef =
-                await firestore.addDoc(
-                    chatsRef,
-                    {
-
-                        title:
-                            title,
-
-                        messages:
-                            chatHistory,
-
-                        createdAt:
-                            firestore.serverTimestamp(),
-
-                        updatedAt:
-                            firestore.serverTimestamp()
-
-                    }
+                addMessage(
+                    "😔 Gemini сейчас перегружен.\n\n" +
+                    "Locer попробовал отправить запрос несколько раз, " +
+                    "но Gemini временно не смог ответить.\n\n" +
+                    "Попробуй отправить сообщение ещё раз через несколько секунд.",
+                    "ai"
                 );
 
+                status.textContent =
+                    "Gemini временно перегружен";
+
+            } else {
+
+                addMessage(
+                    "❌ Не удалось получить ответ от Locer.\n\n" +
+                    (
+                        data.error ||
+                        "Попробуй ещё раз."
+                    ),
+                    "ai"
+                );
+
+                status.textContent =
+                    "Ошибка Gemini";
+
+            }
+
+            return;
+        }
+
+        if (!data.answer) {
+
+            addMessage(
+                "❌ Gemini не вернул текстовый ответ. Попробуй ещё раз.",
+                "ai"
+            );
+
+            status.textContent =
+                "Gemini не вернул ответ";
+
+            return;
+        }
+
+        addMessage(
+            data.answer,
+            "ai"
+        );
+
+        chatHistory.push({
+            role: "assistant",
+            content: data.answer
+        });
+
+        status.textContent =
+            "Google Gemini AI";
+
+        await saveChat();
+
+    } catch (error) {
+
+        console.error(error);
+
+        removeThinking();
+
+        addMessage(
+            "❌ Ошибка подключения к Locer.\n\n" +
+            "Проверь интернет-соединение и попробуй ещё раз.",
+            "ai"
+        );
+
+        status.textContent =
+            "Ошибка подключения";
+
+    } finally {
+
+        sendBtn.disabled = false;
+
+        input.focus();
+
+    }
+
+};
+
+
+/* =========================
+   FIRESTORE
+========================= */
+
+async function saveChat() {
+
+    if (!firebaseReady || !currentUser) {
+        return;
+    }
+
+    if (!chatHistory.length) {
+        return;
+    }
+
+    try {
+
+        const {
+            collection,
+            doc,
+            addDoc,
+            setDoc,
+            serverTimestamp
+        } = window.firebaseFunctions;
+
+        const userChats = collection(
+            db,
+            "users",
+            currentUser.uid,
+            "chats"
+        );
+
+        const firstUserMessage =
+            chatHistory.find(
+                x => x.role === "user"
+            );
+
+        const title =
+            firstUserMessage?.content
+                ?.slice(0, 40) ||
+            "Новый чат";
+
+        if (!currentChatId) {
+
+            const chatRef = await addDoc(
+                userChats,
+                {
+                    title,
+                    messages: chatHistory,
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                }
+            );
 
             currentChatId =
                 chatRef.id;
 
-        }else{
+        } else {
 
-            await firestore.updateDoc(
-                firestore.doc(
-                    firebaseDb,
+            await setDoc(
+                doc(
+                    db,
                     "users",
                     currentUser.uid,
                     "chats",
                     currentChatId
                 ),
                 {
-
-                    messages:
-                        chatHistory,
-
-                    title:
-                        title,
-
-                    updatedAt:
-                        firestore.serverTimestamp()
-
+                    title,
+                    messages: chatHistory,
+                    updatedAt: serverTimestamp()
+                },
+                {
+                    merge: true
                 }
             );
 
         }
 
-
         await loadChats();
 
-
-    }catch(error){
+    } catch (error) {
 
         console.error(
             "Ошибка сохранения:",
@@ -1901,154 +870,83 @@ async function saveChat(){
 
 
 /* =========================
-   LOAD CHATS
+   ЗАГРУЗКА ЧАТОВ
 ========================= */
 
-async function loadChats(){
+async function loadChats() {
 
-    if(!currentUser){
+    if (!firebaseReady || !currentUser) {
         return;
     }
 
-    if(!firebaseReady){
-        return;
-    }
+    const chatsBox =
+        document.getElementById("chats");
 
+    try {
 
-    try{
+        const {
+            collection,
+            getDocs,
+            query,
+            orderBy
+        } = window.firebaseFunctions;
 
-        const firestore =
-            await import(
-                "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js"
-            );
-
-
-        chatList.innerHTML = "";
-
-
-        const chatsRef =
-            firestore.collection(
-                firebaseDb,
+        const ref =
+            collection(
+                db,
                 "users",
                 currentUser.uid,
                 "chats"
             );
 
-
         let snapshot;
 
+        try {
 
-        try{
-
-            const q =
-                firestore.query(
-                    chatsRef,
-                    firestore.orderBy(
+            snapshot = await getDocs(
+                query(
+                    ref,
+                    orderBy(
                         "createdAt",
                         "desc"
                     )
-                );
-
-            snapshot =
-                await firestore.getDocs(q);
-
-        }catch(orderError){
-
-            console.warn(
-                "Сортировка чатов недоступна:",
-                orderError
+                )
             );
 
+        } catch {
+
             snapshot =
-                await firestore.getDocs(
-                    chatsRef
-                );
+                await getDocs(ref);
 
         }
 
+        chatsBox.innerHTML = "";
 
-        snapshot.forEach(
-            function(chatDoc){
+        snapshot.forEach(item => {
 
-                const data =
-                    chatDoc.data();
+            const data = item.data();
 
+            const div =
+                document.createElement("div");
 
-                const item =
-                    document.createElement(
-                        "div"
-                    );
+            div.className =
+                "chat-item";
 
-                item.className =
-                    "chat-item";
-
-
-                const title =
-                    document.createElement(
-                        "div"
-                    );
-
-                title.className =
-                    "chat-title";
-
-                title.textContent =
+            div.textContent =
+                "💬 " +
+                (
                     data.title ||
-                    "Новый чат";
-
-
-                title.addEventListener(
-                    "click",
-                    function(){
-
-                        openChat(
-                            chatDoc.id,
-                            data
-                        );
-
-                    }
+                    "Новый чат"
                 );
 
+            div.onclick = () =>
+                openChat(item.id);
 
-                const deleteBtn =
-                    document.createElement(
-                        "button"
-                    );
+            chatsBox.appendChild(div);
 
-                deleteBtn.type =
-                    "button";
+        });
 
-                deleteBtn.className =
-                    "delete-chat";
-
-                deleteBtn.textContent =
-                    "🗑️";
-
-
-                deleteBtn.addEventListener(
-                    "click",
-                    async function(event){
-
-                        event.stopPropagation();
-
-                        await deleteChat(
-                            chatDoc.id
-                        );
-
-                    }
-                );
-
-
-                item.appendChild(title);
-
-                item.appendChild(deleteBtn);
-
-                chatList.appendChild(item);
-
-            }
-        );
-
-
-    }catch(error){
+    } catch (error) {
 
         console.error(
             "Ошибка загрузки чатов:",
@@ -2061,126 +959,83 @@ async function loadChats(){
 
 
 /* =========================
-   OPEN CHAT
+   ОТКРЫТЬ ЧАТ
 ========================= */
 
-function openChat(
-    id,
-    data
-){
+async function openChat(id) {
 
-    currentChatId =
-        id;
-
-
-    chatHistory =
-        Array.isArray(data.messages)
-        ? data.messages
-        : [];
-
-
-    messagesEl.innerHTML =
-        "";
-
-
-    if(!chatHistory.length){
-
-        showWelcome();
-        return;
-
-    }
-
-
-    chatHistory.forEach(
-        function(message){
-
-            addMessage(
-                message.role,
-                message.content
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================
-   DELETE CHAT
-========================= */
-
-async function deleteChat(id){
-
-    if(!currentUser){
+    if (!firebaseReady || !currentUser) {
         return;
     }
 
-    if(!firebaseReady){
-        return;
-    }
+    try {
 
+        const {
+            doc,
+            getDoc
+        } = window.firebaseFunctions;
 
-    try{
-
-        const firestore =
-            await import(
-                "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js"
-            );
-
-
-        await firestore.deleteDoc(
-            firestore.doc(
-                firebaseDb,
-                "users",
-                currentUser.uid,
-                "chats",
-                id
-            )
+        const ref = doc(
+            db,
+            "users",
+            currentUser.uid,
+            "chats",
+            id
         );
 
+        const snapshot =
+            await getDoc(ref);
 
-        if(currentChatId === id){
+        if (!snapshot.exists()) {
+            return;
+        }
 
-            currentChatId =
-                null;
+        const data =
+            snapshot.data();
 
-            chatHistory =
-                [];
+        currentChatId = id;
 
-            showWelcome();
+        chatHistory =
+            Array.isArray(data.messages)
+                ? data.messages
+                : [];
+
+        messages.innerHTML = "";
+
+        for (const message of chatHistory) {
+
+            if (
+                message.role === "user"
+            ) {
+
+                addMessage(
+                    message.content,
+                    "user"
+                );
+
+            } else if (
+                message.role === "assistant"
+            ) {
+
+                addMessage(
+                    message.content,
+                    "ai"
+                );
+
+            }
 
         }
 
-
-        await loadChats();
-
-
-    }catch(error){
+    } catch (error) {
 
         console.error(
-            "Ошибка удаления:",
+            "Ошибка открытия чата:",
             error
         );
 
-
-        alert(
-            "Не удалось удалить чат.\n" +
-            (
-                error?.message ||
-                ""
-            )
-        );
-
     }
 
 }
-
-
-/* =========================
-   START FIREBASE
-========================= */
-
-initFirebase();
 
 </script>
 
