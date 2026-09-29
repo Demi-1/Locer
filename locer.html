@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Locer AI</title>
 
 <style>
@@ -10,99 +10,141 @@
     box-sizing: border-box;
 }
 
+html,
 body {
     margin: 0;
+    width: 100%;
+    height: 100%;
     font-family: Arial, sans-serif;
     background: #0f1117;
-    color: #fff;
-    height: 100vh;
+    color: white;
     overflow: hidden;
 }
 
-.app {
-    display: flex;
-    height: 100vh;
+button,
+textarea {
+    font-family: inherit;
 }
 
-/* SIDEBAR */
+.app {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar {
     width: 270px;
+    height: 100%;
     background: #171a22;
     border-right: 1px solid #292d38;
-    padding: 15px;
     display: flex;
     flex-direction: column;
+    padding: 15px;
+    flex-shrink: 0;
+    z-index: 100;
 }
 
 .logo {
     font-size: 22px;
     font-weight: bold;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 }
 
 .new-chat {
     width: 100%;
     padding: 12px;
-    border: 0;
-    border-radius: 10px;
-    background: #2b6cff;
+    border: none;
+    border-radius: 11px;
+    background: #2563eb;
     color: white;
-    font-size: 15px;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .new-chat:hover {
-    background: #1e5ce0;
+    background: #1d4ed8;
+}
+
+.menu-button {
+    width: 100%;
+    padding: 11px;
+    margin-top: 9px;
+    border: 1px solid #343946;
+    border-radius: 10px;
+    background: #20242e;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+}
+
+.menu-button:hover {
+    background: #292e39;
 }
 
 .login {
-    margin-top: 10px;
     width: 100%;
     padding: 11px;
-    border: 1px solid #363b48;
+    margin-top: 9px;
+    border: 1px solid #343946;
     border-radius: 10px;
     background: #20242e;
     color: white;
     cursor: pointer;
 }
 
-.login:hover {
-    background: #292e3a;
-}
-
 .saved-title {
-    margin-top: 25px;
-    color: #8d94a5;
+    color: #8e96a8;
     font-size: 13px;
+    margin-top: 22px;
+    margin-bottom: 8px;
 }
 
 .chats {
-    margin-top: 8px;
-    overflow-y: auto;
     flex: 1;
+    overflow-y: auto;
 }
 
 .chat-item {
     padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 8px;
+    border-radius: 9px;
+    margin-bottom: 4px;
     cursor: pointer;
-    color: #dfe3ec;
+    color: #e5e7eb;
     font-size: 14px;
 }
 
 .chat-item:hover {
-    background: #242934;
+    background: #252a35;
 }
 
-/* MAIN */
+.delete-chat {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #4a3035;
+    border-radius: 10px;
+    background: #241a1d;
+    color: #ff9b9b;
+    cursor: pointer;
+}
+
+.delete-chat:hover {
+    background: #352024;
+}
+
+/* =========================
+   MAIN
+========================= */
 
 .main {
     flex: 1;
+    min-width: 0;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    min-width: 0;
 }
 
 .header {
@@ -110,67 +152,88 @@ body {
     border-bottom: 1px solid #292d38;
     display: flex;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 18px;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.header-title {
     font-size: 18px;
     font-weight: bold;
+}
+
+.mobile-menu {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 10px;
+    background: #20242e;
+    color: white;
+    font-size: 21px;
+    cursor: pointer;
 }
 
 .messages {
     flex: 1;
     overflow-y: auto;
-    padding: 25px;
+    padding: 24px 15px;
 }
 
 .message {
     max-width: 850px;
-    margin: 0 auto 18px auto;
-    padding: 15px 17px;
-    border-radius: 14px;
+    margin: 0 auto 16px;
+    padding: 14px 16px;
+    border-radius: 15px;
     line-height: 1.55;
     white-space: pre-wrap;
+    word-break: break-word;
 }
 
-.user {
+.message.user {
     background: #2563eb;
     margin-left: auto;
+    margin-right: max(0px, calc((100% - 850px) / 2));
 }
 
-.ai {
+.message.ai {
     background: #1b1f29;
     border: 1px solid #292e3a;
     margin-right: auto;
+    margin-left: max(0px, calc((100% - 850px) / 2));
 }
 
-/* THINKING */
+/* =========================
+   THINKING
+========================= */
 
 .thinking {
     display: flex;
     align-items: center;
-    gap: 9px;
-    color: #aeb6c8;
-    font-size: 15px;
+    gap: 8px;
+    color: #b5bdcc;
 }
 
 .thinking-icon {
-    font-size: 19px;
+    font-size: 18px;
 }
 
 .dots span {
-    animation: blink 1.4s infinite;
-    opacity: 0.2;
+    opacity: .2;
+    animation: thinkingDots 1.4s infinite;
 }
 
 .dots span:nth-child(2) {
-    animation-delay: 0.2s;
+    animation-delay: .2s;
 }
 
 .dots span:nth-child(3) {
-    animation-delay: 0.4s;
+    animation-delay: .4s;
 }
 
-@keyframes blink {
+@keyframes thinkingDots {
     0%, 80%, 100% {
-        opacity: 0.2;
+        opacity: .2;
     }
 
     40% {
@@ -178,49 +241,101 @@ body {
     }
 }
 
-/* INPUT */
+/* =========================
+   IMAGE
+========================= */
+
+.image-preview {
+    max-width: 250px;
+    max-height: 250px;
+    display: block;
+    border-radius: 12px;
+    margin-bottom: 9px;
+    object-fit: contain;
+}
+
+.uploaded-image {
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* =========================
+   INPUT
+========================= */
 
 .input-area {
     border-top: 1px solid #292d38;
-    padding: 15px;
+    padding: 12px 15px;
+    flex-shrink: 0;
 }
 
 .input-box {
     max-width: 900px;
     margin: auto;
     display: flex;
-    gap: 10px;
     align-items: flex-end;
+    gap: 8px;
 }
 
-textarea {
+.text-wrap {
     flex: 1;
-    resize: none;
-    min-height: 48px;
-    max-height: 160px;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid #343a47;
+    min-width: 0;
     background: #191d26;
-    color: white;
-    outline: none;
-    font-size: 15px;
-    font-family: Arial, sans-serif;
+    border: 1px solid #343a47;
+    border-radius: 13px;
+    padding: 8px;
 }
 
-textarea:focus {
+.text-wrap:focus-within {
     border-color: #3b82f6;
 }
 
+textarea {
+    width: 100%;
+    min-height: 42px;
+    max-height: 150px;
+    resize: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 15px;
+    padding: 7px;
+}
+
+textarea::placeholder {
+    color: #777f91;
+}
+
+.attach {
+    width: 43px;
+    height: 43px;
+    border: none;
+    border-radius: 10px;
+    background: #242934;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.attach:hover {
+    background: #303643;
+}
+
 .send {
-    width: 50px;
+    width: 48px;
     height: 48px;
-    border: 0;
+    border: none;
     border-radius: 12px;
     background: #2563eb;
     color: white;
     font-size: 20px;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .send:hover {
@@ -228,30 +343,143 @@ textarea:focus {
 }
 
 .send:disabled {
-    opacity: 0.5;
+    opacity: .5;
     cursor: not-allowed;
+}
+
+.file-input {
+    display: none;
+}
+
+.photo-selected {
+    max-width: 900px;
+    margin: 7px auto 0;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    color: #aeb6c8;
+    font-size: 13px;
+}
+
+.photo-selected img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.remove-photo {
+    border: none;
+    background: #30252a;
+    color: #ff9d9d;
+    border-radius: 7px;
+    padding: 6px 9px;
+    cursor: pointer;
 }
 
 .status {
     max-width: 900px;
-    margin: 7px auto 0;
-    font-size: 12px;
+    margin: 6px auto 0;
     color: #777f91;
+    font-size: 12px;
 }
 
-/* MOBILE */
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-panel {
+    display: none;
+    border: 1px solid #343946;
+    border-radius: 10px;
+    margin-top: 9px;
+    padding: 10px;
+    background: #1b1f28;
+}
+
+.settings-panel.open {
+    display: block;
+}
+
+.settings-row {
+    color: #aeb6c8;
+    font-size: 13px;
+    padding: 6px 2px;
+}
+
+/* =========================
+   MOBILE OVERLAY
+========================= */
+
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 90;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 700px) {
+
     .sidebar {
-        display: none;
+        position: fixed;
+        left: -290px;
+        top: 0;
+        width: 280px;
+        transition: left .25s ease;
+        box-shadow: 8px 0 25px rgba(0,0,0,.35);
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .overlay.open {
+        display: block;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .header {
+        padding: 0 12px;
     }
 
     .messages {
-        padding: 15px;
+        padding: 15px 9px;
     }
 
-    .message {
-        max-width: 95%;
+    .message,
+    .message.user,
+    .message.ai {
+        max-width: 94%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .input-area {
+        padding: 8px;
+    }
+
+    .input-box {
+        gap: 6px;
+    }
+
+    .attach {
+        width: 42px;
+    }
+
+    .send {
+        width: 46px;
+    }
+
+    .status {
+        padding-left: 3px;
     }
 }
 </style>
@@ -261,7 +489,9 @@ textarea:focus {
 
 <div class="app">
 
-    <aside class="sidebar">
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
 
         <div class="logo">🤖 Locer</div>
 
@@ -273,38 +503,115 @@ textarea:focus {
             Войти через Google
         </button>
 
+        <button class="menu-button" onclick="toggleSettings()">
+            ⚙️ Параметры
+        </button>
+
+        <div class="settings-panel" id="settingsPanel">
+
+            <div class="settings-row">
+                🧠 Модель: Gemini 3.8 Flash
+            </div>
+
+            <div class="settings-row">
+                📷 Распознавание фото: включено
+            </div>
+
+            <div class="settings-row">
+                💾 Сохранение чатов: Firebase
+            </div>
+
+        </div>
+
         <div class="saved-title">
             Сохранённые чаты
         </div>
 
         <div class="chats" id="chats"></div>
 
+        <button class="delete-chat" onclick="deleteCurrentChat()">
+            🗑️ Удалить текущий чат
+        </button>
+
     </aside>
 
     <main class="main">
 
-        <div class="header">
-            Locer AI
-        </div>
+        <header class="header">
+
+            <button
+                class="mobile-menu"
+                onclick="openSidebar()"
+            >
+                ☰
+            </button>
+
+            <div class="header-title">
+                Locer AI
+            </div>
+
+        </header>
 
         <div class="messages" id="messages">
 
             <div class="message ai">
                 Привет! 👋 Я Locer — твой дружелюбный AI-помощник.
-                Чем я могу помочь тебе сегодня? 😊
+                <br><br>
+                Можешь написать мне вопрос или 📷 отправить фотографию.
+                Например, я могу посмотреть фотографию школьной задачи и объяснить решение. 😊
             </div>
 
         </div>
 
         <div class="input-area">
 
+            <div
+                class="photo-selected"
+                id="photoSelected"
+            >
+
+                <img id="photoPreview" src="">
+
+                <span id="photoName">
+                    Фото выбрано
+                </span>
+
+                <button
+                    class="remove-photo"
+                    onclick="removePhoto()"
+                >
+                    ✕
+                </button>
+
+            </div>
+
             <div class="input-box">
 
-                <textarea
-                    id="input"
-                    placeholder="Напиши сообщение..."
-                    rows="1"
-                ></textarea>
+                <button
+                    class="attach"
+                    onclick="document.getElementById('fileInput').click()"
+                    title="Загрузить фото"
+                >
+                    📷
+                </button>
+
+                <input
+                    id="fileInput"
+                    class="file-input"
+                    type="file"
+                    accept="image/*"
+                    onchange="handleImage(event)"
+                >
+
+                <div class="text-wrap">
+
+                    <textarea
+                        id="input"
+                        rows="1"
+                        placeholder="Напиши сообщение..."
+                    ></textarea>
+
+                </div>
 
                 <button
                     class="send"
@@ -316,7 +623,10 @@ textarea:focus {
 
             </div>
 
-            <div class="status" id="status">
+            <div
+                class="status"
+                id="status"
+            >
                 Google Gemini AI
             </div>
 
@@ -328,20 +638,47 @@ textarea:focus {
 
 <script type="module">
 
-/* =========================
-   НАСТРОЙКИ
-========================= */
-
 const WORKER_URL =
     "https://locer-ai.ivan-ostanin1914.workers.dev";
 
-const input = document.getElementById("input");
-const sendBtn = document.getElementById("sendBtn");
-const messages = document.getElementById("messages");
-const status = document.getElementById("status");
+
+const input =
+    document.getElementById("input");
+
+const sendBtn =
+    document.getElementById("sendBtn");
+
+const messages =
+    document.getElementById("messages");
+
+const status =
+    document.getElementById("status");
+
+const sidebar =
+    document.getElementById("sidebar");
+
+const overlay =
+    document.getElementById("overlay");
+
+const fileInput =
+    document.getElementById("fileInput");
+
+const photoSelected =
+    document.getElementById("photoSelected");
+
+const photoPreview =
+    document.getElementById("photoPreview");
+
+const photoName =
+    document.getElementById("photoName");
+
 
 let currentChatId = null;
 let chatHistory = [];
+
+let selectedImageBase64 = null;
+let selectedImageMime = null;
+let selectedImageUrl = null;
 
 
 /* =========================
@@ -353,15 +690,31 @@ let auth = null;
 let db = null;
 let currentUser = null;
 
+
 const firebaseConfig = {
-    apiKey: "AIzaSyCRlSjT9cwWyFD_rx_vqiGahEuZkeMHsRI",
-    authDomain: "locer-5b749.firebaseapp.com",
-    projectId: "locer-5b749",
-    storageBucket: "locer-5b749.firebasestorage.app",
-    messagingSenderId: "81394379218",
-    appId: "1:81394379218:web:545d4e8390f630a5ee400b",
-    measurementId: "G-6GZ1HZPR65"
+
+    apiKey:
+        "AIzaSyCRlSjT9cwWyFD_rx_vqiGahEuZkeMHsRI",
+
+    authDomain:
+        "locer-5b749.firebaseapp.com",
+
+    projectId:
+        "locer-5b749",
+
+    storageBucket:
+        "locer-5b749.firebasestorage.app",
+
+    messagingSenderId:
+        "81394379218",
+
+    appId:
+        "1:81394379218:web:545d4e8390f630a5ee400b",
+
+    measurementId:
+        "G-6GZ1HZPR65"
 };
+
 
 try {
 
@@ -371,6 +724,7 @@ try {
         "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"
     );
 
+
     const {
         getAuth,
         GoogleAuthProvider,
@@ -379,6 +733,7 @@ try {
     } = await import(
         "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"
     );
+
 
     const {
         getFirestore,
@@ -396,15 +751,24 @@ try {
         "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js"
     );
 
-    const app = initializeApp(firebaseConfig);
 
-    auth = getAuth(app);
-    db = getFirestore(app);
+    const app =
+        initializeApp(firebaseConfig);
+
+
+    auth =
+        getAuth(app);
+
+    db =
+        getFirestore(app);
+
 
     window.firebaseFunctions = {
+
         GoogleAuthProvider,
         signInWithPopup,
         onAuthStateChanged,
+
         collection,
         doc,
         addDoc,
@@ -412,62 +776,125 @@ try {
         getDocs,
         getDoc,
         deleteDoc,
+
         query,
         orderBy,
         serverTimestamp
+
     };
+
 
     firebaseReady = true;
 
-    onAuthStateChanged(auth, async user => {
 
-        currentUser = user;
+    onAuthStateChanged(
+        auth,
+        async user => {
 
-        if (user) {
+            currentUser = user;
 
-            document.querySelector(".login").textContent =
-                "👤 " + (user.displayName || "Google");
+            if (user) {
 
-            await loadChats();
+                document.querySelector(
+                    ".login"
+                ).textContent =
+                    "👤 " +
+                    (
+                        user.displayName ||
+                        "Google"
+                    );
 
-        } else {
+                await loadChats();
 
-            document.querySelector(".login").textContent =
-                "Войти через Google";
+            } else {
 
-            document.getElementById("chats").innerHTML = "";
+                document.querySelector(
+                    ".login"
+                ).textContent =
+                    "Войти через Google";
+
+                document.getElementById(
+                    "chats"
+                ).innerHTML = "";
+
+            }
 
         }
+    );
 
-    });
 
 } catch (error) {
 
-    console.error("Firebase:", error);
+    console.error(
+        "Firebase:",
+        error
+    );
 
 }
 
 
 /* =========================
-   GOOGLE LOGIN
+   МОБИЛЬНОЕ МЕНЮ
+========================= */
+
+window.openSidebar = function() {
+
+    sidebar.classList.add("open");
+    overlay.classList.add("open");
+
+};
+
+
+window.closeSidebar = function() {
+
+    sidebar.classList.remove("open");
+    overlay.classList.remove("open");
+
+};
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+window.toggleSettings = function() {
+
+    document
+        .getElementById("settingsPanel")
+        .classList.toggle("open");
+
+};
+
+
+/* =========================
+   GOOGLE
 ========================= */
 
 window.loginGoogle = async function() {
 
     if (!firebaseReady) {
-        alert("Firebase ещё загружается. Попробуй ещё раз.");
+
+        alert(
+            "Firebase ещё загружается. Попробуй ещё раз."
+        );
+
         return;
     }
+
 
     try {
 
         const provider =
-            new window.firebaseFunctions.GoogleAuthProvider();
+            new window.firebaseFunctions
+                .GoogleAuthProvider();
 
-        await window.firebaseFunctions.signInWithPopup(
-            auth,
-            provider
-        );
+
+        await window.firebaseFunctions
+            .signInWithPopup(
+                auth,
+                provider
+            );
+
 
     } catch (error) {
 
@@ -475,7 +902,10 @@ window.loginGoogle = async function() {
 
         alert(
             "Ошибка входа: " +
-            (error.message || "неизвестная ошибка")
+            (
+                error.message ||
+                "неизвестная ошибка"
+            )
         );
 
     }
@@ -492,17 +922,29 @@ window.newChat = function() {
     currentChatId = null;
     chatHistory = [];
 
+    removePhoto();
+
     messages.innerHTML = `
+
         <div class="message ai">
+
             Привет! 👋 Я Locer — твой дружелюбный AI-помощник.
-            Чем я могу помочь тебе сегодня? 😊
+
+            <br><br>
+
+            Можешь написать вопрос или
+            📷 отправить фотографию.
+
         </div>
+
     `;
 
-    input.value = "";
-    input.style.height = "auto";
+    clearInput();
 
-    status.textContent = "Google Gemini AI";
+    status.textContent =
+        "Google Gemini AI";
+
+    closeSidebar();
 
 };
 
@@ -511,104 +953,308 @@ window.newChat = function() {
    INPUT
 ========================= */
 
-input.addEventListener("input", () => {
+input.addEventListener(
+    "input",
+    () => {
 
-    input.style.height = "auto";
-    input.style.height =
-        Math.min(input.scrollHeight, 160) + "px";
+        input.style.height =
+            "auto";
 
-});
-
-
-input.addEventListener("keydown", event => {
-
-    if (event.key === "Enter" && !event.shiftKey) {
-
-        event.preventDefault();
-        send();
+        input.style.height =
+            Math.min(
+                input.scrollHeight,
+                150
+            ) + "px";
 
     }
+);
 
-});
+
+input.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            send();
+
+        }
+
+    }
+);
 
 
 /* =========================
-   ОЧИСТКА INPUT
+   IMAGE
+========================= */
+
+window.handleImage = function(event) {
+
+    const file =
+        event.target.files?.[0];
+
+    if (!file) return;
+
+
+    if (!file.type.startsWith("image/")) {
+
+        alert(
+            "Пожалуйста, выбери изображение."
+        );
+
+        fileInput.value = "";
+
+        return;
+    }
+
+
+    /*
+       Показываем превью
+    */
+
+    if (selectedImageUrl) {
+
+        URL.revokeObjectURL(
+            selectedImageUrl
+        );
+
+    }
+
+
+    selectedImageUrl =
+        URL.createObjectURL(file);
+
+
+    photoPreview.src =
+        selectedImageUrl;
+
+    photoName.textContent =
+        file.name;
+
+    photoSelected.style.display =
+        "flex";
+
+
+    /*
+       Превращаем изображение
+       в Base64 для Worker
+    */
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = () => {
+
+        const result =
+            reader.result;
+
+        if (
+            typeof result !== "string"
+        ) {
+            return;
+        }
+
+
+        /*
+           result имеет вид:
+
+           data:image/jpeg;base64,AAAA...
+        */
+
+        const comma =
+            result.indexOf(",");
+
+
+        if (comma === -1) {
+            return;
+        }
+
+
+        selectedImageBase64 =
+            result.slice(
+                comma + 1
+            );
+
+
+        selectedImageMime =
+            file.type;
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+};
+
+
+window.removePhoto = function() {
+
+    selectedImageBase64 = null;
+    selectedImageMime = null;
+
+    if (selectedImageUrl) {
+
+        URL.revokeObjectURL(
+            selectedImageUrl
+        );
+
+        selectedImageUrl = null;
+
+    }
+
+
+    photoPreview.src = "";
+
+    photoName.textContent =
+        "";
+
+    photoSelected.style.display =
+        "none";
+
+    fileInput.value = "";
+
+};
+
+
+/* =========================
+   CLEAR INPUT
 ========================= */
 
 function clearInput() {
 
     input.value = "";
-    input.style.height = "auto";
+
+    input.style.height =
+        "auto";
 
 }
 
 
 /* =========================
-   ПОКАЗАТЬ THINKING
+   THINKING
 ========================= */
 
 function showThinking() {
 
     removeThinking();
 
-    const div = document.createElement("div");
 
-    div.className = "message ai";
-    div.id = "thinkingMessage";
+    const div =
+        document.createElement("div");
+
+
+    div.className =
+        "message ai";
+
+    div.id =
+        "thinkingMessage";
+
 
     div.innerHTML = `
+
         <div class="thinking">
-            <span class="thinking-icon">🤔</span>
-            <span>Locer думает</span>
+
+            <span class="thinking-icon">
+                🤔
+            </span>
+
+            <span>
+                Locer думает
+            </span>
+
             <span class="dots">
                 <span>.</span>
                 <span>.</span>
                 <span>.</span>
             </span>
+
         </div>
+
     `;
+
 
     messages.appendChild(div);
 
-    messages.scrollTop = messages.scrollHeight;
+    messages.scrollTop =
+        messages.scrollHeight;
 
 }
 
 
-/* =========================
-   УБРАТЬ THINKING
-========================= */
-
 function removeThinking() {
 
-    const old =
-        document.getElementById("thinkingMessage");
+    const element =
+        document.getElementById(
+            "thinkingMessage"
+        );
 
-    if (old) {
-        old.remove();
+    if (element) {
+        element.remove();
     }
 
 }
 
 
 /* =========================
-   ДОБАВИТЬ СООБЩЕНИЕ
+   ADD MESSAGE
 ========================= */
 
-function addMessage(text, type) {
+function addMessage(
+    text,
+    type,
+    imageUrl = null
+) {
 
-    const div = document.createElement("div");
+    const div =
+        document.createElement("div");
+
 
     div.className =
         "message " + type;
 
-    div.textContent = text;
+
+    if (imageUrl) {
+
+        const img =
+            document.createElement("img");
+
+        img.src =
+            imageUrl;
+
+        img.className =
+            "uploaded-image";
+
+        div.appendChild(img);
+
+    }
+
+
+    if (text) {
+
+        const textElement =
+            document.createElement("div");
+
+        textElement.textContent =
+            text;
+
+        div.appendChild(
+            textElement
+        );
+
+    }
+
 
     messages.appendChild(div);
 
     messages.scrollTop =
         messages.scrollHeight;
+
 
     return div;
 
@@ -616,65 +1262,161 @@ function addMessage(text, type) {
 
 
 /* =========================
-   ОТПРАВКА
+   SEND
 ========================= */
 
 window.send = async function() {
 
-    const text = input.value.trim();
+    const text =
+        input.value.trim();
 
-    if (!text) return;
 
-    if (sendBtn.disabled) return;
+    const hasImage =
+        !!selectedImageBase64;
 
-    addMessage(text, "user");
+
+    if (!text && !hasImage) {
+        return;
+    }
+
+
+    if (sendBtn.disabled) {
+        return;
+    }
+
+
+    /*
+       Запоминаем фото до очистки
+    */
+
+    const imageBase64 =
+        selectedImageBase64;
+
+    const imageMime =
+        selectedImageMime;
+
+    const imageUrl =
+        selectedImageUrl;
+
+
+    /*
+       Показываем сообщение пользователя
+    */
+
+    addMessage(
+        text ||
+        "Посмотри, пожалуйста, это фото 📷",
+        "user",
+        imageUrl
+    );
+
+
+    /*
+       В историю сохраняем
+       информацию без огромного Base64
+    */
 
     chatHistory.push({
+
         role: "user",
-        content: text
+
+        content:
+            text ||
+            "📷 Пользователь отправил изображение.",
+
+        hasImage:
+            hasImage
+
     });
+
 
     sendBtn.disabled = true;
 
-    /*
-       Очищаем поле сразу после отправки
-    */
-    clearInput();
 
     /*
-       Показываем "Locer думает..."
+       Очищаем поле
     */
+
+    clearInput();
+
+
+    /*
+       Убираем выбранное фото
+       после отправки
+    */
+
+    removePhoto();
+
+
+    /*
+       Показываем "думает"
+    */
+
     showThinking();
 
     status.textContent =
         "🤔 Locer думает...";
 
+
     try {
 
-        const response = await fetch(
-            WORKER_URL,
-            {
-                method: "POST",
+        const response =
+            await fetch(
+                WORKER_URL,
+                {
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                    method: "POST",
 
-                body: JSON.stringify({
-                    message: text
-                })
-            }
-        );
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            message:
+                                text,
+
+                            image:
+                                imageBase64
+                                    ? {
+
+                                        base64:
+                                            imageBase64,
+
+                                        mimeType:
+                                            imageMime
+
+                                    }
+                                    : null
+
+                        })
+
+                }
+            );
+
 
         let data = {};
 
         try {
-            data = await response.json();
+
+            data =
+                await response.json();
+
         } catch {
+
             data = {};
+
         }
 
+
         removeThinking();
+
+
+        /*
+           503
+        */
 
         if (!response.ok) {
 
@@ -683,10 +1425,6 @@ window.send = async function() {
                 data
             );
 
-            /*
-               503 превращаем в нормальное
-               сообщение для пользователя
-            */
 
             if (
                 response.status === 503 ||
@@ -694,77 +1432,120 @@ window.send = async function() {
             ) {
 
                 addMessage(
+
                     "😔 Gemini сейчас перегружен.\n\n" +
                     "Locer попробовал отправить запрос несколько раз, " +
                     "но Gemini временно не смог ответить.\n\n" +
-                    "Попробуй отправить сообщение ещё раз через несколько секунд.",
+                    "Попробуй ещё раз через несколько секунд.",
+
                     "ai"
+
                 );
+
 
                 status.textContent =
                     "Gemini временно перегружен";
 
+
             } else {
 
                 addMessage(
+
                     "❌ Не удалось получить ответ от Locer.\n\n" +
                     (
                         data.error ||
                         "Попробуй ещё раз."
                     ),
+
                     "ai"
+
                 );
+
 
                 status.textContent =
                     "Ошибка Gemini";
 
             }
 
+
             return;
+
         }
+
+
+        /*
+           Нет ответа
+        */
 
         if (!data.answer) {
 
             addMessage(
-                "❌ Gemini не вернул текстовый ответ. Попробуй ещё раз.",
+
+                "❌ Gemini не вернул текстовый ответ. " +
+                "Попробуй ещё раз.",
+
                 "ai"
+
             );
 
             status.textContent =
                 "Gemini не вернул ответ";
 
             return;
+
         }
+
+
+        /*
+           Ответ AI
+        */
 
         addMessage(
             data.answer,
             "ai"
         );
 
+
         chatHistory.push({
+
             role: "assistant",
-            content: data.answer
+
+            content:
+                data.answer
+
         });
+
 
         status.textContent =
             "Google Gemini AI";
 
+
         await saveChat();
+
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         removeThinking();
 
+
         addMessage(
+
             "❌ Ошибка подключения к Locer.\n\n" +
             "Проверь интернет-соединение и попробуй ещё раз.",
+
             "ai"
+
         );
+
 
         status.textContent =
             "Ошибка подключения";
+
 
     } finally {
 
@@ -778,18 +1559,19 @@ window.send = async function() {
 
 
 /* =========================
-   FIRESTORE
+   SAVE CHAT
 ========================= */
 
 async function saveChat() {
 
-    if (!firebaseReady || !currentUser) {
+    if (
+        !firebaseReady ||
+        !currentUser ||
+        !chatHistory.length
+    ) {
         return;
     }
 
-    if (!chatHistory.length) {
-        return;
-    }
 
     try {
 
@@ -799,63 +1581,103 @@ async function saveChat() {
             addDoc,
             setDoc,
             serverTimestamp
-        } = window.firebaseFunctions;
+        } =
+            window.firebaseFunctions;
 
-        const userChats = collection(
-            db,
-            "users",
-            currentUser.uid,
-            "chats"
-        );
+
+        const userChats =
+            collection(
+                db,
+                "users",
+                currentUser.uid,
+                "chats"
+            );
+
 
         const firstUserMessage =
             chatHistory.find(
-                x => x.role === "user"
+                x =>
+                    x.role === "user"
             );
 
+
         const title =
-            firstUserMessage?.content
+            firstUserMessage
+                ?.content
                 ?.slice(0, 40) ||
             "Новый чат";
 
+
         if (!currentChatId) {
 
-            const chatRef = await addDoc(
-                userChats,
-                {
-                    title,
-                    messages: chatHistory,
-                    createdAt: serverTimestamp(),
-                    updatedAt: serverTimestamp()
-                }
-            );
+            const ref =
+                await addDoc(
+
+                    userChats,
+
+                    {
+
+                        title,
+
+                        messages:
+                            chatHistory,
+
+                        createdAt:
+                            serverTimestamp(),
+
+                        updatedAt:
+                            serverTimestamp()
+
+                    }
+
+                );
+
 
             currentChatId =
-                chatRef.id;
+                ref.id;
+
 
         } else {
 
             await setDoc(
+
                 doc(
+
                     db,
+
                     "users",
+
                     currentUser.uid,
+
                     "chats",
+
                     currentChatId
+
                 ),
+
                 {
+
                     title,
-                    messages: chatHistory,
-                    updatedAt: serverTimestamp()
+
+                    messages:
+                        chatHistory,
+
+                    updatedAt:
+                        serverTimestamp()
+
                 },
+
                 {
                     merge: true
                 }
+
             );
 
         }
 
+
         await loadChats();
+
 
     } catch (error) {
 
@@ -870,17 +1692,24 @@ async function saveChat() {
 
 
 /* =========================
-   ЗАГРУЗКА ЧАТОВ
+   LOAD CHATS
 ========================= */
 
 async function loadChats() {
 
-    if (!firebaseReady || !currentUser) {
+    if (
+        !firebaseReady ||
+        !currentUser
+    ) {
         return;
     }
 
+
     const chatsBox =
-        document.getElementById("chats");
+        document.getElementById(
+            "chats"
+        );
+
 
     try {
 
@@ -889,29 +1718,44 @@ async function loadChats() {
             getDocs,
             query,
             orderBy
-        } = window.firebaseFunctions;
+        } =
+            window.firebaseFunctions;
+
 
         const ref =
             collection(
+
                 db,
+
                 "users",
+
                 currentUser.uid,
+
                 "chats"
+
             );
+
 
         let snapshot;
 
+
         try {
 
-            snapshot = await getDocs(
-                query(
-                    ref,
-                    orderBy(
-                        "createdAt",
-                        "desc"
+            snapshot =
+                await getDocs(
+
+                    query(
+
+                        ref,
+
+                        orderBy(
+                            "createdAt",
+                            "desc"
+                        )
+
                     )
-                )
-            );
+
+                );
 
         } catch {
 
@@ -920,31 +1764,48 @@ async function loadChats() {
 
         }
 
+
         chatsBox.innerHTML = "";
 
-        snapshot.forEach(item => {
 
-            const data = item.data();
+        snapshot.forEach(
+            item => {
 
-            const div =
-                document.createElement("div");
+                const data =
+                    item.data();
 
-            div.className =
-                "chat-item";
 
-            div.textContent =
-                "💬 " +
-                (
-                    data.title ||
-                    "Новый чат"
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                div.className =
+                    "chat-item";
+
+
+                div.textContent =
+                    "💬 " +
+                    (
+                        data.title ||
+                        "Новый чат"
+                    );
+
+
+                div.onclick = () =>
+                    openChat(
+                        item.id
+                    );
+
+
+                chatsBox.appendChild(
+                    div
                 );
 
-            div.onclick = () =>
-                openChat(item.id);
+            }
+        );
 
-            chatsBox.appendChild(div);
-
-        });
 
     } catch (error) {
 
@@ -959,72 +1820,110 @@ async function loadChats() {
 
 
 /* =========================
-   ОТКРЫТЬ ЧАТ
+   OPEN CHAT
 ========================= */
 
 async function openChat(id) {
 
-    if (!firebaseReady || !currentUser) {
+    if (
+        !firebaseReady ||
+        !currentUser
+    ) {
         return;
     }
+
 
     try {
 
         const {
             doc,
             getDoc
-        } = window.firebaseFunctions;
+        } =
+            window.firebaseFunctions;
 
-        const ref = doc(
-            db,
-            "users",
-            currentUser.uid,
-            "chats",
-            id
-        );
+
+        const ref =
+            doc(
+
+                db,
+
+                "users",
+
+                currentUser.uid,
+
+                "chats",
+
+                id
+
+            );
+
 
         const snapshot =
             await getDoc(ref);
+
 
         if (!snapshot.exists()) {
             return;
         }
 
+
         const data =
             snapshot.data();
 
-        currentChatId = id;
+
+        currentChatId =
+            id;
+
 
         chatHistory =
-            Array.isArray(data.messages)
+            Array.isArray(
+                data.messages
+            )
                 ? data.messages
                 : [];
 
+
         messages.innerHTML = "";
 
-        for (const message of chatHistory) {
+
+        for (
+            const message
+            of chatHistory
+        ) {
 
             if (
-                message.role === "user"
+                message.role ===
+                "user"
             ) {
 
                 addMessage(
+
                     message.content,
+
                     "user"
+
                 );
 
             } else if (
-                message.role === "assistant"
+                message.role ===
+                "assistant"
             ) {
 
                 addMessage(
+
                     message.content,
+
                     "ai"
+
                 );
 
             }
 
         }
+
+
+        closeSidebar();
+
 
     } catch (error) {
 
@@ -1036,6 +1935,92 @@ async function openChat(id) {
     }
 
 }
+
+
+/* =========================
+   DELETE CURRENT CHAT
+========================= */
+
+window.deleteCurrentChat =
+    async function() {
+
+        if (
+            !currentChatId ||
+            !currentUser ||
+            !firebaseReady
+        ) {
+
+            alert(
+                "Сначала открой сохранённый чат."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !confirm(
+                "Удалить этот чат?"
+            )
+        ) {
+            return;
+        }
+
+
+        try {
+
+            const {
+                doc,
+                deleteDoc
+            } =
+                window.firebaseFunctions;
+
+
+            await deleteDoc(
+
+                doc(
+
+                    db,
+
+                    "users",
+
+                    currentUser.uid,
+
+                    "chats",
+
+                    currentChatId
+
+                )
+
+            );
+
+
+            currentChatId =
+                null;
+
+            chatHistory = [];
+
+
+            newChat();
+
+
+            await loadChats();
+
+
+        } catch (error) {
+
+            console.error(
+                error
+            );
+
+            alert(
+                "Не удалось удалить чат."
+            );
+
+        }
+
+    };
 
 </script>
 
