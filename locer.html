@@ -1,1569 +1,1471 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locer — AI</title>
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<title>Locer AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
-
   margin: 0;
-
-  min-height: 100vh;
-
-  background:
-    radial-gradient(
-      circle at top,
-      #1b2440,
-      #090b12 45%,
-      #05060a
-    );
-
-  color: white;
-
-  font-family:
-    Arial,
-    sans-serif;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Inter, Arial, sans-serif;
+  background: #0b0d13;
+  color: #fff;
 }
 
-
-.container {
-
-  width:
-    min(1000px, calc(100% - 30px));
-
-  margin:
-    auto;
-
-  padding:
-    30px 0 60px;
+body {
+  overflow: hidden;
 }
 
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header {
-
-  text-align:
-    center;
-
-  margin-bottom:
-    25px;
+button,
+textarea,
+input {
+  font-family: inherit;
 }
-
-
-/* Профессиональный переливающийся фон */
-
-.logo-box {
-
-  position:
-    relative;
-
-  display:
-    inline-flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  min-width:
-    280px;
-
-  padding:
-    16px 34px;
-
-  border-radius:
-    20px;
-
-  overflow:
-    hidden;
-
-  background:
-    linear-gradient(
-      120deg,
-      #111827,
-      #1e1b4b,
-      #312e81,
-      #172554,
-      #111827
-    );
-
-  background-size:
-    300% 300%;
-
-  animation:
-    locerGradient
-    8s ease
-    infinite;
-
-  border:
-    1px solid
-    rgba(255,255,255,.12);
-
-  box-shadow:
-    0 0 35px
-    rgba(79,70,229,.22);
-}
-
-
-/* Мягкое движущееся свечение */
-
-.logo-box::before {
-
-  content:
-    "";
-
-  position:
-    absolute;
-
-  width:
-    180px;
-
-  height:
-    180px;
-
-  left:
-    -80px;
-
-  top:
-    -100px;
-
-  border-radius:
-    50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(129,140,248,.35),
-      transparent 70%
-    );
-
-  filter:
-    blur(10px);
-
-  animation:
-    locerGlow
-    6s ease-in-out
-    infinite alternate;
-
-  pointer-events:
-    none;
-}
-
-
-.logo-box::after {
-
-  content:
-    "";
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  background:
-    linear-gradient(
-      110deg,
-      transparent 30%,
-      rgba(255,255,255,.10) 50%,
-      transparent 70%
-    );
-
-  transform:
-    translateX(-120%);
-
-  animation:
-    locerShine
-    5s ease-in-out
-    infinite;
-
-  pointer-events:
-    none;
-}
-
-
-.logo {
-
-  position:
-    relative;
-
-  z-index:
-    2;
-
-  font-size:
-    42px;
-
-  font-weight:
-    800;
-
-  letter-spacing:
-    -.5px;
-
-  text-shadow:
-    0 0 20px
-    rgba(255,255,255,.18);
-}
-
-
-@keyframes locerGradient {
-
-  0% {
-    background-position:
-      0% 50%;
-  }
-
-  50% {
-    background-position:
-      100% 50%;
-  }
-
-  100% {
-    background-position:
-      0% 50%;
-  }
-
-}
-
-
-@keyframes locerGlow {
-
-  0% {
-
-    transform:
-      translate(
-        0,
-        0
-      )
-      scale(1);
-
-  }
-
-  100% {
-
-    transform:
-      translate(
-        190px,
-        110px
-      )
-      scale(1.35);
-
-  }
-
-}
-
-
-@keyframes locerShine {
-
-  0% {
-
-    transform:
-      translateX(-120%);
-
-  }
-
-  35%,
-  100% {
-
-    transform:
-      translateX(120%);
-
-  }
-
-}
-
-
-.subtitle {
-
-  color:
-    #9ca3af;
-
-  margin-top:
-    10px;
-}
-
-
-/* =========================================================
-   TABS
-========================================================= */
-
-.tabs {
-
-  display:
-    flex;
-
-  gap:
-    8px;
-
-  background:
-    rgba(15,23,42,.85);
-
-  padding:
-    8px;
-
-  border-radius:
-    16px;
-
-  margin-bottom:
-    20px;
-}
-
-
-.tab {
-
-  flex:
-    1;
-
-  background:
-    transparent;
-
-  color:
-    #9ca3af;
-
-  border:
-    0;
-
-  padding:
-    14px;
-
-  border-radius:
-    11px;
-
-  font-weight:
-    700;
-
-  cursor:
-    pointer;
-
-  margin-top:
-    0;
-}
-
-
-.tab:hover {
-
-  background:
-    rgba(255,255,255,.05);
-}
-
-
-.tab.active {
-
-  background:
-    #4f46e5;
-
-  color:
-    white;
-}
-
-
-.page {
-
-  display:
-    none;
-}
-
-
-.page.active {
-
-  display:
-    block;
-}
-
-
-/* =========================================================
-   CARDS
-========================================================= */
-
-.card {
-
-  background:
-    rgba(15,23,42,.88);
-
-  border:
-    1px solid
-    rgba(255,255,255,.08);
-
-  border-radius:
-    20px;
-
-  padding:
-    24px;
-
-  margin-bottom:
-    20px;
-}
-
-
-h2 {
-
-  margin-top:
-    0;
-}
-
-
-/* =========================================================
-   TEXTAREA
-========================================================= */
-
-textarea {
-
-  width:
-    100%;
-
-  min-height:
-    120px;
-
-  resize:
-    vertical;
-
-  border:
-    0;
-
-  outline:
-    none;
-
-  border-radius:
-    14px;
-
-  background:
-    #080b13;
-
-  color:
-    white;
-
-  padding:
-    16px;
-
-  font-size:
-    16px;
-
-  font-family:
-    inherit;
-}
-
-
-textarea::placeholder {
-
-  color:
-    #6b7280;
-}
-
-
-/* =========================================================
-   BUTTON
-========================================================= */
 
 button {
+  cursor: pointer;
+}
 
-  border:
-    0;
+.app {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
 
-  border-radius:
-    12px;
+/* =========================
+   SIDEBAR
+========================= */
 
-  padding:
-    13px 18px;
+.sidebar {
+  width: 245px;
+  min-width: 245px;
+  background: rgba(16, 18, 27, 0.96);
+  border-right: 1px solid rgba(255,255,255,.08);
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
-  color:
-    white;
+.logo-box {
+  position: relative;
+  padding: 12px 8px 18px;
+  overflow: hidden;
+  border-radius: 18px;
+}
 
+.logo {
+  position: relative;
+  z-index: 2;
+  font-size: 31px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  background: linear-gradient(
+    90deg,
+    #fff,
+    #8bb8ff,
+    #c58cff,
+    #fff
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: locerGradient 5s ease infinite;
+  text-shadow: 0 0 28px rgba(120,150,255,.2);
+}
+
+.logo::after {
+  content: "";
+  position: absolute;
+  left: -20%;
+  top: 0;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.45),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: locerShine 3.8s ease-in-out infinite;
+}
+
+.logo-subtitle {
+  position: relative;
+  z-index: 2;
+  margin-top: 3px;
+  font-size: 12px;
+  color: #777f95;
+}
+
+@keyframes locerGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes locerShine {
+  0%, 55% { left: -40%; }
+  75%, 100% { left: 130%; }
+}
+
+.new-chat {
+  width: 100%;
+  border: 0;
+  border-radius: 13px;
+  padding: 12px;
+  background: #202532;
+  color: #fff;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.new-chat:hover {
+  background: #2b3242;
+  transform: translateY(-1px);
+}
+
+.login-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 13px;
+  padding: 11px;
+  background: linear-gradient(135deg,#4d73ff,#7854e8);
+  color: white;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.login-btn:hover {
+  filter: brightness(1.1);
+}
+
+.user-box {
+  display: none;
+  padding: 10px;
+  border-radius: 13px;
+  background: #171b25;
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.logout-btn {
+  margin-top: 8px;
+  width: 100%;
+  border: 0;
+  border-radius: 9px;
+  padding: 8px;
+  background: #292e3b;
+  color: #ddd;
+}
+
+.saved-title {
+  margin-top: 10px;
+  color: #777f95;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.saved-chats {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.chat-open {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: #151923;
+  color: #dce1ec;
+  border-radius: 9px;
+  padding: 9px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-delete {
+  border: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #241820;
+  color: #ff8b9a;
+}
+
+.no-chats {
+  color: #5f6677;
+  font-size: 12px;
+  padding: 10px 3px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   background:
-    #4f46e5;
-
-  font-size:
-    15px;
-
-  font-weight:
-    700;
-
-  cursor:
-    pointer;
-
-  margin-top:
-    12px;
+    radial-gradient(circle at 80% 10%, rgba(86,102,255,.12), transparent 28%),
+    radial-gradient(circle at 20% 80%, rgba(153,76,255,.08), transparent 30%),
+    #0b0d13;
 }
 
-
-button:hover {
-
-  background:
-    #6366f1;
+.header {
+  padding: 18px 24px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
 }
 
-
-button:disabled {
-
-  opacity:
-    .45;
-
-  cursor:
-    not-allowed;
+.header-title {
+  font-size: 22px;
+  font-weight: 700;
 }
 
+.header-subtitle {
+  color: #747b8e;
+  font-size: 12px;
+  margin-top: 3px;
+}
 
-/* =========================================================
+/* =========================
+   TABS
+========================= */
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  padding: 12px 24px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.tab {
+  border: 1px solid rgba(255,255,255,.07);
+  background: #141821;
+  color: #9ca4b6;
+  padding: 9px 14px;
+  border-radius: 11px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tab.active {
+  background: linear-gradient(135deg,#283a78,#503687);
+  color: white;
+  border-color: rgba(140,150,255,.25);
+}
+
+/* =========================
+   PAGES
+========================= */
+
+.page {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.page.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
    CHAT
-========================================================= */
+========================= */
 
 .chat {
-
-  min-height:
-    350px;
-
-  max-height:
-    600px;
-
-  overflow-y:
-    auto;
-
-  margin-bottom:
-    15px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 24px;
 }
-
 
 .message {
-
-  padding:
-    13px 15px;
-
-  border-radius:
-    14px;
-
-  margin:
-    10px 0;
-
-  line-height:
-    1.5;
-
-  white-space:
-    pre-wrap;
-
-  word-break:
-    break-word;
+  max-width: 850px;
+  margin: 0 auto 15px;
+  display: flex;
 }
-
 
 .message.user {
-
-  background:
-    #312e81;
-
-  margin-left:
-    15%;
+  justify-content: flex-end;
 }
 
-
-.message.ai {
-
-  background:
-    #111827;
-
-  margin-right:
-    15%;
+.message-content {
+  max-width: 80%;
+  padding: 12px 15px;
+  border-radius: 15px;
+  line-height: 1.55;
+  font-size: 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-
-.chat-status {
-
-  color:
-    #9ca3af;
-
-  margin-top:
-    10px;
+.message.assistant .message-content {
+  background: #151923;
+  border: 1px solid rgba(255,255,255,.06);
 }
 
-
-/* =========================================================
-   IMAGE
-========================================================= */
-
-.upload {
-
-  border:
-    2px dashed
-    #374151;
-
-  border-radius:
-    15px;
-
-  padding:
-    25px;
-
-  text-align:
-    center;
-
-  cursor:
-    pointer;
-
-  color:
-    #9ca3af;
-
-  display:
-    block;
-
-  margin-bottom:
-    15px;
+.message.user .message-content {
+  background: linear-gradient(135deg,#3c54a0,#60409a);
 }
 
-
-input[type=file] {
-
-  display:
-    none;
+.message-image {
+  max-width: 360px;
+  border-radius: 13px;
+  margin-top: 8px;
+  display: block;
 }
 
+/* =========================
+   INPUT
+========================= */
 
-.preview,
-.result img {
-
-  width:
-    100%;
-
-  max-height:
-    550px;
-
-  object-fit:
-    contain;
-
-  border-radius:
-    15px;
-
-  display:
-    block;
-
-  margin-top:
-    15px;
-
-  background:
-    #05070c;
+.input-area {
+  padding: 12px 24px 20px;
 }
 
-
-.preview {
-
-  display:
-    none;
+.input-box {
+  max-width: 850px;
+  margin: auto;
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  background: #151923;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 17px;
+  padding: 9px;
 }
 
-
-.result {
-
-  display:
-    none;
+.text-input {
+  flex: 1;
+  min-height: 46px;
+  max-height: 180px;
+  resize: vertical;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  padding: 10px;
+  font-size: 14px;
 }
 
-
-.download {
-
-  display:
-    inline-block;
-
-  margin-top:
-    15px;
-
-  padding:
-    12px 17px;
-
-  background:
-    #16a34a;
-
-  color:
-    white;
-
-  text-decoration:
-    none;
-
-  border-radius:
-    11px;
-
-  font-weight:
-    700;
+.text-input::placeholder {
+  color: #62697a;
 }
 
-
-/* =========================================================
-   LIMITS
-========================================================= */
-
-.limit {
-
-  padding:
-    15px;
-
-  border-radius:
-    14px;
-
-  background:
-    rgba(255,255,255,.04);
-
-  margin-bottom:
-    15px;
-
-  color:
-    #d1d5db;
+.icon-btn {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 12px;
+  background: #242a38;
+  color: #fff;
+  font-size: 18px;
 }
 
-
-.limit-grid {
-
-  display:
-    grid;
-
-  grid-template-columns:
-    repeat(2, 1fr);
-
-  gap:
-    10px;
-
-  margin-bottom:
-    15px;
+.send-btn {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg,#536eff,#8958eb);
+  color: white;
+  font-size: 18px;
 }
 
-
-.limit-box {
-
-  background:
-    rgba(255,255,255,.04);
-
-  border:
-    1px solid
-    rgba(255,255,255,.06);
-
-  border-radius:
-    14px;
-
-  padding:
-    14px;
+.send-btn:disabled,
+.icon-btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
 }
 
-
-.limit-title {
-
-  color:
-    #9ca3af;
-
-  font-size:
-    13px;
-
-  margin-bottom:
-    6px;
+.photo-preview {
+  max-width: 180px;
+  max-height: 130px;
+  border-radius: 10px;
+  margin: 8px auto 0;
+  display: none;
 }
-
-
-.limit-value {
-
-  font-size:
-    22px;
-
-  font-weight:
-    800;
-}
-
-
-/* =========================================================
-   VIDEO
-========================================================= */
-
-.video-placeholder {
-
-  text-align:
-    center;
-
-  padding:
-    70px 20px;
-
-  color:
-    #9ca3af;
-}
-
-
-.video-icon {
-
-  font-size:
-    70px;
-
-  margin-bottom:
-    15px;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
 
 .status {
-
-  background:
-    #080b13;
-
-  color:
-    #9ca3af;
-
-  padding:
-    15px;
-
-  border-radius:
-    12px;
-
-  white-space:
-    pre-wrap;
-
-  word-break:
-    break-word;
-
-  margin-top:
-    15px;
+  max-width: 850px;
+  margin: 6px auto 0;
+  min-height: 18px;
+  font-size: 12px;
+  color: #7e8799;
 }
 
+/* =========================
+   LIMITS
+========================= */
 
-/* =========================================================
+.limits-panel {
+  margin: 0 24px 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.limit-card {
+  flex: 1;
+  min-width: 170px;
+  background: rgba(20,24,33,.9);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 13px;
+  padding: 10px 13px;
+}
+
+.limit-name {
+  color: #7e8799;
+  font-size: 11px;
+}
+
+.limit-value {
+  margin-top: 3px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.reset-box {
+  margin: 0 24px 15px;
+  padding: 10px 13px;
+  border-radius: 12px;
+  background: rgba(25,29,40,.9);
+  border: 1px solid rgba(255,255,255,.06);
+  color: #9ba3b5;
+  font-size: 12px;
+}
+
+.reset-box b {
+  color: #fff;
+}
+
+/* =========================
+   IMAGE PAGE
+========================= */
+
+.image-page-inner,
+.video-page-inner {
+  width: min(900px, calc(100% - 48px));
+  margin: auto;
+  padding: 25px 0;
+}
+
+.card {
+  background: rgba(20,24,33,.92);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 17px;
+  padding: 18px;
+  margin-bottom: 15px;
+}
+
+.card h2 {
+  margin: 0 0 7px;
+  font-size: 18px;
+}
+
+.card p {
+  color: #7f8799;
+  font-size: 12px;
+  margin-top: 0;
+}
+
+.field {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.08);
+  outline: 0;
+  border-radius: 12px;
+  background: #10131b;
+  color: #fff;
+  padding: 12px;
+  margin-top: 8px;
+}
+
+textarea.field {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.primary-btn {
+  margin-top: 10px;
+  border: 0;
+  border-radius: 11px;
+  padding: 11px 15px;
+  background: linear-gradient(135deg,#536eff,#8958eb);
+  color: #fff;
+  font-weight: 600;
+}
+
+.secondary-btn {
+  margin-top: 10px;
+  border: 0;
+  border-radius: 11px;
+  padding: 11px 15px;
+  background: #252b39;
+  color: #fff;
+  font-weight: 600;
+}
+
+.image-result {
+  width: 100%;
+  max-width: 700px;
+  display: block;
+  margin: 18px auto 0;
+  border-radius: 15px;
+  background: #090b10;
+}
+
+.image-file {
+  width: 100%;
+  padding: 9px;
+  border-radius: 11px;
+  background: #10131b;
+  color: #aaa;
+  margin-top: 8px;
+}
+
+/* =========================
+   VIDEO
+========================= */
+
+.video-placeholder {
+  text-align: center;
+  padding: 60px 20px;
+  color: #7f8799;
+}
+
+.video-placeholder .big {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+.video-placeholder h2 {
+  color: #fff;
+}
+
+/* =========================
+   DEVELOPER
+========================= */
+
+.developer {
+  margin: 0 24px 14px;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.developer-header {
+  padding: 9px 12px;
+  background: #151923;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.developer-body {
+  display: none;
+  padding: 10px;
+  background: #0e1118;
+  font-size: 11px;
+  color: #8e96a8;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.dev-toggle {
+  float: right;
+  border: 0;
+  background: transparent;
+  color: #8e96a8;
+}
+
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
-@media(max-width:600px) {
-
-  .tabs {
-
-    flex-direction:
-      column;
+@media (max-width: 800px) {
+  .sidebar {
+    width: 205px;
+    min-width: 205px;
   }
 
-
-  .message.user {
-
-    margin-left:
-      5%;
+  .message-content {
+    max-width: 90%;
   }
 
-
-  .message.ai {
-
-    margin-right:
-      5%;
+  .limits-panel {
+    margin-left: 12px;
+    margin-right: 12px;
   }
 
-
-  .logo-box {
-
-    min-width:
-      0;
-
-    width:
-      100%;
+  .reset-box {
+    margin-left: 12px;
+    margin-right: 12px;
   }
 
+  .input-area {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 650px) {
+  body {
+    overflow: auto;
+  }
+
+  .app {
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .sidebar {
+    width: 175px;
+    min-width: 175px;
+  }
 
   .logo {
-
-    font-size:
-      34px;
+    font-size: 25px;
   }
 
-
-  .limit-grid {
-
-    grid-template-columns:
-      1fr;
+  .tabs {
+    padding-left: 12px;
+    padding-right: 12px;
+    overflow-x: auto;
   }
 
+  .tab {
+    white-space: nowrap;
+  }
+
+  .header {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .chat {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .developer {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
 }
-
 </style>
-
 </head>
-
 
 <body>
 
+<div class="app">
 
-<div class="container">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
 
-
-<!-- =====================================================
-     HEADER
-====================================================== -->
-
-<div class="header">
-
-  <div class="logo-box">
-
-    <div class="logo">
-      Locer AI
+    <div class="logo-box">
+      <div class="logo">Locer AI</div>
+      <div class="logo-subtitle">Твой AI-помощник</div>
     </div>
 
-  </div>
+    <button class="new-chat" id="newChatBtn">
+      ＋ Новый чат
+    </button>
 
-  <div class="subtitle">
-    Текст • Изображения • Видео
-  </div>
+    <button class="login-btn" id="loginBtn">
+      🔐 Войти через Google
+    </button>
 
-</div>
+    <div class="user-box" id="userBox">
+      <div class="user-name" id="userName"></div>
+      <button class="logout-btn" id="logoutBtn">
+        Выйти
+      </button>
+    </div>
 
+    <div class="saved-title">
+      💾 Сохранённые чаты
+    </div>
 
-<!-- =====================================================
-     TABS
-====================================================== -->
-
-<div class="tabs">
-
-  <button
-    class="tab active"
-    onclick="openTab('text', this)"
-  >
-    💬 Текст
-  </button>
-
-  <button
-    class="tab"
-    onclick="openTab('images', this)"
-  >
-    🎨 Изображения
-  </button>
-
-  <button
-    class="tab"
-    onclick="openTab('video', this)"
-  >
-    🎬 Видео
-  </button>
-
-</div>
-
-
-<!-- =====================================================
-     TEXT
-====================================================== -->
-
-<div
-  id="text"
-  class="page active"
->
-
-<div class="card">
-
-  <h2>
-    💬 Locer AI
-  </h2>
-
-
-  <div class="limit-grid">
-
-    <div class="limit-box">
-
-      <div class="limit-title">
-        💬 Текстовый лимит
+    <div class="saved-chats" id="savedChats">
+      <div class="no-chats">
+        Войди через Google, чтобы сохранять чаты.
       </div>
+    </div>
 
-      <div class="limit-value">
+  </aside>
 
-        <b id="textRemaining">
-          50
-        </b>
 
-        <span style="font-size:13px;color:#9ca3af;">
-          осталось
-        </span>
+  <!-- MAIN -->
+  <main class="main">
 
+    <header class="header">
+      <div class="header-title">Locer AI</div>
+      <div class="header-subtitle">
+        Текст, изображения и другие AI-инструменты
       </div>
+    </header>
+
+
+    <!-- TABS -->
+    <div class="tabs">
+
+      <button class="tab active" data-page="textPage">
+        💬 Текст
+      </button>
+
+      <button class="tab" data-page="imagePage">
+        🎨 Изображения
+      </button>
+
+      <button class="tab" data-page="videoPage">
+        🎬 Видео
+      </button>
 
     </div>
 
 
-    <div class="limit-box">
+    <!-- ================= TEXT ================= -->
 
-      <div class="limit-title">
-        📅 Лимит
+    <section class="page active" id="textPage">
+
+      <div class="limits-panel">
+
+        <div class="limit-card">
+          <div class="limit-name">💬 Текст</div>
+          <div class="limit-value" id="textRemaining">
+            Загрузка...
+          </div>
+        </div>
+
+        <div class="limit-card">
+          <div class="limit-name">🎨 Генерация</div>
+          <div class="limit-value" id="imageRemainingText">
+            Загрузка...
+          </div>
+        </div>
+
+        <div class="limit-card">
+          <div class="limit-name">✏️ Редактирование</div>
+          <div class="limit-value" id="editRemainingText">
+            Загрузка...
+          </div>
+        </div>
+
+      </div>
+
+      <div class="reset-box">
+        🔄 Сброс лимитов:
+        <b id="resetCountdown">Загрузка...</b>
+        <span id="resetDate"></span>
+      </div>
+
+
+      <div class="chat" id="chat"></div>
+
+
+      <div class="input-area">
+
+        <div class="input-box">
+
+          <input
+            type="file"
+            id="photoInput"
+            accept="image/*"
+            hidden
+          >
+
+          <button
+            class="icon-btn"
+            id="photoBtn"
+            title="Добавить изображение"
+          >
+            📷
+          </button>
+
+          <textarea
+            class="text-input"
+            id="textInput"
+            placeholder="Напиши сообщение..."
+          ></textarea>
+
+          <button
+            class="send-btn"
+            id="sendBtn"
+            title="Отправить"
+          >
+            ➤
+          </button>
+
+        </div>
+
+        <img
+          id="photoPreview"
+          class="photo-preview"
+          alt="Предпросмотр"
+        >
+
+        <div class="status" id="status"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= IMAGES ================= -->
+
+    <section class="page" id="imagePage">
+
+      <div class="image-page-inner">
+
+        <div class="limits-panel" style="margin:0 0 15px;">
+
+          <div class="limit-card">
+            <div class="limit-name">🎨 Генерация</div>
+            <div class="limit-value" id="imageRemaining">
+              Загрузка...
+            </div>
+          </div>
+
+          <div class="limit-card">
+            <div class="limit-name">✏️ Редактирование</div>
+            <div class="limit-value" id="editRemaining">
+              Загрузка...
+            </div>
+          </div>
+
+        </div>
+
+        <div class="reset-box" style="margin:0 0 15px;">
+          🔄 Сброс:
+          <b id="imageResetCountdown">Загрузка...</b>
+        </div>
+
+
+        <div class="card">
+
+          <h2>🎨 Создать изображение</h2>
+
+          <p>
+            Опиши изображение, которое хочешь получить.
+          </p>
+
+          <textarea
+            class="field"
+            id="generatePrompt"
+            placeholder="Например: космический город будущего на другой планете..."
+          ></textarea>
+
+          <button
+            class="primary-btn"
+            id="generateBtn"
+          >
+            ✨ Создать изображение
+          </button>
+
+          <div class="status" id="generateStatus"></div>
+
+          <img
+            class="image-result"
+            id="generatedImage"
+            style="display:none;"
+            alt="Созданное изображение"
+          >
+
+        </div>
+
+
+        <div class="card">
+
+          <h2>✏️ Редактировать изображение</h2>
+
+          <p>
+            Загрузи изображение и напиши, что нужно изменить.
+          </p>
+
+          <input
+            class="image-file"
+            type="file"
+            id="editImageInput"
+            accept="image/*"
+          >
+
+          <textarea
+            class="field"
+            id="editPrompt"
+            placeholder="Например: сделай фон космическим..."
+          ></textarea>
+
+          <button
+            class="primary-btn"
+            id="editBtn"
+          >
+            🪄 Редактировать
+          </button>
+
+          <div class="status" id="editStatus"></div>
+
+          <img
+            class="image-result"
+            id="editedImage"
+            style="display:none;"
+            alt="Отредактированное изображение"
+          >
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= VIDEO ================= -->
+
+    <section class="page" id="videoPage">
+
+      <div class="video-page-inner">
+
+        <div class="card video-placeholder">
+
+          <div class="big">🎬</div>
+
+          <h2>Генерация видео</h2>
+
+          <p>
+            Раздел готовится.
+          </p>
+
+          <p>
+            Скоро здесь появится создание видео через Locer AI.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= DEVELOPER ================= -->
+
+    <div class="developer">
+
+      <div class="developer-header">
+        🛠️ Для разработчиков
+
+        <button
+          class="dev-toggle"
+          id="devToggle"
+        >
+          Показать
+        </button>
       </div>
 
       <div
-        style="
-          color:#9ca3af;
-          margin-top:7px;
-        "
+        class="developer-body"
+        id="developerBody"
       >
-        50 запросов в сутки
+        Проверка Worker...
       </div>
 
     </div>
 
-  </div>
-
-
-  <div
-    id="chat"
-    class="chat"
-  ></div>
-
-
-  <textarea
-    id="textInput"
-    placeholder="Напиши сообщение Locer..."
-  ></textarea>
-
-
-  <button
-    id="sendButton"
-    onclick="sendMessage()"
-  >
-    ➤ Отправить
-  </button>
-
-
-  <button
-    onclick="clearChat()"
-    style="
-      background:#1f2937;
-      margin-left:8px;
-    "
-  >
-    🗑 Очистить
-  </button>
-
-
-  <div
-    id="chatStatus"
-    class="chat-status"
-  ></div>
-
-</div>
+  </main>
 
 </div>
 
 
-<!-- =====================================================
-     IMAGES
-====================================================== -->
-
-<div
-  id="images"
-  class="page"
->
-
-
-<div class="card">
-
-  <h2>
-    🎨 Создать изображение
-  </h2>
-
-
-  <div class="limit-grid">
-
-    <div class="limit-box">
-
-      <div class="limit-title">
-        🎨 Генерация
-      </div>
-
-      <div class="limit-value">
-
-        <b id="imageRemaining">
-          96
-        </b>
-
-        <span style="font-size:13px;color:#9ca3af;">
-          осталось
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <div class="limit-box">
-
-      <div class="limit-title">
-        ✏️ Редактирование
-      </div>
-
-      <div class="limit-value">
-
-        <b id="editRemaining">
-          96
-        </b>
-
-        <span style="font-size:13px;color:#9ca3af;">
-          осталось
-        </span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="limit">
-
-    📊 Дневной лимит:
-
-    <b>
-      96 генераций
-    </b>
-
-    и
-
-    <b>
-      96 редактирований
-    </b>
-
-  </div>
-
-
-  <textarea
-    id="generatePrompt"
-    placeholder="Например: реалистичный леопард в снежном лесу, кинематографический свет..."
-  ></textarea>
-
-
-  <button
-    onclick="generateImage()"
-    id="generateButton"
-  >
-    🎨 Создать
-  </button>
-
-
-  <div
-    id="generateLoading"
-    style="
-      display:none;
-      color:#a5b4fc;
-      margin-top:12px;
-    "
-  >
-    ⏳ Создаю изображение...
-  </div>
-
-
-  <div
-    id="generateResult"
-    class="result"
-  >
-
-    <img
-      id="generatedImage"
-    >
-
-    <a
-      id="downloadGenerated"
-      class="download"
-      download="locer-generated.png"
-    >
-      ⬇️ Скачать
-    </a>
-
-  </div>
-
-</div>
-
-
-<!-- EDIT -->
-
-<div class="card">
-
-  <h2>
-    ✏️ Редактировать изображение
-  </h2>
-
-
-  <label
-    class="upload"
-    for="imageInput"
-  >
-
-    🖼️ Загрузить изображение
-
-    <br>
-
-    <small>
-      PNG / JPG / WEBP
-    </small>
-
-  </label>
-
-
-  <input
-    id="imageInput"
-    type="file"
-    accept="image/png,image/jpeg,image/webp"
-  >
-
-
-  <img
-    id="preview"
-    class="preview"
-  >
-
-
-  <textarea
-    id="editPrompt"
-    placeholder="Например: сделай кухню современной, белые фасады, тёплая подсветка..."
-  ></textarea>
-
-
-  <button
-    onclick="editImage()"
-    id="editButton"
-  >
-    ✏️ Редактировать
-  </button>
-
-
-  <div
-    id="editLoading"
-    style="
-      display:none;
-      color:#a5b4fc;
-      margin-top:12px;
-    "
-  >
-    ⏳ Редактирую изображение...
-  </div>
-
-
-  <div
-    id="editResult"
-    class="result"
-  >
-
-    <img
-      id="editedImage"
-    >
-
-    <a
-      id="downloadEdited"
-      class="download"
-      download="locer-edited.png"
-    >
-      ⬇️ Скачать
-    </a>
-
-  </div>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     VIDEO
-====================================================== -->
-
-<div
-  id="video"
-  class="page"
->
-
-<div class="card">
-
-  <div class="video-placeholder">
-
-    <div class="video-icon">
-      🎬
-    </div>
-
-    <h2>
-      Генерация видео
-    </h2>
-
-    <p>
-      Мы добавим видеогенерацию сюда следующим этапом.
-    </p>
-
-    <p>
-      Пока вкладка готова, но генератор видео не подключён.
-    </p>
-
-  </div>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     STATUS
-====================================================== -->
-
-<div class="card">
-
-  <h2>
-    🔎 Статус Locer
-  </h2>
-
-
-  <button
-    onclick="checkStatus()"
-  >
-    🔎 Проверить Worker
-  </button>
-
-
-  <div
-    id="status"
-    class="status"
-  >
-    Нажми кнопку, чтобы проверить API.
-  </div>
-
-</div>
-
-
-</div>
-
-
-<script>
+<script type="module">
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  query,
+  orderBy,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCRlSjT9cwWyFD_rx_vqiGahEuZkeMHsRI",
+  authDomain: "locer-5b749.firebaseapp.com",
+  projectId: "locer-5b749",
+  storageBucket: "locer-5b749.firebasestorage.app",
+  messagingSenderId: "81394379218",
+  appId: "1:81394379218:web:545d4e8390f630a5ee400b",
+  measurementId: "G-6GZ1HZPR65"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
+
+/* =========================================================
+   WORKER
+========================================================= */
 
 const WORKER =
   "https://locer-ai.ivan-ostanin1914.workers.dev";
 
 
-/*
-=========================================================
-  ЛИМИТЫ LOCER
-=========================================================
-*/
+/* =========================================================
+   STATE
+========================================================= */
 
-const TEXT_LIMIT =
-  50;
+let currentUser = null;
 
-const IMAGE_LIMIT =
-  96;
+let history = [];
 
-const EDIT_LIMIT =
-  96;
+let selectedPhoto = null;
+
+let limits = null;
 
 
-let selectedFile =
-  null;
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-let chatHistory =
-  [];
+const chat =
+  document.getElementById("chat");
+
+const textInput =
+  document.getElementById("textInput");
+
+const sendBtn =
+  document.getElementById("sendBtn");
+
+const status =
+  document.getElementById("status");
+
+const photoInput =
+  document.getElementById("photoInput");
+
+const photoBtn =
+  document.getElementById("photoBtn");
+
+const photoPreview =
+  document.getElementById("photoPreview");
+
+const loginBtn =
+  document.getElementById("loginBtn");
+
+const logoutBtn =
+  document.getElementById("logoutBtn");
+
+const userBox =
+  document.getElementById("userBox");
+
+const userName =
+  document.getElementById("userName");
+
+const savedChats =
+  document.getElementById("savedChats");
 
 
 /* =========================================================
    TABS
 ========================================================= */
 
-function openTab(
-  name,
-  button
-) {
+document.querySelectorAll(".tab").forEach(tab => {
 
-  document
-    .querySelectorAll(".page")
-    .forEach(
-      page =>
-        page.classList.remove("active")
-    );
+  tab.addEventListener("click", () => {
 
+    document
+      .querySelectorAll(".tab")
+      .forEach(x => x.classList.remove("active"));
 
-  document
-    .querySelectorAll(".tab")
-    .forEach(
-      tab =>
-        tab.classList.remove("active")
-    );
+    document
+      .querySelectorAll(".page")
+      .forEach(x => x.classList.remove("active"));
 
+    tab.classList.add("active");
 
-  document
-    .getElementById(name)
-    .classList.add("active");
+    const page =
+      document.getElementById(tab.dataset.page);
 
+    if (page) {
+      page.classList.add("active");
+    }
 
-  button.classList.add("active");
-}
+  });
+
+});
 
 
 /* =========================================================
-   DATE
+   NEW CHAT
 ========================================================= */
 
-function getToday() {
+document
+  .getElementById("newChatBtn")
+  .addEventListener("click", () => {
 
-  return new Date()
-    .toISOString()
-    .slice(0, 10);
+    history = [];
 
-}
+    chat.innerHTML = "";
+
+    textInput.value = "";
+
+    selectedPhoto = null;
+
+    photoPreview.style.display = "none";
+
+    status.textContent = "";
+
+  });
 
 
 /* =========================================================
-   TEXT STATS
+   GOOGLE LOGIN
 ========================================================= */
 
-function getTextStats() {
-
-  const today =
-    getToday();
-
-  let stats;
+loginBtn.addEventListener("click", async () => {
 
   try {
 
-    stats =
-      JSON.parse(
-        localStorage.getItem(
-          "locerTextStats"
-        ) || "null"
-      );
+    await signInWithPopup(auth, provider);
 
-  } catch {
+  } catch (error) {
 
-    stats = null;
+    console.error(error);
+
+    status.textContent =
+      "❌ Не удалось войти через Google";
 
   }
 
+});
 
-  if (
-    !stats ||
-    stats.date !== today
-  ) {
 
-    stats = {
+logoutBtn.addEventListener("click", async () => {
 
-      date:
-        today,
+  await signOut(auth);
 
-      used:
-        0
+});
 
-    };
 
-    localStorage.setItem(
-      "locerTextStats",
-      JSON.stringify(stats)
+onAuthStateChanged(auth, async user => {
+
+  currentUser = user;
+
+  if (user) {
+
+    loginBtn.style.display = "none";
+
+    userBox.style.display = "block";
+
+    userName.textContent =
+      user.displayName ||
+      user.email ||
+      "Пользователь";
+
+    await loadSavedChats();
+
+  } else {
+
+    loginBtn.style.display = "block";
+
+    userBox.style.display = "none";
+
+    savedChats.innerHTML = `
+      <div class="no-chats">
+        Войди через Google, чтобы сохранять чаты.
+      </div>
+    `;
+
+  }
+
+});
+
+
+/* =========================================================
+   FIRESTORE — SAVE CHAT
+========================================================= */
+
+async function saveChat() {
+
+  if (!currentUser || history.length === 0) {
+    return;
+  }
+
+  try {
+
+    const firstUserMessage =
+      history.find(x => x.role === "user");
+
+    const title =
+      firstUserMessage?.content
+        ?.slice(0, 45) ||
+      "Новый чат";
+
+    await addDoc(
+      collection(
+        db,
+        "users",
+        currentUser.uid,
+        "chats"
+      ),
+      {
+        title,
+        history,
+        createdAt: serverTimestamp()
+      }
+    );
+
+    await loadSavedChats();
+
+  } catch (error) {
+
+    console.error(
+      "Ошибка сохранения чата:",
+      error
     );
 
   }
-
-
-  return stats;
-}
-
-
-function updateTextLimit() {
-
-  const stats =
-    getTextStats();
-
-
-  const remaining =
-    Math.max(
-      0,
-      TEXT_LIMIT -
-      Number(stats.used || 0)
-    );
-
-
-  document.getElementById(
-    "textRemaining"
-  ).textContent =
-    remaining;
-
-
-  document.getElementById(
-    "sendButton"
-  ).disabled =
-    remaining <= 0;
-
-}
-
-
-function reserveTextRequest() {
-
-  const stats =
-    getTextStats();
-
-
-  if (
-    Number(stats.used || 0)
-    >= TEXT_LIMIT
-  ) {
-
-    return false;
-
-  }
-
-
-  return true;
-
-}
-
-
-function confirmTextRequest() {
-
-  const stats =
-    getTextStats();
-
-
-  stats.used =
-    Number(stats.used || 0) + 1;
-
-
-  localStorage.setItem(
-    "locerTextStats",
-    JSON.stringify(stats)
-  );
-
-
-  updateTextLimit();
 
 }
 
 
 /* =========================================================
-   CHAT
+   FIRESTORE — LOAD CHATS
+========================================================= */
+
+async function loadSavedChats() {
+
+  if (!currentUser) return;
+
+  try {
+
+    const q = query(
+      collection(
+        db,
+        "users",
+        currentUser.uid,
+        "chats"
+      ),
+      orderBy("createdAt", "desc")
+    );
+
+    const snapshot =
+      await getDocs(q);
+
+    savedChats.innerHTML = "";
+
+    if (snapshot.empty) {
+
+      savedChats.innerHTML = `
+        <div class="no-chats">
+          Сохранённых чатов пока нет.
+        </div>
+      `;
+
+      return;
+    }
+
+    snapshot.forEach(item => {
+
+      const data = item.data();
+
+      const row =
+        document.createElement("div");
+
+      row.className = "chat-item";
+
+      const open =
+        document.createElement("button");
+
+      open.className = "chat-open";
+
+      open.textContent =
+        data.title || "Чат";
+
+      open.addEventListener("click", () => {
+
+        history =
+          Array.isArray(data.history)
+            ? data.history
+            : [];
+
+        renderHistory();
+
+      });
+
+
+      const del =
+        document.createElement("button");
+
+      del.className = "chat-delete";
+
+      del.textContent = "×";
+
+      del.title = "Удалить чат";
+
+      del.addEventListener("click", async () => {
+
+        try {
+
+          await deleteDoc(
+            doc(
+              db,
+              "users",
+              currentUser.uid,
+              "chats",
+              item.id
+            )
+          );
+
+          await loadSavedChats();
+
+        } catch (error) {
+
+          console.error(error);
+
+        }
+
+      });
+
+
+      row.appendChild(open);
+
+      row.appendChild(del);
+
+      savedChats.appendChild(row);
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Ошибка загрузки чатов:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER HISTORY
+========================================================= */
+
+function renderHistory() {
+
+  chat.innerHTML = "";
+
+  history.forEach(item => {
+
+    addMessage(
+      item.role,
+      item.content
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   ADD MESSAGE
 ========================================================= */
 
 function addMessage(
-  text,
-  type
+  role,
+  content,
+  image = null
 ) {
 
-  const chat =
-    document.getElementById(
-      "chat"
-    );
+  const wrapper =
+    document.createElement("div");
 
+  wrapper.className =
+    "message " +
+    (role === "user"
+      ? "user"
+      : "assistant");
 
-  const message =
-    document.createElement(
-      "div"
-    );
+  const box =
+    document.createElement("div");
 
+  box.className =
+    "message-content";
 
-  message.className =
-    "message " + type;
+  box.textContent =
+    content || "";
 
+  if (image) {
 
-  message.textContent =
-    text;
+    const img =
+      document.createElement("img");
 
+    img.className =
+      "message-image";
 
-  chat.appendChild(
-    message
-  );
+    img.src = image;
 
+    box.appendChild(img);
+
+  }
+
+  wrapper.appendChild(box);
+
+  chat.appendChild(wrapper);
 
   chat.scrollTop =
     chat.scrollHeight;
@@ -1571,64 +1473,106 @@ function addMessage(
 }
 
 
+/* =========================================================
+   PHOTO
+========================================================= */
+
+photoBtn.addEventListener("click", () => {
+
+  photoInput.click();
+
+});
+
+
+photoInput.addEventListener("change", () => {
+
+  const file =
+    photoInput.files?.[0];
+
+  if (!file) return;
+
+  selectedPhoto = file;
+
+  photoPreview.src =
+    URL.createObjectURL(file);
+
+  photoPreview.style.display =
+    "block";
+
+});
+
+
+/* =========================================================
+   SEND TEXT
+========================================================= */
+
+sendBtn.addEventListener(
+  "click",
+  sendMessage
+);
+
+
+textInput.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Enter" &&
+      !event.shiftKey
+    ) {
+
+      event.preventDefault();
+
+      sendMessage();
+
+    }
+
+  }
+);
+
+
 async function sendMessage() {
 
-  const input =
-    document.getElementById(
-      "textInput"
-    );
-
-
   const message =
-    input.value.trim();
+    textInput.value.trim();
 
+  if (!message) return;
 
-  if (!message) {
+  if (
+    limits &&
+    limits.text.remaining <= 0
+  ) {
 
-    return;
-
-  }
-
-
-  if (!reserveTextRequest()) {
-
-    alert(
-      "Дневной лимит текста исчерпан."
-    );
+    status.textContent =
+      "❌ Текстовый лимит на сегодня исчерпан.";
 
     return;
 
   }
 
 
-  addMessage(
-    message,
-    "user"
-  );
-
-
-  input.value =
-    "";
-
-
-  const button =
-    document.getElementById(
-      "sendButton"
-    );
-
-
-  const status =
-    document.getElementById(
-      "chatStatus"
-    );
-
-
-  button.disabled =
-    true;
-
+  sendBtn.disabled = true;
 
   status.textContent =
     "⏳ Locer думает...";
+
+
+  addMessage(
+    "user",
+    message
+  );
+
+
+  history.push({
+    role: "user",
+    content: message
+  });
+
+
+  textInput.value = "";
+
+  const historyForServer =
+    history.slice(0, -1);
 
 
   try {
@@ -1637,28 +1581,19 @@ async function sendMessage() {
       await fetch(
         WORKER + "/chat",
         {
-
-          method:
-            "POST",
+          method: "POST",
 
           headers: {
-
             "Content-Type":
               "application/json"
-
           },
 
-          body:
-            JSON.stringify({
-
-              message:
-                message,
-
-              history:
-                chatHistory
-
-            })
-
+          body: JSON.stringify({
+            message,
+            history:
+              historyForServer
+                .slice(-20)
+          })
         }
       );
 
@@ -1667,374 +1602,322 @@ async function sendMessage() {
       await response.json();
 
 
-    if (
-      !response.ok ||
-      !data.ok
-    ) {
+    if (!response.ok) {
+
+      if (data.limits) {
+        applyLimits(data.limits);
+      }
 
       throw new Error(
-
         data.error ||
-        data.details ||
-        "Ошибка текстового ИИ."
-
+        "Ошибка сервера"
       );
 
     }
 
 
+    const answer =
+      data.answer || "";
+
+
     addMessage(
-      data.text,
-      "ai"
+      "assistant",
+      answer
     );
 
 
-    chatHistory.push({
-
-      role:
-        "user",
-
-      text:
-        message
-
+    history.push({
+      role: "assistant",
+      content: answer
     });
 
 
-    chatHistory.push({
-
-      role:
-        "assistant",
-
-      text:
-        data.text
-
-    });
+    if (data.limits) {
+      applyLimits(data.limits);
+    } else {
+      await loadLimits();
+    }
 
 
-    chatHistory =
-      chatHistory.slice(-12);
+    status.textContent = "";
 
 
-    /*
-      СПИСЫВАЕМ ТОЛЬКО ПОСЛЕ УСПЕШНОГО ОТВЕТА
-    */
+    await saveChat();
 
-    confirmTextRequest();
-
-
-    status.textContent =
-      "";
 
   } catch (error) {
 
-    addMessage(
-
-      "❌ " +
-      error.message,
-
-      "ai"
-
-    );
-
+    console.error(error);
 
     status.textContent =
-      "";
+      "❌ " +
+      (error.message ||
+       "Ошибка подключения");
+
+    /*
+      Удаляем последнее пользовательское
+      сообщение из локальной истории,
+      если сервер его не обработал.
+    */
+
+    history.pop();
 
   } finally {
 
-    updateTextLimit();
-
-    if (
-      getTextStats().used <
-      TEXT_LIMIT
-    ) {
-
-      button.disabled =
-        false;
-
-    }
+    sendBtn.disabled = false;
 
   }
 
 }
 
 
-/* Enter = send */
-
-document
-  .getElementById(
-    "textInput"
-  )
-  .addEventListener(
-    "keydown",
-    function(event) {
-
-      if (
-        event.key === "Enter" &&
-        !event.shiftKey
-      ) {
-
-        event.preventDefault();
-
-        sendMessage();
-
-      }
-
-    }
-  );
-
-
 /* =========================================================
-   CLEAR CHAT
+   LOAD SERVER LIMITS
 ========================================================= */
 
-function clearChat() {
-
-  chatHistory =
-    [];
-
-
-  document.getElementById(
-    "chat"
-  ).innerHTML =
-    "";
-
-
-  document.getElementById(
-    "chatStatus"
-  ).textContent =
-    "";
-
-}
-
-
-/* =========================================================
-   IMAGE STATS
-========================================================= */
-
-function getImageStats() {
-
-  const today =
-    getToday();
-
-  let stats;
+async function loadLimits() {
 
   try {
 
-    stats =
-      JSON.parse(
-        localStorage.getItem(
-          "locerImageStats"
-        ) || "null"
+    const response =
+      await fetch(
+        WORKER + "/limits",
+        {
+          cache: "no-store"
+        }
       );
 
-  } catch {
+    const data =
+      await response.json();
 
-    stats = null;
+    if (
+      response.ok &&
+      data.limits
+    ) {
 
-  }
+      applyLimits(
+        data.limits
+      );
 
+    }
 
-  if (
-    !stats ||
-    stats.date !== today
-  ) {
+  } catch (error) {
 
-    stats = {
-
-      date:
-        today,
-
-      used:
-        0,
-
-      editUsed:
-        0
-
-    };
-
-
-    localStorage.setItem(
-      "locerImageStats",
-      JSON.stringify(stats)
+    console.error(
+      "Ошибка получения лимитов:",
+      error
     );
 
   }
 
-
-  if (
-    typeof stats.editUsed !==
-    "number"
-  ) {
-
-    stats.editUsed =
-      0;
-
-  }
-
-
-  return stats;
-
 }
 
 
-function updateImageLimit() {
+/* =========================================================
+   APPLY LIMITS
+========================================================= */
 
-  const stats =
-    getImageStats();
+function applyLimits(data) {
 
+  limits = data;
+
+
+  const textRemaining =
+    data.text?.remaining ?? 0;
 
   const imageRemaining =
-    Math.max(
-      0,
-      IMAGE_LIMIT -
-      Number(stats.used || 0)
-    );
-
+    data.image?.remaining ?? 0;
 
   const editRemaining =
+    data.edit?.remaining ?? 0;
+
+
+  document
+    .getElementById("textRemaining")
+    .textContent =
+      `${textRemaining} / ${data.text?.limit ?? 50}`;
+
+
+  document
+    .getElementById("imageRemaining")
+    .textContent =
+      `${imageRemaining} / ${data.image?.limit ?? 96}`;
+
+
+  document
+    .getElementById("editRemaining")
+    .textContent =
+      `${editRemaining} / ${data.edit?.limit ?? 96}`;
+
+
+  document
+    .getElementById("imageRemainingText")
+    .textContent =
+      `${imageRemaining} / ${data.image?.limit ?? 96}`;
+
+
+  document
+    .getElementById("editRemainingText")
+    .textContent =
+      `${editRemaining} / ${data.edit?.limit ?? 96}`;
+
+
+  updateResetDisplay(
+    data.resetAt,
+    data.resetInSeconds
+  );
+
+}
+
+
+/* =========================================================
+   RESET COUNTDOWN
+========================================================= */
+
+let resetAt = null;
+
+
+function updateResetDisplay(
+  isoDate,
+  seconds
+) {
+
+  if (!isoDate) return;
+
+  resetAt =
+    new Date(isoDate);
+
+  updateCountdown();
+
+}
+
+
+function updateCountdown() {
+
+  if (!resetAt) return;
+
+  const now =
+    Date.now();
+
+  const difference =
     Math.max(
       0,
-      EDIT_LIMIT -
-      Number(stats.editUsed || 0)
+      resetAt.getTime() - now
     );
 
 
-  document.getElementById(
-    "imageRemaining"
-  ).textContent =
-    imageRemaining;
+  const totalSeconds =
+    Math.floor(
+      difference / 1000
+    );
 
 
-  document.getElementById(
-    "editRemaining"
-  ).textContent =
-    editRemaining;
+  const hours =
+    Math.floor(
+      totalSeconds / 3600
+    );
 
 
-  document.getElementById(
-    "generateButton"
-  ).disabled =
-    imageRemaining <= 0;
+  const minutes =
+    Math.floor(
+      (totalSeconds % 3600) / 60
+    );
 
 
-  document.getElementById(
-    "editButton"
-  ).disabled =
-    editRemaining <= 0;
-
-}
+  const seconds =
+    totalSeconds % 60;
 
 
-/* =========================================================
-   GENERATION RESERVATION
-========================================================= */
-
-function reserveImageRequest() {
-
-  const stats =
-    getImageStats();
+  const text =
+    `${hours} ч ${minutes} мин ${seconds} сек`;
 
 
-  return (
-    Number(stats.used || 0)
-    < IMAGE_LIMIT
-  );
-
-}
+  document
+    .getElementById("resetCountdown")
+    .textContent = text;
 
 
-function confirmImageRequest() {
-
-  const stats =
-    getImageStats();
-
-
-  stats.used =
-    Number(stats.used || 0) + 1;
+  document
+    .getElementById("imageResetCountdown")
+    .textContent = text;
 
 
-  localStorage.setItem(
-    "locerImageStats",
-    JSON.stringify(stats)
-  );
+  const dateText =
+    resetAt.toLocaleString(
+      "ru-RU",
+      {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "UTC"
+      }
+    ) + " UTC";
 
 
-  updateImageLimit();
+  document
+    .getElementById("resetDate")
+    .textContent =
+      ` — ${dateText}`;
 
 }
 
 
-/* =========================================================
-   EDIT RESERVATION
-========================================================= */
-
-function reserveEditRequest() {
-
-  const stats =
-    getImageStats();
-
-
-  return (
-    Number(stats.editUsed || 0)
-    < EDIT_LIMIT
-  );
-
-}
-
-
-function confirmEditRequest() {
-
-  const stats =
-    getImageStats();
-
-
-  stats.editUsed =
-    Number(stats.editUsed || 0) + 1;
-
-
-  localStorage.setItem(
-    "locerImageStats",
-    JSON.stringify(stats)
-  );
-
-
-  updateImageLimit();
-
-}
+setInterval(
+  updateCountdown,
+  1000
+);
 
 
 /* =========================================================
    GENERATE IMAGE
 ========================================================= */
 
+document
+  .getElementById("generateBtn")
+  .addEventListener(
+    "click",
+    generateImage
+  );
+
+
 async function generateImage() {
 
   const prompt =
     document
-      .getElementById(
-        "generatePrompt"
-      )
+      .getElementById("generatePrompt")
       .value
       .trim();
 
 
+  const generateStatus =
+    document
+      .getElementById("generateStatus");
+
+
+  const result =
+    document
+      .getElementById("generatedImage");
+
+
   if (!prompt) {
 
-    alert(
-      "Напиши описание изображения."
-    );
+    generateStatus.textContent =
+      "❌ Напиши описание изображения.";
 
     return;
 
   }
 
 
-  if (!reserveImageRequest()) {
+  if (
+    limits &&
+    limits.image.remaining <= 0
+  ) {
 
-    alert(
-      "Лимит генерации изображений исчерпан."
-    );
+    generateStatus.textContent =
+      "❌ Лимит генераций на сегодня исчерпан.";
 
     return;
 
@@ -2042,23 +1925,14 @@ async function generateImage() {
 
 
   const button =
-    document.getElementById(
-      "generateButton"
-    );
+    document
+      .getElementById("generateBtn");
 
 
-  const loading =
-    document.getElementById(
-      "generateLoading"
-    );
+  button.disabled = true;
 
-
-  button.disabled =
-    true;
-
-
-  loading.style.display =
-    "block";
+  generateStatus.textContent =
+    "🎨 Создаю изображение...";
 
 
   try {
@@ -2067,94 +1941,76 @@ async function generateImage() {
       await fetch(
         WORKER + "/generate",
         {
-
-          method:
-            "POST",
+          method: "POST",
 
           headers: {
-
             "Content-Type":
               "application/json"
-
           },
 
-          body:
-            JSON.stringify({
-
-              prompt:
-                prompt,
-
-              width:
-                1024,
-
-              height:
-                1024
-
-            })
-
+          body: JSON.stringify({
+            prompt,
+            width: 1024,
+            height: 1024
+          })
         }
       );
 
 
-    const data =
-      await response.json();
+    if (!response.ok) {
 
+      let data = {};
 
-    if (
-      !response.ok ||
-      !data.ok ||
-      !data.image
-    ) {
+      try {
+        data =
+          await response.json();
+      } catch {}
+
+      if (data.limits) {
+        applyLimits(data.limits);
+      }
 
       throw new Error(
-
         data.error ||
-        data.details ||
-        "Не удалось создать изображение."
-
+        `Ошибка сервера: ${response.status}`
       );
 
     }
 
 
-    document.getElementById(
-      "generatedImage"
-    ).src =
-      data.image;
+    const blob =
+      await response.blob();
 
 
-    document.getElementById(
-      "downloadGenerated"
-    ).href =
-      data.image;
+    const url =
+      URL.createObjectURL(blob);
 
 
-    document.getElementById(
-      "generateResult"
-    ).style.display =
+    result.src = url;
+
+    result.style.display =
       "block";
 
 
-    /*
-      Списываем только успешную генерацию.
-    */
+    generateStatus.textContent =
+      "✅ Изображение создано.";
 
-    confirmImageRequest();
+
+    await loadLimits();
 
 
   } catch (error) {
 
-    alert(
+    console.error(error);
+
+    generateStatus.textContent =
       "❌ " +
-      error.message
-    );
+      (error.message ||
+       "Ошибка генерации");
 
   } finally {
 
-    loading.style.display =
-      "none";
-
-    updateImageLimit();
+    button.disabled = false;
 
   }
 
@@ -2162,105 +2018,69 @@ async function generateImage() {
 
 
 /* =========================================================
-   IMAGE UPLOAD
-========================================================= */
-
-document
-  .getElementById(
-    "imageInput"
-  )
-  .addEventListener(
-    "change",
-    function(event) {
-
-      const file =
-        event.target.files[0];
-
-
-      if (!file) {
-
-        return;
-
-      }
-
-
-      selectedFile =
-        file;
-
-
-      const reader =
-        new FileReader();
-
-
-      reader.onload =
-        function(event) {
-
-          const preview =
-            document.getElementById(
-              "preview"
-            );
-
-
-          preview.src =
-            event.target.result;
-
-
-          preview.style.display =
-            "block";
-
-        };
-
-
-      reader.readAsDataURL(
-        file
-      );
-
-    }
-  );
-
-
-/* =========================================================
    EDIT IMAGE
 ========================================================= */
 
+document
+  .getElementById("editBtn")
+  .addEventListener(
+    "click",
+    editImage
+  );
+
+
 async function editImage() {
 
-  if (!selectedFile) {
-
-    alert(
-      "Сначала загрузи изображение."
-    );
-
-    return;
-
-  }
+  const file =
+    document
+      .getElementById("editImageInput")
+      .files?.[0];
 
 
   const prompt =
     document
-      .getElementById(
-        "editPrompt"
-      )
+      .getElementById("editPrompt")
       .value
       .trim();
 
 
-  if (!prompt) {
+  const editStatus =
+    document
+      .getElementById("editStatus");
 
-    alert(
-      "Напиши, что нужно изменить."
-    );
+
+  const result =
+    document
+      .getElementById("editedImage");
+
+
+  if (!file) {
+
+    editStatus.textContent =
+      "❌ Выбери изображение.";
 
     return;
 
   }
 
 
-  if (!reserveEditRequest()) {
+  if (!prompt) {
 
-    alert(
-      "Лимит редактирования изображений исчерпан."
-    );
+    editStatus.textContent =
+      "❌ Напиши, что изменить.";
+
+    return;
+
+  }
+
+
+  if (
+    limits &&
+    limits.edit.remaining <= 0
+  ) {
+
+    editStatus.textContent =
+      "❌ Лимит редактирования на сегодня исчерпан.";
 
     return;
 
@@ -2268,23 +2088,14 @@ async function editImage() {
 
 
   const button =
-    document.getElementById(
-      "editButton"
-    );
+    document
+      .getElementById("editBtn");
 
 
-  const loading =
-    document.getElementById(
-      "editLoading"
-    );
+  button.disabled = true;
 
-
-  button.disabled =
-    true;
-
-
-  loading.style.display =
-    "block";
+  editStatus.textContent =
+    "🪄 Редактирую изображение...";
 
 
   try {
@@ -2295,7 +2106,7 @@ async function editImage() {
 
     form.append(
       "image",
-      selectedFile
+      file
     );
 
 
@@ -2321,76 +2132,66 @@ async function editImage() {
       await fetch(
         WORKER + "/edit",
         {
-
-          method:
-            "POST",
-
-          body:
-            form
-
+          method: "POST",
+          body: form
         }
       );
 
 
-    const data =
-      await response.json();
+    if (!response.ok) {
 
+      let data = {};
 
-    if (
-      !response.ok ||
-      !data.ok ||
-      !data.image
-    ) {
+      try {
+        data =
+          await response.json();
+      } catch {}
+
+      if (data.limits) {
+        applyLimits(data.limits);
+      }
 
       throw new Error(
-
         data.error ||
-        data.details ||
-        "Не удалось отредактировать изображение."
-
+        `Ошибка сервера: ${response.status}`
       );
 
     }
 
 
-    document.getElementById(
-      "editedImage"
-    ).src =
-      data.image;
+    const blob =
+      await response.blob();
 
 
-    document.getElementById(
-      "downloadEdited"
-    ).href =
-      data.image;
+    const url =
+      URL.createObjectURL(blob);
 
 
-    document.getElementById(
-      "editResult"
-    ).style.display =
+    result.src = url;
+
+    result.style.display =
       "block";
 
 
-    /*
-      Списываем только успешное редактирование.
-    */
+    editStatus.textContent =
+      "✅ Изображение отредактировано.";
 
-    confirmEditRequest();
+
+    await loadLimits();
 
 
   } catch (error) {
 
-    alert(
+    console.error(error);
+
+    editStatus.textContent =
       "❌ " +
-      error.message
-    );
+      (error.message ||
+       "Ошибка редактирования");
 
   } finally {
 
-    loading.style.display =
-      "none";
-
-    updateImageLimit();
+    button.disabled = false;
 
   }
 
@@ -2398,61 +2199,97 @@ async function editImage() {
 
 
 /* =========================================================
-   STATUS
+   DEVELOPER PANEL
 ========================================================= */
 
-async function checkStatus() {
+const devToggle =
+  document.getElementById("devToggle");
 
-  const status =
-    document.getElementById(
-      "status"
-    );
-
-
-  status.textContent =
-    "⏳ Проверяю Worker...";
+const developerBody =
+  document.getElementById("developerBody");
 
 
-  try {
+devToggle.addEventListener(
+  "click",
+  async () => {
 
-    const response =
-      await fetch(
-        WORKER
-      );
-
-
-    const data =
-      await response.json();
+    const visible =
+      developerBody.style.display === "block";
 
 
-    status.textContent =
-      JSON.stringify(
-        data,
-        null,
-        2
-      );
+    if (visible) {
 
-  } catch (error) {
+      developerBody.style.display =
+        "none";
 
-    status.textContent =
-      "❌ Worker недоступен\n\n" +
-      error.message;
+      devToggle.textContent =
+        "Показать";
+
+      return;
+
+    }
+
+
+    developerBody.style.display =
+      "block";
+
+    devToggle.textContent =
+      "Скрыть";
+
+
+    developerBody.textContent =
+      "⏳ Проверка Worker...";
+
+
+    try {
+
+      const response =
+        await fetch(
+          WORKER + "/",
+          {
+            cache: "no-store"
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      developerBody.textContent =
+        JSON.stringify(
+          data,
+          null,
+          2
+        );
+
+
+    } catch (error) {
+
+      developerBody.textContent =
+        "❌ Ошибка подключения к Worker\n\n" +
+        error.message;
+
+    }
 
   }
-
-}
+);
 
 
 /* =========================================================
    START
 ========================================================= */
 
-updateTextLimit();
+async function startLocer() {
 
-updateImageLimit();
+  await loadLimits();
+
+}
+
+
+startLocer();
 
 </script>
 
 </body>
-
 </html>
