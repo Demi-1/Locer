@@ -10,7 +10,7 @@
   content="width=device-width, initial-scale=1.0"
 >
 
-<title>Locer — AI Images</title>
+<title>Locer AI</title>
 
 <style>
 
@@ -19,328 +19,262 @@
 }
 
 body {
+
   margin: 0;
+
+  min-height: 100vh;
+
   background:
     radial-gradient(
       circle at top,
-      #18213b 0%,
+      #1b2440,
       #090b12 45%,
-      #05060a 100%
+      #05060a
     );
 
   color: white;
 
   font-family:
     Arial,
-    Helvetica,
     sans-serif;
-
-  min-height: 100vh;
 }
 
 
 .container {
 
-  width: min(
-    950px,
-    calc(100% - 30px)
-  );
+  width:
+    min(1000px, calc(100% - 30px));
 
-  margin: 0 auto;
+  margin:
+    auto;
 
-  padding: 35px 0 60px;
+  padding:
+    30px 0 60px;
 }
 
 
 .header {
 
-  text-align: center;
+  text-align:
+    center;
 
-  margin-bottom: 30px;
+  margin-bottom:
+    25px;
 }
 
 
 .logo {
 
-  font-size: 42px;
+  font-size:
+    42px;
 
-  font-weight: 800;
-
-  letter-spacing: -2px;
+  font-weight:
+    800;
 }
 
 
 .subtitle {
 
-  color: #9ca3af;
+  color:
+    #9ca3af;
 
-  margin-top: 8px;
-
-  font-size: 16px;
+  margin-top:
+    8px;
 }
 
 
 /* =========================================================
-   LIMIT
+   TABS
 ========================================================= */
 
-.limit-box {
+.tabs {
+
+  display:
+    flex;
+
+  gap:
+    8px;
 
   background:
-    rgba(15, 23, 42, 0.85);
+    rgba(15,23,42,.85);
+
+  padding:
+    8px;
+
+  border-radius:
+    16px;
+
+  margin-bottom:
+    20px;
+}
+
+
+.tab {
+
+  flex:
+    1;
+
+  background:
+    transparent;
+
+  color:
+    #9ca3af;
 
   border:
-    1px solid
-    rgba(255,255,255,0.08);
+    0;
 
-  border-radius: 18px;
+  padding:
+    14px;
 
-  padding: 20px;
+  border-radius:
+    11px;
 
-  margin-bottom: 22px;
+  font-weight:
+    700;
 
-  box-shadow:
-    0 15px 40px
-    rgba(0,0,0,0.25);
+  cursor:
+    pointer;
 }
 
 
-.limit-title {
-
-  font-size: 18px;
-
-  font-weight: 700;
-
-  margin-bottom: 15px;
-}
-
-
-.limit-main {
-
-  display: flex;
-
-  justify-content:
-    space-between;
-
-  align-items: center;
-
-  gap: 15px;
-
-  margin-bottom: 12px;
-}
-
-
-.limit-number {
-
-  font-size: 30px;
-
-  font-weight: 800;
-}
-
-
-.limit-small {
-
-  color: #9ca3af;
-
-  font-size: 13px;
-
-  text-align: right;
-}
-
-
-.progress {
-
-  height: 10px;
+.tab:hover {
 
   background:
-    #1f2937;
-
-  border-radius: 999px;
-
-  overflow: hidden;
+    rgba(255,255,255,.05);
 }
 
 
-.progress-bar {
-
-  height: 100%;
-
-  width: 0%;
+.tab.active {
 
   background:
-    linear-gradient(
-      90deg,
-      #6366f1,
-      #8b5cf6,
-      #ec4899
-    );
+    #4f46e5;
 
-  transition:
-    width .3s ease;
+  color:
+    white;
 }
 
 
-.stats {
+.page {
 
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, 1fr);
-
-  gap: 10px;
-
-  margin-top: 15px;
+  display:
+    none;
 }
 
 
-.stat {
+.page.active {
 
-  background:
-    rgba(255,255,255,0.04);
-
-  border-radius: 12px;
-
-  padding: 13px;
-
-  text-align: center;
-}
-
-
-.stat-icon {
-
-  font-size: 20px;
-
-  margin-bottom: 5px;
-}
-
-
-.stat-number {
-
-  font-size: 22px;
-
-  font-weight: 800;
-}
-
-
-.stat-label {
-
-  color: #9ca3af;
-
-  font-size: 12px;
-
-  margin-top: 3px;
+  display:
+    block;
 }
 
 
 /* =========================================================
-   CARD
+   CARDS
 ========================================================= */
 
 .card {
 
   background:
-    rgba(15, 23, 42, 0.88);
+    rgba(15,23,42,.88);
 
   border:
     1px solid
-    rgba(255,255,255,0.08);
+    rgba(255,255,255,.08);
 
-  border-radius: 20px;
+  border-radius:
+    20px;
 
-  padding: 25px;
+  padding:
+    24px;
 
-  margin-bottom: 20px;
-
-  box-shadow:
-    0 20px 50px
-    rgba(0,0,0,0.25);
+  margin-bottom:
+    20px;
 }
 
 
-.card h2 {
+h2 {
 
-  margin-top: 0;
-
-  font-size: 22px;
+  margin-top:
+    0;
 }
 
 
 textarea {
 
-  width: 100%;
+  width:
+    100%;
 
-  min-height: 130px;
+  min-height:
+    120px;
 
-  resize: vertical;
+  resize:
+    vertical;
 
-  border: 0;
+  border:
+    0;
 
-  outline: none;
+  outline:
+    none;
 
-  border-radius: 14px;
+  border-radius:
+    14px;
 
   background:
     #080b13;
 
-  color: white;
+  color:
+    white;
 
-  padding: 16px;
+  padding:
+    16px;
 
-  font-size: 16px;
+  font-size:
+    16px;
 
-  font-family: inherit;
+  font-family:
+    inherit;
 }
 
 
 textarea::placeholder {
 
-  color: #6b7280;
-}
-
-
-.buttons {
-
-  display: flex;
-
-  gap: 10px;
-
-  flex-wrap: wrap;
-
-  margin-top: 15px;
+  color:
+    #6b7280;
 }
 
 
 button {
 
-  border: 0;
+  border:
+    0;
 
-  border-radius: 12px;
+  border-radius:
+    12px;
 
   padding:
     13px 18px;
 
-  color: white;
+  color:
+    white;
 
   background:
     #4f46e5;
 
-  font-size: 15px;
+  font-size:
+    15px;
 
-  font-weight: 700;
+  font-weight:
+    700;
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
-  transition:
-    transform .15s,
-    opacity .15s,
-    background .15s;
+  margin-top:
+    12px;
 }
 
 
 button:hover {
-
-  transform:
-    translateY(-1px);
 
   background:
     #6366f1;
@@ -349,190 +283,287 @@ button:hover {
 
 button:disabled {
 
-  opacity: .45;
+  opacity:
+    .45;
 
-  cursor: not-allowed;
-
-  transform: none;
-}
-
-
-.secondary {
-
-  background:
-    #1f2937;
-}
-
-
-.secondary:hover {
-
-  background:
-    #374151;
+  cursor:
+    not-allowed;
 }
 
 
 /* =========================================================
-   UPLOAD
+   CHAT
+========================================================= */
+
+.chat {
+
+  min-height:
+    350px;
+
+  max-height:
+    600px;
+
+  overflow-y:
+    auto;
+
+  margin-bottom:
+    15px;
+}
+
+
+.message {
+
+  padding:
+    13px 15px;
+
+  border-radius:
+    14px;
+
+  margin:
+    10px 0;
+
+  line-height:
+    1.5;
+
+  white-space:
+    pre-wrap;
+
+  word-break:
+    break-word;
+}
+
+
+.message.user {
+
+  background:
+    #312e81;
+
+  margin-left:
+    15%;
+}
+
+
+.message.ai {
+
+  background:
+    #111827;
+
+  margin-right:
+    15%;
+}
+
+
+.chat-status {
+
+  color:
+    #9ca3af;
+
+  margin-top:
+    10px;
+}
+
+
+/* =========================================================
+   IMAGE
 ========================================================= */
 
 .upload {
-
-  margin-top: 15px;
 
   border:
     2px dashed
     #374151;
 
-  border-radius: 15px;
+  border-radius:
+    15px;
 
-  padding: 25px;
+  padding:
+    25px;
 
-  text-align: center;
+  text-align:
+    center;
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
-  color: #9ca3af;
+  color:
+    #9ca3af;
 
-  transition:
-    border-color .2s;
-}
+  display:
+    block;
 
-
-.upload:hover {
-
-  border-color:
-    #6366f1;
+  margin-bottom:
+    15px;
 }
 
 
 input[type=file] {
 
-  display: none;
+  display:
+    none;
 }
 
 
-.preview {
+.preview,
+.result img {
 
-  display: none;
+  width:
+    100%;
 
-  width: 100%;
+  max-height:
+    550px;
 
-  max-height: 500px;
+  object-fit:
+    contain;
 
-  object-fit: contain;
+  border-radius:
+    15px;
 
-  border-radius: 15px;
+  display:
+    block;
 
-  margin-top: 15px;
+  margin-top:
+    15px;
 
   background:
     #05070c;
 }
 
 
-.result {
+.preview {
 
-  display: none;
-
-  margin-top: 20px;
+  display:
+    none;
 }
 
 
-.result img {
+.result {
 
-  width: 100%;
-
-  border-radius: 16px;
-
-  display: block;
+  display:
+    none;
 }
 
 
 .download {
 
-  display: inline-block;
+  display:
+    inline-block;
 
-  margin-top: 15px;
-
-  text-decoration: none;
-
-  background:
-    #16a34a;
-
-  color: white;
+  margin-top:
+    15px;
 
   padding:
     12px 17px;
 
-  border-radius: 11px;
+  background:
+    #16a34a;
 
-  font-weight: 700;
+  color:
+    white;
+
+  text-decoration:
+    none;
+
+  border-radius:
+    11px;
+
+  font-weight:
+    700;
+}
+
+
+/* =========================================================
+   LIMIT
+========================================================= */
+
+.limit {
+
+  padding:
+    15px;
+
+  border-radius:
+    14px;
+
+  background:
+    rgba(255,255,255,.04);
+
+  margin-bottom:
+    15px;
+
+  color:
+    #d1d5db;
+}
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.video-placeholder {
+
+  text-align:
+    center;
+
+  padding:
+    70px 20px;
+
+  color:
+    #9ca3af;
+}
+
+
+.video-icon {
+
+  font-size:
+    70px;
+
+  margin-bottom:
+    15px;
 }
 
 
 .status {
 
-  margin-top: 15px;
-
-  padding: 14px;
-
-  border-radius: 12px;
-
   background:
     #080b13;
 
-  color: #9ca3af;
+  color:
+    #9ca3af;
 
-  white-space: pre-wrap;
+  padding:
+    15px;
 
-  word-break: break-word;
+  border-radius:
+    12px;
+
+  white-space:
+    pre-wrap;
+
+  word-break:
+    break-word;
+
+  margin-top:
+    15px;
 }
 
 
-.loading {
+@media(max-width:600px) {
 
-  display: none;
-
-  margin-top: 15px;
-
-  color: #a5b4fc;
-}
-
-
-.note {
-
-  color: #6b7280;
-
-  font-size: 12px;
-
-  line-height: 1.5;
-
-  margin-top: 12px;
-}
-
-
-@media (max-width: 600px) {
-
-  .logo {
-    font-size: 34px;
-  }
-
-  .stats {
-    grid-template-columns:
-      1fr;
-  }
-
-  .limit-main {
-    align-items:
-      flex-start;
+  .tabs {
 
     flex-direction:
       column;
   }
 
-  .limit-small {
-    text-align:
-      left;
+  .message.user {
+
+    margin-left:
+      5%;
+  }
+
+  .message.ai {
+
+    margin-right:
+      5%;
   }
 
 }
@@ -548,331 +579,346 @@ input[type=file] {
 <div class="container">
 
 
-  <div class="header">
+<div class="header">
 
-    <div class="logo">
-      Locer AI
-    </div>
+  <div class="logo">
+    Locer AI
+  </div>
 
-    <div class="subtitle">
-      Генерация и редактирование изображений
-    </div>
+  <div class="subtitle">
+    Текст • Изображения • Видео
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     TABS
+====================================================== -->
+
+<div class="tabs">
+
+  <button
+    class="tab active"
+    onclick="openTab('text', this)"
+  >
+    💬 Текст
+  </button>
+
+  <button
+    class="tab"
+    onclick="openTab('images', this)"
+  >
+    🎨 Изображения
+  </button>
+
+  <button
+    class="tab"
+    onclick="openTab('video', this)"
+  >
+    🎬 Видео
+  </button>
+
+</div>
+
+
+<!-- =====================================================
+     TEXT
+====================================================== -->
+
+<div
+  id="text"
+  class="page active"
+>
+
+
+<div class="card">
+
+  <h2>
+    💬 Locer AI
+  </h2>
+
+
+  <div class="limit">
+
+    💬 Текстовый лимит:
+
+    <b id="textRemaining">
+      50
+    </b>
+
+    запросов осталось сегодня
 
   </div>
 
 
-  <!-- =====================================================
-       LIMIT
-  ====================================================== -->
-
-  <div class="limit-box">
-
-    <div class="limit-title">
-      📊 Лимит на сегодня
-    </div>
+  <div
+    id="chat"
+    class="chat"
+  ></div>
 
 
-    <div class="limit-main">
-
-      <div>
-
-        <div
-          class="limit-number"
-          id="remaining"
-        >
-          96
-        </div>
-
-        <div class="limit-small">
-          операций осталось
-        </div>
-
-      </div>
+  <textarea
+    id="textInput"
+    placeholder="Напиши сообщение Locer..."
+  ></textarea>
 
 
-      <div class="limit-small">
-
-        Использовано:
-        <b id="used">0</b>
-        из
-        <b id="limit">96</b>
-
-        <br>
-
-        Сброс:
-        <span id="reset">
-          00:00 UTC
-        </span>
-
-      </div>
-
-    </div>
+  <button
+    id="sendButton"
+    onclick="sendMessage()"
+  >
+    ➤ Отправить
+  </button>
 
 
-    <div class="progress">
-
-      <div
-        class="progress-bar"
-        id="progressBar"
-      ></div>
-
-    </div>
-
-
-    <div class="stats">
+  <button
+    onclick="clearChat()"
+    style="
+      background:#1f2937;
+      margin-left:8px;
+    "
+  >
+    🗑 Очистить
+  </button>
 
 
-      <div class="stat">
+  <div
+    id="chatStatus"
+    class="chat-status"
+  ></div>
 
-        <div class="stat-icon">
-          🎨
-        </div>
+</div>
 
-        <div
-          class="stat-number"
-          id="generatedCount"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-          Генераций
-        </div>
-
-      </div>
+</div>
 
 
-      <div class="stat">
+<!-- =====================================================
+     IMAGES
+====================================================== -->
 
-        <div class="stat-icon">
-          ✏️
-        </div>
-
-        <div
-          class="stat-number"
-          id="editedCount"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-          Редактирований
-        </div>
-
-      </div>
+<div
+  id="images"
+  class="page"
+>
 
 
-      <div class="stat">
+<div class="card">
 
-        <div class="stat-icon">
-          ⚡
-        </div>
-
-        <div
-          class="stat-number"
-          id="totalCount"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-          Всего операций
-        </div>
-
-      </div>
+  <h2>
+    🎨 Создать изображение
+  </h2>
 
 
-    </div>
+  <div class="limit">
 
+    ⚡ Ориентировочный лимит:
 
-    <div class="note">
+    <b id="imageRemaining">
+      96
+    </b>
 
-      Лимит ориентировочный: Cloudflare Workers AI
-      использует Neurons. Реальный расход зависит
-      от размера изображения и входной картинки.
-
-    </div>
+    операций
 
   </div>
 
 
-  <!-- =====================================================
-       GENERATE
-  ====================================================== -->
-
-  <div class="card">
-
-    <h2>
-      🎨 Создать изображение
-    </h2>
+  <textarea
+    id="generatePrompt"
+    placeholder="Например: реалистичный леопард в снежном лесу, кинематографический свет..."
+  ></textarea>
 
 
-    <textarea
-      id="generatePrompt"
-      placeholder="Например: реалистичный рыжий леопард в снежном лесу, кинематографический свет, высокая детализация"
-    ></textarea>
+  <button
+    onclick="generateImage()"
+    id="generateButton"
+  >
+    🎨 Создать
+  </button>
 
 
-    <div class="buttons">
-
-      <button
-        id="generateButton"
-        onclick="generateImage()"
-      >
-        🎨 Создать изображение
-      </button>
-
-    </div>
-
-
-    <div
-      class="loading"
-      id="generateLoading"
-    >
-      ⏳ Locer создаёт изображение...
-    </div>
-
-
-    <div
-      class="result"
-      id="generateResult"
-    >
-
-      <img
-        id="generatedImage"
-        alt="Сгенерированное изображение"
-      >
-
-      <a
-        id="downloadGenerated"
-        class="download"
-        download="locer-generated.png"
-      >
-        ⬇️ Скачать изображение
-      </a>
-
-    </div>
-
+  <div
+    id="generateLoading"
+    style="
+      display:none;
+      color:#a5b4fc;
+      margin-top:12px;
+    "
+  >
+    ⏳ Создаю изображение...
   </div>
 
 
-  <!-- =====================================================
-       EDIT
-  ====================================================== -->
-
-  <div class="card">
-
-    <h2>
-      ✏️ Редактировать изображение
-    </h2>
-
-
-    <label
-      class="upload"
-      for="imageInput"
-    >
-
-      🖼️ Нажми здесь, чтобы загрузить изображение
-
-      <br>
-
-      <small>
-        PNG, JPG, WEBP
-      </small>
-
-    </label>
-
-
-    <input
-      id="imageInput"
-      type="file"
-      accept="image/png,image/jpeg,image/webp"
-    >
-
+  <div
+    id="generateResult"
+    class="result"
+  >
 
     <img
-      id="preview"
-      class="preview"
-      alt="Предпросмотр"
+      id="generatedImage"
     >
 
-
-    <textarea
-      id="editPrompt"
-      placeholder="Например: добавь рядом с леопардом белого волка, сохрани фон и стиль фотографии"
-    ></textarea>
-
-
-    <div class="buttons">
-
-      <button
-        id="editButton"
-        onclick="editImage()"
-      >
-        ✏️ Редактировать
-      </button>
-
-    </div>
-
-
-    <div
-      class="loading"
-      id="editLoading"
+    <a
+      id="downloadGenerated"
+      class="download"
+      download="locer-generated.png"
     >
-      ⏳ Locer редактирует изображение...
-    </div>
-
-
-    <div
-      class="result"
-      id="editResult"
-    >
-
-      <img
-        id="editedImage"
-        alt="Отредактированное изображение"
-      >
-
-      <a
-        id="downloadEdited"
-        class="download"
-        download="locer-edited.png"
-      >
-        ⬇️ Скачать изображение
-      </a>
-
-    </div>
+      ⬇️ Скачать
+    </a>
 
   </div>
 
+</div>
 
-  <!-- =====================================================
-       STATUS
-  ====================================================== -->
 
-  <div class="card">
+<div class="card">
+
+  <h2>
+    ✏️ Редактировать изображение
+  </h2>
+
+
+  <label
+    class="upload"
+    for="imageInput"
+  >
+
+    🖼️ Загрузить изображение
+
+    <br>
+
+    <small>
+      PNG / JPG / WEBP
+    </small>
+
+  </label>
+
+
+  <input
+    id="imageInput"
+    type="file"
+    accept="image/png,image/jpeg,image/webp"
+  >
+
+
+  <img
+    id="preview"
+    class="preview"
+  >
+
+
+  <textarea
+    id="editPrompt"
+    placeholder="Например: сделай кухню современной, белые фасады, тёплая подсветка..."
+  ></textarea>
+
+
+  <button
+    onclick="editImage()"
+    id="editButton"
+  >
+    ✏️ Редактировать
+  </button>
+
+
+  <div
+    id="editLoading"
+    style="
+      display:none;
+      color:#a5b4fc;
+      margin-top:12px;
+    "
+  >
+    ⏳ Редактирую изображение...
+  </div>
+
+
+  <div
+    id="editResult"
+    class="result"
+  >
+
+    <img
+      id="editedImage"
+    >
+
+    <a
+      id="downloadEdited"
+      class="download"
+      download="locer-edited.png"
+    >
+      ⬇️ Скачать
+    </a>
+
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     VIDEO
+====================================================== -->
+
+<div
+  id="video"
+  class="page"
+>
+
+<div class="card">
+
+  <div class="video-placeholder">
+
+    <div class="video-icon">
+      🎬
+    </div>
 
     <h2>
-      🔎 Статус Locer
+      Генерация видео
     </h2>
 
+    <p>
+      Мы добавим видеогенерацию сюда следующим этапом.
+    </p>
 
-    <button
-      class="secondary"
-      onclick="checkStatus()"
-    >
-      🔎 Проверить Worker
-    </button>
-
-
-    <div
-      class="status"
-      id="status"
-    >
-      Нажми «Проверить Worker»
-    </div>
+    <p>
+      Пока вкладка готова, но генератор видео не подключён.
+    </p>
 
   </div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     STATUS
+====================================================== -->
+
+<div class="card">
+
+  <h2>
+    🔎 Статус Locer
+  </h2>
+
+
+  <button
+    onclick="checkStatus()"
+  >
+    🔎 Проверить Worker
+  </button>
+
+
+  <div
+    id="status"
+    class="status"
+  >
+    Нажми кнопку, чтобы проверить API.
+  </div>
+
+</div>
 
 
 </div>
@@ -881,45 +927,85 @@ input[type=file] {
 <script>
 
 
-// =========================================================
-// CONFIG
-// =========================================================
-
 const WORKER =
   "https://locer-ai.ivan-ostanin1914.workers.dev";
 
 
-const DAILY_LIMIT = 96;
+const TEXT_LIMIT =
+  50;
+
+
+const IMAGE_LIMIT =
+  96;
+
+
+let selectedFile =
+  null;
+
+
+let chatHistory =
+  [];
 
 
 // =========================================================
-// STORAGE
+// TABS
 // =========================================================
 
-function todayUTC() {
+function openTab(
+  name,
+  button
+) {
 
-  const now =
-    new Date();
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      page =>
+        page.classList.remove(
+          "active"
+        )
+    );
 
-  return now
-    .toISOString()
-    .slice(0, 10);
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(
+      tab =>
+        tab.classList.remove(
+          "active"
+        )
+    );
+
+
+  document
+    .getElementById(name)
+    .classList.add("active");
+
+
+  button.classList.add("active");
 }
 
 
-function getStats() {
+// =========================================================
+// TEXT STORAGE
+// =========================================================
+
+function getTextStats() {
 
   const today =
-    todayUTC();
+    new Date()
+      .toISOString()
+      .slice(0, 10);
+
 
   let stats;
+
 
   try {
 
     stats =
       JSON.parse(
         localStorage.getItem(
-          "locerDailyStats"
+          "locerTextStats"
         ) || "null"
       );
 
@@ -936,15 +1022,15 @@ function getStats() {
 
     stats = {
 
-      date: today,
+      date:
+        today,
 
-      generated: 0,
-
-      edited: 0
+      used:
+        0
     };
 
     localStorage.setItem(
-      "locerDailyStats",
+      "locerTextStats",
       JSON.stringify(stats)
     );
   }
@@ -954,202 +1040,438 @@ function getStats() {
 }
 
 
-function saveStats(stats) {
-
-  localStorage.setItem(
-    "locerDailyStats",
-    JSON.stringify(stats)
-  );
-}
-
-
-// =========================================================
-// LIMIT UI
-// =========================================================
-
-function updateLimitUI() {
+function updateTextLimit() {
 
   const stats =
-    getStats();
-
-
-  const generated =
-    Number(stats.generated || 0);
-
-
-  const edited =
-    Number(stats.edited || 0);
-
-
-  const total =
-    generated + edited;
+    getTextStats();
 
 
   const remaining =
     Math.max(
       0,
-      DAILY_LIMIT - total
+      TEXT_LIMIT -
+      Number(stats.used || 0)
     );
 
 
   document.getElementById(
-    "generatedCount"
-  ).textContent =
-    generated;
-
-
-  document.getElementById(
-    "editedCount"
-  ).textContent =
-    edited;
-
-
-  document.getElementById(
-    "totalCount"
-  ).textContent =
-    total;
-
-
-  document.getElementById(
-    "remaining"
+    "textRemaining"
   ).textContent =
     remaining;
 
 
   document.getElementById(
-    "used"
-  ).textContent =
-    total;
-
-
-  document.getElementById(
-    "limit"
-  ).textContent =
-    DAILY_LIMIT;
-
-
-  const percent =
-    Math.min(
-      100,
-      (total / DAILY_LIMIT) * 100
-    );
-
-
-  document.getElementById(
-    "progressBar"
-  ).style.width =
-    percent + "%";
-
-
-  const disabled =
+    "sendButton"
+  ).disabled =
     remaining <= 0;
-
-
-  document.getElementById(
-    "generateButton"
-  ).disabled =
-    disabled;
-
-
-  document.getElementById(
-    "editButton"
-  ).disabled =
-    disabled;
-
-
-  updateResetTime();
 }
 
 
-// =========================================================
-// RESET TIME
-// =========================================================
-
-function updateResetTime() {
-
-  const now =
-    new Date();
-
-
-  const tomorrow =
-    new Date(
-      Date.UTC(
-        now.getUTCFullYear(),
-        now.getUTCMonth(),
-        now.getUTCDate() + 1
-      )
-    );
-
-
-  const diff =
-    tomorrow.getTime() -
-    now.getTime();
-
-
-  const hours =
-    Math.floor(
-      diff / 3600000
-    );
-
-
-  const minutes =
-    Math.floor(
-      (diff % 3600000) /
-      60000
-    );
-
-
-  document.getElementById(
-    "reset"
-  ).textContent =
-    `${hours} ч ${minutes} мин`;
-}
-
-
-// =========================================================
-// ADD OPERATION
-// =========================================================
-
-function addOperation(type) {
+function useTextRequest() {
 
   const stats =
-    getStats();
-
-
-  const total =
-    Number(stats.generated || 0) +
-    Number(stats.edited || 0);
+    getTextStats();
 
 
   if (
-    total >= DAILY_LIMIT
+    Number(stats.used || 0)
+    >= TEXT_LIMIT
   ) {
-
-    alert(
-      "Дневной лимит Locer исчерпан. Попробуй снова после сброса лимита."
-    );
 
     return false;
   }
 
 
-  if (type === "generated") {
+  stats.used =
+    Number(stats.used || 0) + 1;
 
-    stats.generated =
-      Number(stats.generated || 0) + 1;
+
+  localStorage.setItem(
+    "locerTextStats",
+    JSON.stringify(stats)
+  );
+
+
+  updateTextLimit();
+
+  return true;
+}
+
+
+// =========================================================
+// CHAT
+// =========================================================
+
+function addMessage(
+  text,
+  type
+) {
+
+  const chat =
+    document.getElementById(
+      "chat"
+    );
+
+
+  const message =
+    document.createElement(
+      "div"
+    );
+
+
+  message.className =
+    "message " + type;
+
+
+  message.textContent =
+    text;
+
+
+  chat.appendChild(
+    message
+  );
+
+
+  chat.scrollTop =
+    chat.scrollHeight;
+}
+
+
+async function sendMessage() {
+
+  const input =
+    document.getElementById(
+      "textInput"
+    );
+
+
+  const message =
+    input.value.trim();
+
+
+  if (!message) {
+
+    return;
   }
 
 
-  if (type === "edited") {
+  if (!useTextRequest()) {
 
-    stats.edited =
-      Number(stats.edited || 0) + 1;
+    alert(
+      "Дневной лимит текста исчерпан."
+    );
+
+    return;
   }
 
 
-  saveStats(stats);
+  addMessage(
+    message,
+    "user"
+  );
 
-  updateLimitUI();
+
+  input.value =
+    "";
+
+
+  const button =
+    document.getElementById(
+      "sendButton"
+    );
+
+
+  const status =
+    document.getElementById(
+      "chatStatus"
+    );
+
+
+  button.disabled =
+    true;
+
+
+  status.textContent =
+    "⏳ Locer думает...";
+
+
+  try {
+
+    const response =
+      await fetch(
+        WORKER + "/chat",
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              message:
+                message,
+
+              history:
+                chatHistory
+
+            })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (
+      !response.ok ||
+      !data.ok
+    ) {
+
+      throw new Error(
+
+        data.error ||
+        data.details ||
+        "Ошибка текстового ИИ."
+
+      );
+    }
+
+
+    addMessage(
+      data.text,
+      "ai"
+    );
+
+
+    chatHistory.push({
+
+      role:
+        "user",
+
+      text:
+        message
+
+    });
+
+
+    chatHistory.push({
+
+      role:
+        "assistant",
+
+      text:
+        data.text
+
+    });
+
+
+    chatHistory =
+      chatHistory.slice(-12);
+
+
+    status.textContent =
+      "";
+
+  } catch (error) {
+
+    addMessage(
+
+      "❌ " +
+      error.message,
+
+      "ai"
+
+    );
+
+
+    status.textContent =
+      "";
+
+  } finally {
+
+    updateTextLimit();
+
+    if (
+      getTextStats().used <
+      TEXT_LIMIT
+    ) {
+
+      button.disabled =
+        false;
+    }
+  }
+}
+
+
+// Enter = send
+document
+  .getElementById(
+    "textInput"
+  )
+  .addEventListener(
+    "keydown",
+    function(event) {
+
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey
+      ) {
+
+        event.preventDefault();
+
+        sendMessage();
+      }
+
+    }
+  );
+
+
+// =========================================================
+// CLEAR CHAT
+// =========================================================
+
+function clearChat() {
+
+  chatHistory =
+    [];
+
+
+  document.getElementById(
+    "chat"
+  ).innerHTML =
+    "";
+
+
+  document.getElementById(
+    "chatStatus"
+  ).textContent =
+    "";
+}
+
+
+// =========================================================
+// IMAGE STATS
+// =========================================================
+
+function getImageStats() {
+
+  const today =
+    new Date()
+      .toISOString()
+      .slice(0, 10);
+
+
+  let stats;
+
+
+  try {
+
+    stats =
+      JSON.parse(
+        localStorage.getItem(
+          "locerImageStats"
+        ) || "null"
+      );
+
+  } catch {
+
+    stats = null;
+  }
+
+
+  if (
+    !stats ||
+    stats.date !== today
+  ) {
+
+    stats = {
+
+      date:
+        today,
+
+      used:
+        0
+    };
+
+    localStorage.setItem(
+      "locerImageStats",
+      JSON.stringify(stats)
+    );
+  }
+
+
+  return stats;
+}
+
+
+function updateImageLimit() {
+
+  const stats =
+    getImageStats();
+
+
+  const remaining =
+    Math.max(
+      0,
+      IMAGE_LIMIT -
+      Number(stats.used || 0)
+    );
+
+
+  document.getElementById(
+    "imageRemaining"
+  ).textContent =
+    remaining;
+
+
+  document.getElementById(
+    "generateButton"
+  ).disabled =
+    remaining <= 0;
+
+
+  document.getElementById(
+    "editButton"
+  ).disabled =
+    remaining <= 0;
+}
+
+
+function useImageRequest() {
+
+  const stats =
+    getImageStats();
+
+
+  if (
+    Number(stats.used || 0)
+    >= IMAGE_LIMIT
+  ) {
+
+    return false;
+  }
+
+
+  stats.used =
+    Number(stats.used || 0) + 1;
+
+
+  localStorage.setItem(
+    "locerImageStats",
+    JSON.stringify(stats)
+  );
+
+
+  updateImageLimit();
 
   return true;
 }
@@ -1180,14 +1502,10 @@ async function generateImage() {
   }
 
 
-  if (
-    getStats().generated +
-    getStats().edited >=
-    DAILY_LIMIT
-  ) {
+  if (!useImageRequest()) {
 
     alert(
-      "Дневной лимит исчерпан."
+      "Дневной лимит изображений исчерпан."
     );
 
     return;
@@ -1209,6 +1527,7 @@ async function generateImage() {
   button.disabled =
     true;
 
+
   loading.style.display =
     "block";
 
@@ -1220,11 +1539,14 @@ async function generateImage() {
         WORKER + "/generate",
         {
 
-          method: "POST",
+          method:
+            "POST",
 
           headers: {
+
             "Content-Type":
               "application/json"
+
           },
 
           body:
@@ -1240,6 +1562,7 @@ async function generateImage() {
                 1024
 
             })
+
         }
       );
 
@@ -1255,9 +1578,11 @@ async function generateImage() {
     ) {
 
       throw new Error(
+
         data.error ||
         data.details ||
         "Не удалось создать изображение."
+
       );
     }
 
@@ -1280,12 +1605,6 @@ async function generateImage() {
       "block";
 
 
-    // Считаем только успешную операцию
-    addOperation(
-      "generated"
-    );
-
-
   } catch (error) {
 
     alert(
@@ -1298,7 +1617,7 @@ async function generateImage() {
     loading.style.display =
       "none";
 
-    updateLimitUI();
+    updateImageLimit();
   }
 }
 
@@ -1306,10 +1625,6 @@ async function generateImage() {
 // =========================================================
 // IMAGE UPLOAD
 // =========================================================
-
-let selectedFile =
-  null;
-
 
 document
   .getElementById(
@@ -1338,7 +1653,7 @@ document
 
 
       reader.onload =
-        function(e) {
+        function(event) {
 
           const preview =
             document.getElementById(
@@ -1347,7 +1662,7 @@ document
 
 
           preview.src =
-            e.target.result;
+            event.target.result;
 
 
           preview.style.display =
@@ -1397,21 +1712,10 @@ async function editImage() {
   }
 
 
-  const stats =
-    getStats();
-
-
-  const total =
-    Number(stats.generated || 0) +
-    Number(stats.edited || 0);
-
-
-  if (
-    total >= DAILY_LIMIT
-  ) {
+  if (!useImageRequest()) {
 
     alert(
-      "Дневной лимит исчерпан."
+      "Дневной лимит изображений исчерпан."
     );
 
     return;
@@ -1432,6 +1736,7 @@ async function editImage() {
 
   button.disabled =
     true;
+
 
   loading.style.display =
     "block";
@@ -1472,10 +1777,12 @@ async function editImage() {
         WORKER + "/edit",
         {
 
-          method: "POST",
+          method:
+            "POST",
 
           body:
             form
+
         }
       );
 
@@ -1491,9 +1798,11 @@ async function editImage() {
     ) {
 
       throw new Error(
+
         data.error ||
         data.details ||
         "Не удалось отредактировать изображение."
+
       );
     }
 
@@ -1516,11 +1825,6 @@ async function editImage() {
       "block";
 
 
-    addOperation(
-      "edited"
-    );
-
-
   } catch (error) {
 
     alert(
@@ -1533,7 +1837,7 @@ async function editImage() {
     loading.style.display =
       "none";
 
-    updateLimitUI();
+    updateImageLimit();
   }
 }
 
@@ -1586,12 +1890,9 @@ async function checkStatus() {
 // START
 // =========================================================
 
-updateLimitUI();
+updateTextLimit();
 
-setInterval(
-  updateLimitUI,
-  30000
-);
+updateImageLimit();
 
 </script>
 
