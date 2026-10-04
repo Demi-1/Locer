@@ -1,2028 +1,553 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Locer AI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locer — AI изображения</title>
 
-<style>
-* {
-    box-sizing: border-box;
-}
+  <!-- Puter.js -->
+  <script src="https://js.puter.com/v2/"></script>
 
-html,
-body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background: #0f1117;
-    color: white;
-    overflow: hidden;
-}
-
-button,
-textarea {
-    font-family: inherit;
-}
-
-.app {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar {
-    width: 270px;
-    height: 100%;
-    background: #171a22;
-    border-right: 1px solid #292d38;
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    flex-shrink: 0;
-    z-index: 100;
-}
-
-.logo {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.new-chat {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 11px;
-    background: #2563eb;
-    color: white;
-    cursor: pointer;
-    font-size: 15px;
-}
-
-.new-chat:hover {
-    background: #1d4ed8;
-}
-
-.menu-button {
-    width: 100%;
-    padding: 11px;
-    margin-top: 9px;
-    border: 1px solid #343946;
-    border-radius: 10px;
-    background: #20242e;
-    color: white;
-    cursor: pointer;
-    text-align: left;
-}
-
-.menu-button:hover {
-    background: #292e39;
-}
-
-.login {
-    width: 100%;
-    padding: 11px;
-    margin-top: 9px;
-    border: 1px solid #343946;
-    border-radius: 10px;
-    background: #20242e;
-    color: white;
-    cursor: pointer;
-}
-
-.saved-title {
-    color: #8e96a8;
-    font-size: 13px;
-    margin-top: 22px;
-    margin-bottom: 8px;
-}
-
-.chats {
-    flex: 1;
-    overflow-y: auto;
-}
-
-.chat-item {
-    padding: 10px;
-    border-radius: 9px;
-    margin-bottom: 4px;
-    cursor: pointer;
-    color: #e5e7eb;
-    font-size: 14px;
-}
-
-.chat-item:hover {
-    background: #252a35;
-}
-
-.delete-chat {
-    width: 100%;
-    padding: 11px;
-    border: 1px solid #4a3035;
-    border-radius: 10px;
-    background: #241a1d;
-    color: #ff9b9b;
-    cursor: pointer;
-}
-
-.delete-chat:hover {
-    background: #352024;
-}
-
-/* =========================
-   MAIN
-========================= */
-
-.main {
-    flex: 1;
-    min-width: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.header {
-    height: 60px;
-    border-bottom: 1px solid #292d38;
-    display: flex;
-    align-items: center;
-    padding: 0 18px;
-    gap: 12px;
-    flex-shrink: 0;
-}
-
-.header-title {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.mobile-menu {
-    display: none;
-    width: 42px;
-    height: 42px;
-    border: none;
-    border-radius: 10px;
-    background: #20242e;
-    color: white;
-    font-size: 21px;
-    cursor: pointer;
-}
-
-.messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 24px 15px;
-}
-
-.message {
-    max-width: 850px;
-    margin: 0 auto 16px;
-    padding: 14px 16px;
-    border-radius: 15px;
-    line-height: 1.55;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-
-.message.user {
-    background: #2563eb;
-    margin-left: auto;
-    margin-right: max(0px, calc((100% - 850px) / 2));
-}
-
-.message.ai {
-    background: #1b1f29;
-    border: 1px solid #292e3a;
-    margin-right: auto;
-    margin-left: max(0px, calc((100% - 850px) / 2));
-}
-
-/* =========================
-   THINKING
-========================= */
-
-.thinking {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #b5bdcc;
-}
-
-.thinking-icon {
-    font-size: 18px;
-}
-
-.dots span {
-    opacity: .2;
-    animation: thinkingDots 1.4s infinite;
-}
-
-.dots span:nth-child(2) {
-    animation-delay: .2s;
-}
-
-.dots span:nth-child(3) {
-    animation-delay: .4s;
-}
-
-@keyframes thinkingDots {
-    0%, 80%, 100% {
-        opacity: .2;
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    40% {
-        opacity: 1;
-    }
-}
-
-/* =========================
-   IMAGE
-========================= */
-
-.image-preview {
-    max-width: 250px;
-    max-height: 250px;
-    display: block;
-    border-radius: 12px;
-    margin-bottom: 9px;
-    object-fit: contain;
-}
-
-.uploaded-image {
-    max-width: 300px;
-    max-height: 300px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    display: block;
-}
-
-/* =========================
-   INPUT
-========================= */
-
-.input-area {
-    border-top: 1px solid #292d38;
-    padding: 12px 15px;
-    flex-shrink: 0;
-}
-
-.input-box {
-    max-width: 900px;
-    margin: auto;
-    display: flex;
-    align-items: flex-end;
-    gap: 8px;
-}
-
-.text-wrap {
-    flex: 1;
-    min-width: 0;
-    background: #191d26;
-    border: 1px solid #343a47;
-    border-radius: 13px;
-    padding: 8px;
-}
-
-.text-wrap:focus-within {
-    border-color: #3b82f6;
-}
-
-textarea {
-    width: 100%;
-    min-height: 42px;
-    max-height: 150px;
-    resize: none;
-    border: none;
-    outline: none;
-    background: transparent;
-    color: white;
-    font-size: 15px;
-    padding: 7px;
-}
-
-textarea::placeholder {
-    color: #777f91;
-}
-
-.attach {
-    width: 43px;
-    height: 43px;
-    border: none;
-    border-radius: 10px;
-    background: #242934;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.attach:hover {
-    background: #303643;
-}
-
-.send {
-    width: 48px;
-    height: 48px;
-    border: none;
-    border-radius: 12px;
-    background: #2563eb;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.send:hover {
-    background: #1d4ed8;
-}
-
-.send:disabled {
-    opacity: .5;
-    cursor: not-allowed;
-}
-
-.file-input {
-    display: none;
-}
-
-.photo-selected {
-    max-width: 900px;
-    margin: 7px auto 0;
-    display: none;
-    align-items: center;
-    gap: 10px;
-    color: #aeb6c8;
-    font-size: 13px;
-}
-
-.photo-selected img {
-    width: 48px;
-    height: 48px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.remove-photo {
-    border: none;
-    background: #30252a;
-    color: #ff9d9d;
-    border-radius: 7px;
-    padding: 6px 9px;
-    cursor: pointer;
-}
-
-.status {
-    max-width: 900px;
-    margin: 6px auto 0;
-    color: #777f91;
-    font-size: 12px;
-}
-
-/* =========================
-   SETTINGS
-========================= */
-
-.settings-panel {
-    display: none;
-    border: 1px solid #343946;
-    border-radius: 10px;
-    margin-top: 9px;
-    padding: 10px;
-    background: #1b1f28;
-}
-
-.settings-panel.open {
-    display: block;
-}
-
-.settings-row {
-    color: #aeb6c8;
-    font-size: 13px;
-    padding: 6px 2px;
-}
-
-/* =========================
-   MOBILE OVERLAY
-========================= */
-
-.overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.55);
-    z-index: 90;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 700px) {
-
-    .sidebar {
-        position: fixed;
-        left: -290px;
-        top: 0;
-        width: 280px;
-        transition: left .25s ease;
-        box-shadow: 8px 0 25px rgba(0,0,0,.35);
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f1117;
+      color: #fff;
+      min-height: 100vh;
     }
 
-    .sidebar.open {
-        left: 0;
+    header {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 22px;
+      background: #171a23;
+      border-bottom: 1px solid #292d38;
+      font-size: 22px;
+      font-weight: 700;
     }
 
-    .overlay.open {
-        display: block;
+    .logo {
+      color: #8b7cff;
     }
 
-    .mobile-menu {
-        display: block;
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 35px 20px 60px;
     }
 
-    .header {
-        padding: 0 12px;
+    h1 {
+      margin-top: 0;
+      font-size: 32px;
     }
 
-    .messages {
-        padding: 15px 9px;
+    .subtitle {
+      color: #a9afbd;
+      margin-bottom: 30px;
     }
 
-    .message,
-    .message.user,
-    .message.ai {
-        max-width: 94%;
-        margin-left: auto;
-        margin-right: auto;
+    .card {
+      background: #171a23;
+      border: 1px solid #292d38;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 20px;
     }
 
-    .input-area {
-        padding: 8px;
+    .card h2 {
+      margin-top: 0;
+      font-size: 21px;
     }
 
-    .input-box {
-        gap: 6px;
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      resize: vertical;
+      border: 1px solid #343947;
+      border-radius: 12px;
+      padding: 15px;
+      background: #0f1117;
+      color: white;
+      outline: none;
+      font-size: 16px;
     }
 
-    .attach {
-        width: 42px;
+    textarea:focus {
+      border-color: #8b7cff;
     }
 
-    .send {
-        width: 46px;
+    button,
+    label.upload {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 18px;
+      margin-top: 14px;
+      background: #7567ff;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    button:hover,
+    label.upload:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .secondary {
+      background: #292d38;
+    }
+
+    input[type="file"] {
+      display: none;
     }
 
     .status {
-        padding-left: 3px;
+      margin-top: 15px;
+      color: #a9afbd;
+      min-height: 22px;
     }
-}
-</style>
+
+    .preview {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .preview img {
+      max-width: 100%;
+      max-height: 600px;
+      border-radius: 16px;
+      border: 1px solid #343947;
+      display: none;
+      margin: auto;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .error {
+      color: #ff7070;
+    }
+
+    .success {
+      color: #73e6a4;
+    }
+
+    .info {
+      background: #11151e;
+      border: 1px solid #292d38;
+      padding: 13px;
+      border-radius: 12px;
+      color: #a9afbd;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      color: #777e8d;
+      padding: 20px;
+      font-size: 13px;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="app">
+<header>
+  <span class="logo">Locer</span>&nbsp; — AI изображения
+</header>
 
-    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+<main>
 
-    <aside class="sidebar" id="sidebar">
+  <!-- GENERATION -->
+  <section class="card">
+    <h2>🖼️ Создать изображение</h2>
 
-        <div class="logo">🤖 Locer</div>
+    <p class="subtitle">
+      Напиши, что ты хочешь увидеть, и Puter создаст изображение.
+    </p>
 
-        <button class="new-chat" onclick="newChat()">
-            ＋ Новый чат
-        </button>
+    <textarea
+      id="prompt"
+      placeholder="Например: космический леопард на Марсе, мультяшный стиль, яркие цвета">
+    </textarea>
 
-        <button class="login" onclick="loginGoogle()">
-            Войти через Google
-        </button>
+    <div class="actions">
+      <button id="generateBtn">
+        ✨ Создать изображение
+      </button>
+    </div>
 
-        <button class="menu-button" onclick="toggleSettings()">
-            ⚙️ Параметры
-        </button>
+    <div id="generateStatus" class="status"></div>
 
-        <div class="settings-panel" id="settingsPanel">
+    <div class="preview">
+      <img id="generatedImage" alt="Сгенерированное изображение">
+    </div>
+  </section>
 
-            <div class="settings-row">
-                🧠 Модель: Gemini 3.8 Flash
-            </div>
 
-            <div class="settings-row">
-                📷 Распознавание фото: включено
-            </div>
+  <!-- EDIT -->
+  <section class="card">
 
-            <div class="settings-row">
-                💾 Сохранение чатов: Firebase
-            </div>
+    <h2>✏️ Изменить изображение</h2>
 
-        </div>
+    <p class="subtitle">
+      Загрузи картинку и напиши, что нужно изменить.
+    </p>
 
-        <div class="saved-title">
-            Сохранённые чаты
-        </div>
+    <label class="upload" for="imageInput">
+      📁 Выбрать изображение
+    </label>
 
-        <div class="chats" id="chats"></div>
+    <input
+      id="imageInput"
+      type="file"
+      accept="image/png,image/jpeg,image/webp"
+    >
 
-        <button class="delete-chat" onclick="deleteCurrentChat()">
-            🗑️ Удалить текущий чат
-        </button>
+    <div class="preview">
+      <img id="uploadedImage" alt="Загруженное изображение">
+    </div>
 
-    </aside>
+    <textarea
+      id="editPrompt"
+      class="hidden"
+      placeholder="Например: добавь солнечные очки и сделай фон космическим">
+    </textarea>
 
-    <main class="main">
+    <div class="actions">
+      <button id="editBtn" class="hidden">
+        ✨ Изменить изображение
+      </button>
+    </div>
 
-        <header class="header">
+    <div id="editStatus" class="status"></div>
 
-            <button
-                class="mobile-menu"
-                onclick="openSidebar()"
-            >
-                ☰
-            </button>
+    <div class="preview">
+      <img id="editedImage" alt="Изменённое изображение">
+    </div>
 
-            <div class="header-title">
-                Locer AI
-            </div>
+  </section>
 
-        </header>
 
-        <div class="messages" id="messages">
+  <div class="info">
+    ℹ️ Для работы с Puter может потребоваться авторизация Puter.
+    Если появится окно входа, просто следуй инструкциям на экране.
+  </div>
 
-            <div class="message ai">
-                Привет! 👋 Я Locer — твой дружелюбный AI-помощник.
-                <br><br>
-                Можешь написать мне вопрос или 📷 отправить фотографию.
-                Например, я могу посмотреть фотографию школьной задачи и объяснить решение. 😊
-            </div>
+</main>
 
-        </div>
+<footer>
+  Locer AI • Image generation powered by Puter
+</footer>
 
-        <div class="input-area">
 
-            <div
-                class="photo-selected"
-                id="photoSelected"
-            >
+<script>
 
-                <img id="photoPreview" src="">
+  const generateBtn =
+    document.getElementById("generateBtn");
 
-                <span id="photoName">
-                    Фото выбрано
-                </span>
+  const promptInput =
+    document.getElementById("prompt");
 
-                <button
-                    class="remove-photo"
-                    onclick="removePhoto()"
-                >
-                    ✕
-                </button>
+  const generatedImage =
+    document.getElementById("generatedImage");
 
-            </div>
+  const generateStatus =
+    document.getElementById("generateStatus");
 
-            <div class="input-box">
 
-                <button
-                    class="attach"
-                    onclick="document.getElementById('fileInput').click()"
-                    title="Загрузить фото"
-                >
-                    📷
-                </button>
+  const imageInput =
+    document.getElementById("imageInput");
 
-                <input
-                    id="fileInput"
-                    class="file-input"
-                    type="file"
-                    accept="image/*"
-                    onchange="handleImage(event)"
-                >
+  const uploadedImage =
+    document.getElementById("uploadedImage");
 
-                <div class="text-wrap">
+  const editPrompt =
+    document.getElementById("editPrompt");
 
-                    <textarea
-                        id="input"
-                        rows="1"
-                        placeholder="Напиши сообщение..."
-                    ></textarea>
+  const editBtn =
+    document.getElementById("editBtn");
 
-                </div>
+  const editedImage =
+    document.getElementById("editedImage");
 
-                <button
-                    class="send"
-                    id="sendBtn"
-                    onclick="send()"
-                >
-                    ➤
-                </button>
+  const editStatus =
+    document.getElementById("editStatus");
 
-            </div>
 
-            <div
-                class="status"
-                id="status"
-            >
-                Google Gemini AI
-            </div>
+  // -----------------------------
+  // GENERATE
+  // -----------------------------
 
-        </div>
+  generateBtn.addEventListener("click", async () => {
 
-    </main>
+    const prompt =
+      promptInput.value.trim();
 
-</div>
-
-<script type="module">
-
-const WORKER_URL =
-    "https://locer-ai.ivan-ostanin1914.workers.dev";
-
-
-const input =
-    document.getElementById("input");
-
-const sendBtn =
-    document.getElementById("sendBtn");
-
-const messages =
-    document.getElementById("messages");
-
-const status =
-    document.getElementById("status");
-
-const sidebar =
-    document.getElementById("sidebar");
-
-const overlay =
-    document.getElementById("overlay");
-
-const fileInput =
-    document.getElementById("fileInput");
-
-const photoSelected =
-    document.getElementById("photoSelected");
-
-const photoPreview =
-    document.getElementById("photoPreview");
-
-const photoName =
-    document.getElementById("photoName");
-
-
-let currentChatId = null;
-let chatHistory = [];
-
-let selectedImageBase64 = null;
-let selectedImageMime = null;
-let selectedImageUrl = null;
-
-
-/* =========================
-   FIREBASE
-========================= */
-
-let firebaseReady = false;
-let auth = null;
-let db = null;
-let currentUser = null;
-
-
-const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyCRlSjT9cwWyFD_rx_vqiGahEuZkeMHsRI",
-
-    authDomain:
-        "locer-5b749.firebaseapp.com",
-
-    projectId:
-        "locer-5b749",
-
-    storageBucket:
-        "locer-5b749.firebasestorage.app",
-
-    messagingSenderId:
-        "81394379218",
-
-    appId:
-        "1:81394379218:web:545d4e8390f630a5ee400b",
-
-    measurementId:
-        "G-6GZ1HZPR65"
-};
-
-
-try {
-
-    const {
-        initializeApp
-    } = await import(
-        "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"
-    );
-
-
-    const {
-        getAuth,
-        GoogleAuthProvider,
-        signInWithPopup,
-        onAuthStateChanged
-    } = await import(
-        "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"
-    );
-
-
-    const {
-        getFirestore,
-        collection,
-        doc,
-        addDoc,
-        setDoc,
-        getDocs,
-        getDoc,
-        deleteDoc,
-        query,
-        orderBy,
-        serverTimestamp
-    } = await import(
-        "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js"
-    );
-
-
-    const app =
-        initializeApp(firebaseConfig);
-
-
-    auth =
-        getAuth(app);
-
-    db =
-        getFirestore(app);
-
-
-    window.firebaseFunctions = {
-
-        GoogleAuthProvider,
-        signInWithPopup,
-        onAuthStateChanged,
-
-        collection,
-        doc,
-        addDoc,
-        setDoc,
-        getDocs,
-        getDoc,
-        deleteDoc,
-
-        query,
-        orderBy,
-        serverTimestamp
-
-    };
-
-
-    firebaseReady = true;
-
-
-    onAuthStateChanged(
-        auth,
-        async user => {
-
-            currentUser = user;
-
-            if (user) {
-
-                document.querySelector(
-                    ".login"
-                ).textContent =
-                    "👤 " +
-                    (
-                        user.displayName ||
-                        "Google"
-                    );
-
-                await loadChats();
-
-            } else {
-
-                document.querySelector(
-                    ".login"
-                ).textContent =
-                    "Войти через Google";
-
-                document.getElementById(
-                    "chats"
-                ).innerHTML = "";
-
-            }
-
-        }
-    );
-
-
-} catch (error) {
-
-    console.error(
-        "Firebase:",
-        error
-    );
-
-}
-
-
-/* =========================
-   МОБИЛЬНОЕ МЕНЮ
-========================= */
-
-window.openSidebar = function() {
-
-    sidebar.classList.add("open");
-    overlay.classList.add("open");
-
-};
-
-
-window.closeSidebar = function() {
-
-    sidebar.classList.remove("open");
-    overlay.classList.remove("open");
-
-};
-
-
-/* =========================
-   SETTINGS
-========================= */
-
-window.toggleSettings = function() {
-
-    document
-        .getElementById("settingsPanel")
-        .classList.toggle("open");
-
-};
-
-
-/* =========================
-   GOOGLE
-========================= */
-
-window.loginGoogle = async function() {
-
-    if (!firebaseReady) {
-
-        alert(
-            "Firebase ещё загружается. Попробуй ещё раз."
-        );
-
-        return;
+    if (!prompt) {
+      generateStatus.textContent =
+        "⚠️ Сначала напиши описание изображения.";
+      generateStatus.className =
+        "status error";
+      return;
     }
 
+    generateBtn.disabled = true;
+
+    generateStatus.textContent =
+      "🎨 Создаю изображение...";
+
+    generateStatus.className =
+      "status";
+
+    generatedImage.style.display = "none";
 
     try {
 
-        const provider =
-            new window.firebaseFunctions
-                .GoogleAuthProvider();
+      const image =
+        await puter.ai.txt2img(prompt);
 
+      let imageUrl = null;
 
-        await window.firebaseFunctions
-            .signInWithPopup(
-                auth,
-                provider
-            );
+      if (typeof image === "string") {
+        imageUrl = image;
+      }
 
+      if (image?.url) {
+        imageUrl = image.url;
+      }
+
+      if (image?.src) {
+        imageUrl = image.src;
+      }
+
+      if (!imageUrl) {
+        throw new Error(
+          "Puter не вернул адрес изображения."
+        );
+      }
+
+      generatedImage.src = imageUrl;
+      generatedImage.style.display = "block";
+
+      generateStatus.textContent =
+        "✅ Изображение готово!";
+
+      generateStatus.className =
+        "status success";
 
     } catch (error) {
 
-        console.error(error);
+      console.error(error);
 
-        alert(
-            "Ошибка входа: " +
-            (
-                error.message ||
-                "неизвестная ошибка"
-            )
-        );
+      generateStatus.textContent =
+        "❌ Не удалось создать изображение: " +
+        (error?.message || error);
 
-    }
-
-};
-
-
-/* =========================
-   НОВЫЙ ЧАТ
-========================= */
-
-window.newChat = function() {
-
-    currentChatId = null;
-    chatHistory = [];
-
-    removePhoto();
-
-    messages.innerHTML = `
-
-        <div class="message ai">
-
-            Привет! 👋 Я Locer — твой дружелюбный AI-помощник.
-
-            <br><br>
-
-            Можешь написать вопрос или
-            📷 отправить фотографию.
-
-        </div>
-
-    `;
-
-    clearInput();
-
-    status.textContent =
-        "Google Gemini AI";
-
-    closeSidebar();
-
-};
-
-
-/* =========================
-   INPUT
-========================= */
-
-input.addEventListener(
-    "input",
-    () => {
-
-        input.style.height =
-            "auto";
-
-        input.style.height =
-            Math.min(
-                input.scrollHeight,
-                150
-            ) + "px";
-
-    }
-);
-
-
-input.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Enter" &&
-            !event.shiftKey
-        ) {
-
-            event.preventDefault();
-
-            send();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   IMAGE
-========================= */
-
-window.handleImage = function(event) {
-
-    const file =
-        event.target.files?.[0];
-
-    if (!file) return;
-
-
-    if (!file.type.startsWith("image/")) {
-
-        alert(
-            "Пожалуйста, выбери изображение."
-        );
-
-        fileInput.value = "";
-
-        return;
-    }
-
-
-    /*
-       Показываем превью
-    */
-
-    if (selectedImageUrl) {
-
-        URL.revokeObjectURL(
-            selectedImageUrl
-        );
-
-    }
-
-
-    selectedImageUrl =
-        URL.createObjectURL(file);
-
-
-    photoPreview.src =
-        selectedImageUrl;
-
-    photoName.textContent =
-        file.name;
-
-    photoSelected.style.display =
-        "flex";
-
-
-    /*
-       Превращаем изображение
-       в Base64 для Worker
-    */
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload = () => {
-
-        const result =
-            reader.result;
-
-        if (
-            typeof result !== "string"
-        ) {
-            return;
-        }
-
-
-        /*
-           result имеет вид:
-
-           data:image/jpeg;base64,AAAA...
-        */
-
-        const comma =
-            result.indexOf(",");
-
-
-        if (comma === -1) {
-            return;
-        }
-
-
-        selectedImageBase64 =
-            result.slice(
-                comma + 1
-            );
-
-
-        selectedImageMime =
-            file.type;
-
-    };
-
-
-    reader.readAsDataURL(file);
-
-};
-
-
-window.removePhoto = function() {
-
-    selectedImageBase64 = null;
-    selectedImageMime = null;
-
-    if (selectedImageUrl) {
-
-        URL.revokeObjectURL(
-            selectedImageUrl
-        );
-
-        selectedImageUrl = null;
-
-    }
-
-
-    photoPreview.src = "";
-
-    photoName.textContent =
-        "";
-
-    photoSelected.style.display =
-        "none";
-
-    fileInput.value = "";
-
-};
-
-
-/* =========================
-   CLEAR INPUT
-========================= */
-
-function clearInput() {
-
-    input.value = "";
-
-    input.style.height =
-        "auto";
-
-}
-
-
-/* =========================
-   THINKING
-========================= */
-
-function showThinking() {
-
-    removeThinking();
-
-
-    const div =
-        document.createElement("div");
-
-
-    div.className =
-        "message ai";
-
-    div.id =
-        "thinkingMessage";
-
-
-    div.innerHTML = `
-
-        <div class="thinking">
-
-            <span class="thinking-icon">
-                🤔
-            </span>
-
-            <span>
-                Locer думает
-            </span>
-
-            <span class="dots">
-                <span>.</span>
-                <span>.</span>
-                <span>.</span>
-            </span>
-
-        </div>
-
-    `;
-
-
-    messages.appendChild(div);
-
-    messages.scrollTop =
-        messages.scrollHeight;
-
-}
-
-
-function removeThinking() {
-
-    const element =
-        document.getElementById(
-            "thinkingMessage"
-        );
-
-    if (element) {
-        element.remove();
-    }
-
-}
-
-
-/* =========================
-   ADD MESSAGE
-========================= */
-
-function addMessage(
-    text,
-    type,
-    imageUrl = null
-) {
-
-    const div =
-        document.createElement("div");
-
-
-    div.className =
-        "message " + type;
-
-
-    if (imageUrl) {
-
-        const img =
-            document.createElement("img");
-
-        img.src =
-            imageUrl;
-
-        img.className =
-            "uploaded-image";
-
-        div.appendChild(img);
-
-    }
-
-
-    if (text) {
-
-        const textElement =
-            document.createElement("div");
-
-        textElement.textContent =
-            text;
-
-        div.appendChild(
-            textElement
-        );
-
-    }
-
-
-    messages.appendChild(div);
-
-    messages.scrollTop =
-        messages.scrollHeight;
-
-
-    return div;
-
-}
-
-
-/* =========================
-   SEND
-========================= */
-
-window.send = async function() {
-
-    const text =
-        input.value.trim();
-
-
-    const hasImage =
-        !!selectedImageBase64;
-
-
-    if (!text && !hasImage) {
-        return;
-    }
-
-
-    if (sendBtn.disabled) {
-        return;
-    }
-
-
-    /*
-       Запоминаем фото до очистки
-    */
-
-    const imageBase64 =
-        selectedImageBase64;
-
-    const imageMime =
-        selectedImageMime;
-
-    const imageUrl =
-        selectedImageUrl;
-
-
-    /*
-       Показываем сообщение пользователя
-    */
-
-    addMessage(
-        text ||
-        "Посмотри, пожалуйста, это фото 📷",
-        "user",
-        imageUrl
-    );
-
-
-    /*
-       В историю сохраняем
-       информацию без огромного Base64
-    */
-
-    chatHistory.push({
-
-        role: "user",
-
-        content:
-            text ||
-            "📷 Пользователь отправил изображение.",
-
-        hasImage:
-            hasImage
-
-    });
-
-
-    sendBtn.disabled = true;
-
-
-    /*
-       Очищаем поле
-    */
-
-    clearInput();
-
-
-    /*
-       Убираем выбранное фото
-       после отправки
-    */
-
-    removePhoto();
-
-
-    /*
-       Показываем "думает"
-    */
-
-    showThinking();
-
-    status.textContent =
-        "🤔 Locer думает...";
-
-
-    try {
-
-        const response =
-            await fetch(
-                WORKER_URL,
-                {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            message:
-                                text,
-
-                            image:
-                                imageBase64
-                                    ? {
-
-                                        base64:
-                                            imageBase64,
-
-                                        mimeType:
-                                            imageMime
-
-                                    }
-                                    : null
-
-                        })
-
-                }
-            );
-
-
-        let data = {};
-
-        try {
-
-            data =
-                await response.json();
-
-        } catch {
-
-            data = {};
-
-        }
-
-
-        removeThinking();
-
-
-        /*
-           503
-        */
-
-        if (!response.ok) {
-
-            console.error(
-                "Gemini error:",
-                data
-            );
-
-
-            if (
-                response.status === 503 ||
-                data.gemini_status === 503
-            ) {
-
-                addMessage(
-
-                    "😔 Gemini сейчас перегружен.\n\n" +
-                    "Locer попробовал отправить запрос несколько раз, " +
-                    "но Gemini временно не смог ответить.\n\n" +
-                    "Попробуй ещё раз через несколько секунд.",
-
-                    "ai"
-
-                );
-
-
-                status.textContent =
-                    "Gemini временно перегружен";
-
-
-            } else {
-
-                addMessage(
-
-                    "❌ Не удалось получить ответ от Locer.\n\n" +
-                    (
-                        data.error ||
-                        "Попробуй ещё раз."
-                    ),
-
-                    "ai"
-
-                );
-
-
-                status.textContent =
-                    "Ошибка Gemini";
-
-            }
-
-
-            return;
-
-        }
-
-
-        /*
-           Нет ответа
-        */
-
-        if (!data.answer) {
-
-            addMessage(
-
-                "❌ Gemini не вернул текстовый ответ. " +
-                "Попробуй ещё раз.",
-
-                "ai"
-
-            );
-
-            status.textContent =
-                "Gemini не вернул ответ";
-
-            return;
-
-        }
-
-
-        /*
-           Ответ AI
-        */
-
-        addMessage(
-            data.answer,
-            "ai"
-        );
-
-
-        chatHistory.push({
-
-            role: "assistant",
-
-            content:
-                data.answer
-
-        });
-
-
-        status.textContent =
-            "Google Gemini AI";
-
-
-        await saveChat();
-
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        removeThinking();
-
-
-        addMessage(
-
-            "❌ Ошибка подключения к Locer.\n\n" +
-            "Проверь интернет-соединение и попробуй ещё раз.",
-
-            "ai"
-
-        );
-
-
-        status.textContent =
-            "Ошибка подключения";
-
+      generateStatus.className =
+        "status error";
 
     } finally {
 
-        sendBtn.disabled = false;
-
-        input.focus();
+      generateBtn.disabled = false;
 
     }
 
-};
+  });
 
 
-/* =========================
-   SAVE CHAT
-========================= */
+  // -----------------------------
+  // SELECT IMAGE
+  // -----------------------------
 
-async function saveChat() {
+  imageInput.addEventListener("change", () => {
 
-    if (
-        !firebaseReady ||
-        !currentUser ||
-        !chatHistory.length
-    ) {
-        return;
+    const file =
+      imageInput.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+
+      editStatus.textContent =
+        "❌ Выбери изображение.";
+
+      editStatus.className =
+        "status error";
+
+      return;
     }
 
+    const url =
+      URL.createObjectURL(file);
+
+    uploadedImage.src = url;
+
+    uploadedImage.style.display =
+      "block";
+
+    editPrompt.classList.remove(
+      "hidden"
+    );
+
+    editBtn.classList.remove(
+      "hidden"
+    );
+
+    editStatus.textContent =
+      "✅ Изображение загружено.";
+
+    editStatus.className =
+      "status success";
+
+  });
+
+
+  // -----------------------------
+  // EDIT IMAGE
+  // -----------------------------
+
+  editBtn.addEventListener("click", async () => {
+
+    const file =
+      imageInput.files[0];
+
+    const prompt =
+      editPrompt.value.trim();
+
+    if (!file) {
+
+      editStatus.textContent =
+        "⚠️ Сначала выбери изображение.";
+
+      editStatus.className =
+        "status error";
+
+      return;
+    }
+
+    if (!prompt) {
+
+      editStatus.textContent =
+        "⚠️ Напиши, что нужно изменить.";
+
+      editStatus.className =
+        "status error";
+
+      return;
+    }
+
+    editBtn.disabled = true;
+
+    editStatus.textContent =
+      "🪄 Изменяю изображение...";
+
+    editStatus.className =
+      "status";
+
+    editedImage.style.display =
+      "none";
 
     try {
 
-        const {
-            collection,
-            doc,
-            addDoc,
-            setDoc,
-            serverTimestamp
-        } =
-            window.firebaseFunctions;
+      /*
+       * Передаём исходный файл непосредственно
+       * в Puter.
+       *
+       * В зависимости от модели Puter может
+       * использовать изображение как input.
+       */
 
+      const result =
+        await puter.ai.txt2img(
+          prompt,
+          {
+            input_image: file
+          }
+        );
 
-        const userChats =
-            collection(
-                db,
-                "users",
-                currentUser.uid,
-                "chats"
-            );
+      let imageUrl = null;
 
+      if (typeof result === "string") {
+        imageUrl = result;
+      }
 
-        const firstUserMessage =
-            chatHistory.find(
-                x =>
-                    x.role === "user"
-            );
+      if (result?.url) {
+        imageUrl = result.url;
+      }
 
+      if (result?.src) {
+        imageUrl = result.src;
+      }
 
-        const title =
-            firstUserMessage
-                ?.content
-                ?.slice(0, 40) ||
-            "Новый чат";
+      if (!imageUrl) {
+        throw new Error(
+          "Puter не вернул изменённое изображение."
+        );
+      }
 
+      editedImage.src =
+        imageUrl;
 
-        if (!currentChatId) {
+      editedImage.style.display =
+        "block";
 
-            const ref =
-                await addDoc(
+      editStatus.textContent =
+        "✅ Изображение изменено!";
 
-                    userChats,
-
-                    {
-
-                        title,
-
-                        messages:
-                            chatHistory,
-
-                        createdAt:
-                            serverTimestamp(),
-
-                        updatedAt:
-                            serverTimestamp()
-
-                    }
-
-                );
-
-
-            currentChatId =
-                ref.id;
-
-
-        } else {
-
-            await setDoc(
-
-                doc(
-
-                    db,
-
-                    "users",
-
-                    currentUser.uid,
-
-                    "chats",
-
-                    currentChatId
-
-                ),
-
-                {
-
-                    title,
-
-                    messages:
-                        chatHistory,
-
-                    updatedAt:
-                        serverTimestamp()
-
-                },
-
-                {
-                    merge: true
-                }
-
-            );
-
-        }
-
-
-        await loadChats();
-
+      editStatus.className =
+        "status success";
 
     } catch (error) {
 
-        console.error(
-            "Ошибка сохранения:",
-            error
-        );
+      console.error(error);
+
+      editStatus.textContent =
+        "❌ Не удалось изменить изображение: " +
+        (error?.message || error);
+
+      editStatus.className =
+        "status error";
+
+    } finally {
+
+      editBtn.disabled = false;
 
     }
 
-}
-
-
-/* =========================
-   LOAD CHATS
-========================= */
-
-async function loadChats() {
-
-    if (
-        !firebaseReady ||
-        !currentUser
-    ) {
-        return;
-    }
-
-
-    const chatsBox =
-        document.getElementById(
-            "chats"
-        );
-
-
-    try {
-
-        const {
-            collection,
-            getDocs,
-            query,
-            orderBy
-        } =
-            window.firebaseFunctions;
-
-
-        const ref =
-            collection(
-
-                db,
-
-                "users",
-
-                currentUser.uid,
-
-                "chats"
-
-            );
-
-
-        let snapshot;
-
-
-        try {
-
-            snapshot =
-                await getDocs(
-
-                    query(
-
-                        ref,
-
-                        orderBy(
-                            "createdAt",
-                            "desc"
-                        )
-
-                    )
-
-                );
-
-        } catch {
-
-            snapshot =
-                await getDocs(ref);
-
-        }
-
-
-        chatsBox.innerHTML = "";
-
-
-        snapshot.forEach(
-            item => {
-
-                const data =
-                    item.data();
-
-
-                const div =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                div.className =
-                    "chat-item";
-
-
-                div.textContent =
-                    "💬 " +
-                    (
-                        data.title ||
-                        "Новый чат"
-                    );
-
-
-                div.onclick = () =>
-                    openChat(
-                        item.id
-                    );
-
-
-                chatsBox.appendChild(
-                    div
-                );
-
-            }
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Ошибка загрузки чатов:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================
-   OPEN CHAT
-========================= */
-
-async function openChat(id) {
-
-    if (
-        !firebaseReady ||
-        !currentUser
-    ) {
-        return;
-    }
-
-
-    try {
-
-        const {
-            doc,
-            getDoc
-        } =
-            window.firebaseFunctions;
-
-
-        const ref =
-            doc(
-
-                db,
-
-                "users",
-
-                currentUser.uid,
-
-                "chats",
-
-                id
-
-            );
-
-
-        const snapshot =
-            await getDoc(ref);
-
-
-        if (!snapshot.exists()) {
-            return;
-        }
-
-
-        const data =
-            snapshot.data();
-
-
-        currentChatId =
-            id;
-
-
-        chatHistory =
-            Array.isArray(
-                data.messages
-            )
-                ? data.messages
-                : [];
-
-
-        messages.innerHTML = "";
-
-
-        for (
-            const message
-            of chatHistory
-        ) {
-
-            if (
-                message.role ===
-                "user"
-            ) {
-
-                addMessage(
-
-                    message.content,
-
-                    "user"
-
-                );
-
-            } else if (
-                message.role ===
-                "assistant"
-            ) {
-
-                addMessage(
-
-                    message.content,
-
-                    "ai"
-
-                );
-
-            }
-
-        }
-
-
-        closeSidebar();
-
-
-    } catch (error) {
-
-        console.error(
-            "Ошибка открытия чата:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================
-   DELETE CURRENT CHAT
-========================= */
-
-window.deleteCurrentChat =
-    async function() {
-
-        if (
-            !currentChatId ||
-            !currentUser ||
-            !firebaseReady
-        ) {
-
-            alert(
-                "Сначала открой сохранённый чат."
-            );
-
-            return;
-
-        }
-
-
-        if (
-            !confirm(
-                "Удалить этот чат?"
-            )
-        ) {
-            return;
-        }
-
-
-        try {
-
-            const {
-                doc,
-                deleteDoc
-            } =
-                window.firebaseFunctions;
-
-
-            await deleteDoc(
-
-                doc(
-
-                    db,
-
-                    "users",
-
-                    currentUser.uid,
-
-                    "chats",
-
-                    currentChatId
-
-                )
-
-            );
-
-
-            currentChatId =
-                null;
-
-            chatHistory = [];
-
-
-            newChat();
-
-
-            await loadChats();
-
-
-        } catch (error) {
-
-            console.error(
-                error
-            );
-
-            alert(
-                "Не удалось удалить чат."
-            );
-
-        }
-
-    };
+  });
 
 </script>
 
 </body>
 </html>
+```
+
