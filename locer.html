@@ -1,1091 +1,1600 @@
-```html
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Locer — AI</title>
+<meta charset="UTF-8">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0d0f14;
-      color: #ffffff;
-    }
+<title>Locer — AI Images</title>
 
-    header {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      background: #151821;
-      border-bottom: 1px solid #292d38;
-    }
+<style>
 
-    .logo {
-      font-size: 25px;
-      font-weight: bold;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .status-button {
-      border: 0;
-      border-radius: 10px;
-      padding: 10px 16px;
-      background: #252a36;
-      color: white;
-      cursor: pointer;
-      font-size: 15px;
-    }
+body {
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at top,
+      #18213b 0%,
+      #090b12 45%,
+      #05060a 100%
+    );
 
-    .status-button:hover {
-      background: #303746;
-    }
+  color: white;
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 30px 20px 60px;
-    }
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
-    .title {
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
+  min-height: 100vh;
+}
 
-    .subtitle {
-      color: #9da4b3;
-      margin-bottom: 28px;
-    }
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
+.container {
 
-    .card {
-      background: #151821;
-      border: 1px solid #292d38;
-      border-radius: 18px;
-      padding: 22px;
-    }
+  width: min(
+    950px,
+    calc(100% - 30px)
+  );
 
-    .card h2 {
-      margin-top: 0;
-      margin-bottom: 8px;
-    }
+  margin: 0 auto;
 
-    .description {
-      color: #9da4b3;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
+  padding: 35px 0 60px;
+}
 
-    textarea {
-      width: 100%;
-      min-height: 140px;
-      resize: vertical;
-      background: #0d0f14;
-      border: 1px solid #343947;
-      color: white;
-      border-radius: 12px;
-      padding: 14px;
-      font-size: 15px;
-      outline: none;
-    }
 
-    textarea:focus {
-      border-color: #667085;
-    }
+.header {
 
-    input[type="file"] {
-      width: 100%;
-      margin: 12px 0;
-      padding: 12px;
-      background: #0d0f14;
-      border: 1px solid #343947;
-      border-radius: 12px;
-      color: #cfd4df;
-    }
+  text-align: center;
 
-    button {
-      border: 0;
-      border-radius: 12px;
-      padding: 13px 18px;
-      background: #ffffff;
-      color: #111318;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 12px;
-    }
+  margin-bottom: 30px;
+}
 
-    button:hover {
-      opacity: 0.9;
-    }
 
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+.logo {
 
-    .secondary {
-      background: #292e3a;
-      color: white;
-    }
+  font-size: 42px;
 
-    .image-preview {
-      margin-top: 18px;
-      display: none;
-    }
+  font-weight: 800;
 
-    .image-preview img {
-      width: 100%;
-      max-height: 500px;
-      object-fit: contain;
-      border-radius: 14px;
-      background: #090b0f;
-      border: 1px solid #292d38;
-    }
+  letter-spacing: -2px;
+}
 
-    .result {
-      margin-top: 18px;
-      display: none;
-    }
 
-    .result img {
-      width: 100%;
-      max-height: 600px;
-      object-fit: contain;
-      border-radius: 14px;
-      background: #090b0f;
-      border: 1px solid #292d38;
-    }
+.subtitle {
 
-    .result-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+  color: #9ca3af;
 
-    .message {
-      margin-top: 15px;
-      padding: 13px;
-      border-radius: 10px;
-      background: #1d222c;
-      color: #cbd1dc;
-      display: none;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
+  margin-top: 8px;
 
-    .status-box {
-      display: none;
-      margin: 25px auto 0;
-      max-width: 700px;
-      background: #151821;
-      border: 1px solid #292d38;
-      border-radius: 16px;
-      padding: 20px;
-    }
+  font-size: 16px;
+}
 
-    .status-title {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
 
-    .status-line {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 10px 0;
-      border-bottom: 1px solid #292d38;
-    }
+/* =========================================================
+   LIMIT
+========================================================= */
 
-    .status-line:last-child {
-      border-bottom: 0;
-    }
+.limit-box {
 
-    .green {
-      color: #55e68a;
-    }
+  background:
+    rgba(15, 23, 42, 0.85);
 
-    .red {
-      color: #ff6565;
-    }
+  border:
+    1px solid
+    rgba(255,255,255,0.08);
 
-    .yellow {
-      color: #ffd45c;
-    }
+  border-radius: 18px;
 
-    .loading {
-      animation: pulse 1.2s infinite;
-    }
+  padding: 20px;
 
-    @keyframes pulse {
-      50% {
-        opacity: 0.5;
-      }
-    }
+  margin-bottom: 22px;
 
-    @media (max-width: 800px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
+  box-shadow:
+    0 15px 40px
+    rgba(0,0,0,0.25);
+}
 
-      header {
-        padding: 0 15px;
-      }
 
-      .title {
-        font-size: 27px;
-      }
-    }
-  </style>
+.limit-title {
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  margin-bottom: 15px;
+}
+
+
+.limit-main {
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 12px;
+}
+
+
+.limit-number {
+
+  font-size: 30px;
+
+  font-weight: 800;
+}
+
+
+.limit-small {
+
+  color: #9ca3af;
+
+  font-size: 13px;
+
+  text-align: right;
+}
+
+
+.progress {
+
+  height: 10px;
+
+  background:
+    #1f2937;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+}
+
+
+.progress-bar {
+
+  height: 100%;
+
+  width: 0%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6366f1,
+      #8b5cf6,
+      #ec4899
+    );
+
+  transition:
+    width .3s ease;
+}
+
+
+.stats {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 10px;
+
+  margin-top: 15px;
+}
+
+
+.stat {
+
+  background:
+    rgba(255,255,255,0.04);
+
+  border-radius: 12px;
+
+  padding: 13px;
+
+  text-align: center;
+}
+
+
+.stat-icon {
+
+  font-size: 20px;
+
+  margin-bottom: 5px;
+}
+
+
+.stat-number {
+
+  font-size: 22px;
+
+  font-weight: 800;
+}
+
+
+.stat-label {
+
+  color: #9ca3af;
+
+  font-size: 12px;
+
+  margin-top: 3px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card {
+
+  background:
+    rgba(15, 23, 42, 0.88);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+  border-radius: 20px;
+
+  padding: 25px;
+
+  margin-bottom: 20px;
+
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,0.25);
+}
+
+
+.card h2 {
+
+  margin-top: 0;
+
+  font-size: 22px;
+}
+
+
+textarea {
+
+  width: 100%;
+
+  min-height: 130px;
+
+  resize: vertical;
+
+  border: 0;
+
+  outline: none;
+
+  border-radius: 14px;
+
+  background:
+    #080b13;
+
+  color: white;
+
+  padding: 16px;
+
+  font-size: 16px;
+
+  font-family: inherit;
+}
+
+
+textarea::placeholder {
+
+  color: #6b7280;
+}
+
+
+.buttons {
+
+  display: flex;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+  margin-top: 15px;
+}
+
+
+button {
+
+  border: 0;
+
+  border-radius: 12px;
+
+  padding:
+    13px 18px;
+
+  color: white;
+
+  background:
+    #4f46e5;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform .15s,
+    opacity .15s,
+    background .15s;
+}
+
+
+button:hover {
+
+  transform:
+    translateY(-1px);
+
+  background:
+    #6366f1;
+}
+
+
+button:disabled {
+
+  opacity: .45;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+.secondary {
+
+  background:
+    #1f2937;
+}
+
+
+.secondary:hover {
+
+  background:
+    #374151;
+}
+
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+.upload {
+
+  margin-top: 15px;
+
+  border:
+    2px dashed
+    #374151;
+
+  border-radius: 15px;
+
+  padding: 25px;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  color: #9ca3af;
+
+  transition:
+    border-color .2s;
+}
+
+
+.upload:hover {
+
+  border-color:
+    #6366f1;
+}
+
+
+input[type=file] {
+
+  display: none;
+}
+
+
+.preview {
+
+  display: none;
+
+  width: 100%;
+
+  max-height: 500px;
+
+  object-fit: contain;
+
+  border-radius: 15px;
+
+  margin-top: 15px;
+
+  background:
+    #05070c;
+}
+
+
+.result {
+
+  display: none;
+
+  margin-top: 20px;
+}
+
+
+.result img {
+
+  width: 100%;
+
+  border-radius: 16px;
+
+  display: block;
+}
+
+
+.download {
+
+  display: inline-block;
+
+  margin-top: 15px;
+
+  text-decoration: none;
+
+  background:
+    #16a34a;
+
+  color: white;
+
+  padding:
+    12px 17px;
+
+  border-radius: 11px;
+
+  font-weight: 700;
+}
+
+
+.status {
+
+  margin-top: 15px;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  background:
+    #080b13;
+
+  color: #9ca3af;
+
+  white-space: pre-wrap;
+
+  word-break: break-word;
+}
+
+
+.loading {
+
+  display: none;
+
+  margin-top: 15px;
+
+  color: #a5b4fc;
+}
+
+
+.note {
+
+  color: #6b7280;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  margin-top: 12px;
+}
+
+
+@media (max-width: 600px) {
+
+  .logo {
+    font-size: 34px;
+  }
+
+  .stats {
+    grid-template-columns:
+      1fr;
+  }
+
+  .limit-main {
+    align-items:
+      flex-start;
+
+    flex-direction:
+      column;
+  }
+
+  .limit-small {
+    text-align:
+      left;
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-<header>
-  <div class="logo">✨ Locer AI</div>
 
-  <button class="status-button" onclick="checkStatus()">
-    🔎 Статус
-  </button>
-</header>
+<div class="container">
 
 
-<main>
+  <div class="header">
 
-  <div class="title">
-    Locer — AI изображения
-  </div>
-
-  <div class="subtitle">
-    Создавай новые изображения и редактируй свои фотографии.
-  </div>
-
-
-  <!-- STATUS -->
-
-  <div id="statusBox" class="status-box">
-
-    <div class="status-title">
-      🔎 Статус Locer
+    <div class="logo">
+      Locer AI
     </div>
 
-    <div class="status-line">
-      <span>Worker</span>
-      <strong id="statusWorker">Проверка...</strong>
-    </div>
-
-    <div class="status-line">
-      <span>Pollinations API Key</span>
-      <strong id="statusKey">Проверка...</strong>
-    </div>
-
-    <div class="status-line">
-      <span>Генерация</span>
-      <strong id="statusGeneration">Проверка...</strong>
-    </div>
-
-    <div class="status-line">
-      <span>Редактирование</span>
-      <strong id="statusEditing">Проверка...</strong>
-    </div>
-
-    <div id="statusDetails"
-         class="message"
-         style="display:block;">
+    <div class="subtitle">
+      Генерация и редактирование изображений
     </div>
 
   </div>
 
 
-  <div class="grid">
+  <!-- =====================================================
+       LIMIT
+  ====================================================== -->
+
+  <div class="limit-box">
+
+    <div class="limit-title">
+      📊 Лимит на сегодня
+    </div>
 
 
-    <!-- GENERATION -->
+    <div class="limit-main">
 
-    <section class="card">
+      <div>
 
-      <h2>🎨 Создать изображение</h2>
+        <div
+          class="limit-number"
+          id="remaining"
+        >
+          96
+        </div>
 
-      <div class="description">
-        Напиши, что хочешь увидеть, и Locer создаст изображение.
+        <div class="limit-small">
+          операций осталось
+        </div>
+
       </div>
 
-      <textarea
-        id="generatePrompt"
-        placeholder="Например: A single adult pink elephant standing in a beautiful tropical forest, photorealistic wildlife photography..."
-      ></textarea>
+
+      <div class="limit-small">
+
+        Использовано:
+        <b id="used">0</b>
+        из
+        <b id="limit">96</b>
+
+        <br>
+
+        Сброс:
+        <span id="reset">
+          00:00 UTC
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="progress">
+
+      <div
+        class="progress-bar"
+        id="progressBar"
+      ></div>
+
+    </div>
+
+
+    <div class="stats">
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          🎨
+        </div>
+
+        <div
+          class="stat-number"
+          id="generatedCount"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Генераций
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          ✏️
+        </div>
+
+        <div
+          class="stat-number"
+          id="editedCount"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Редактирований
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          ⚡
+        </div>
+
+        <div
+          class="stat-number"
+          id="totalCount"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Всего операций
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="note">
+
+      Лимит ориентировочный: Cloudflare Workers AI
+      использует Neurons. Реальный расход зависит
+      от размера изображения и входной картинки.
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       GENERATE
+  ====================================================== -->
+
+  <div class="card">
+
+    <h2>
+      🎨 Создать изображение
+    </h2>
+
+
+    <textarea
+      id="generatePrompt"
+      placeholder="Например: реалистичный рыжий леопард в снежном лесу, кинематографический свет, высокая детализация"
+    ></textarea>
+
+
+    <div class="buttons">
 
       <button
         id="generateButton"
-        onclick="generateImage()">
-        ✨ Создать изображение
+        onclick="generateImage()"
+      >
+        🎨 Создать изображение
       </button>
 
-      <div id="generateMessage"
-           class="message">
-      </div>
-
-      <div id="generateResult"
-           class="result">
-
-        <img id="generatedImage"
-             alt="Сгенерированное изображение">
-
-        <div class="result-buttons">
-
-          <button
-            onclick="openGeneratedImage()">
-            🔗 Открыть
-          </button>
-
-          <button
-            class="secondary"
-            onclick="clearGeneration()">
-            🗑 Очистить
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
+    </div>
 
 
-
-    <!-- EDITING -->
-
-    <section class="card">
-
-      <h2>✏️ Редактировать изображение</h2>
-
-      <div class="description">
-        Загрузи картинку и напиши, что нужно изменить.
-      </div>
-
-      <input
-        id="imageInput"
-        type="file"
-        accept="image/png,image/jpeg,image/webp">
-
-      <div id="preview"
-           class="image-preview">
-
-        <img id="previewImage"
-             alt="Предпросмотр">
-
-      </div>
+    <div
+      class="loading"
+      id="generateLoading"
+    >
+      ⏳ Locer создаёт изображение...
+    </div>
 
 
-      <textarea
-        id="editPrompt"
-        placeholder="Например: Remove all measurement lines and numbers. Add a modern backsplash with warm LED lighting..."
-      ></textarea>
+    <div
+      class="result"
+      id="generateResult"
+    >
 
+      <img
+        id="generatedImage"
+        alt="Сгенерированное изображение"
+      >
 
-      <button
-        id="editButton"
-        onclick="editImage()">
-        ✏️ Редактировать
-      </button>
+      <a
+        id="downloadGenerated"
+        class="download"
+        download="locer-generated.png"
+      >
+        ⬇️ Скачать изображение
+      </a>
 
-
-      <div id="editMessage"
-           class="message">
-      </div>
-
-
-      <div id="editResult"
-           class="result">
-
-        <img id="editedImage"
-             alt="Отредактированное изображение">
-
-        <div class="result-buttons">
-
-          <button
-            onclick="openEditedImage()">
-            🔗 Открыть
-          </button>
-
-          <button
-            class="secondary"
-            onclick="clearEditing()">
-            🗑 Очистить
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
+    </div>
 
   </div>
 
-</main>
+
+  <!-- =====================================================
+       EDIT
+  ====================================================== -->
+
+  <div class="card">
+
+    <h2>
+      ✏️ Редактировать изображение
+    </h2>
+
+
+    <label
+      class="upload"
+      for="imageInput"
+    >
+
+      🖼️ Нажми здесь, чтобы загрузить изображение
+
+      <br>
+
+      <small>
+        PNG, JPG, WEBP
+      </small>
+
+    </label>
+
+
+    <input
+      id="imageInput"
+      type="file"
+      accept="image/png,image/jpeg,image/webp"
+    >
+
+
+    <img
+      id="preview"
+      class="preview"
+      alt="Предпросмотр"
+    >
+
+
+    <textarea
+      id="editPrompt"
+      placeholder="Например: добавь рядом с леопардом белого волка, сохрани фон и стиль фотографии"
+    ></textarea>
+
+
+    <div class="buttons">
+
+      <button
+        id="editButton"
+        onclick="editImage()"
+      >
+        ✏️ Редактировать
+      </button>
+
+    </div>
+
+
+    <div
+      class="loading"
+      id="editLoading"
+    >
+      ⏳ Locer редактирует изображение...
+    </div>
+
+
+    <div
+      class="result"
+      id="editResult"
+    >
+
+      <img
+        id="editedImage"
+        alt="Отредактированное изображение"
+      >
+
+      <a
+        id="downloadEdited"
+        class="download"
+        download="locer-edited.png"
+      >
+        ⬇️ Скачать изображение
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       STATUS
+  ====================================================== -->
+
+  <div class="card">
+
+    <h2>
+      🔎 Статус Locer
+    </h2>
+
+
+    <button
+      class="secondary"
+      onclick="checkStatus()"
+    >
+      🔎 Проверить Worker
+    </button>
+
+
+    <div
+      class="status"
+      id="status"
+    >
+      Нажми «Проверить Worker»
+    </div>
+
+  </div>
+
+
+</div>
 
 
 <script>
 
-  const WORKER =
-    "https://locer-ai.ivan-ostanin1914.workers.dev";
+
+// =========================================================
+// CONFIG
+// =========================================================
+
+const WORKER =
+  "https://locer-ai.ivan-ostanin1914.workers.dev";
 
 
-  let generatedImageData = null;
-  let editedImageData = null;
-  let selectedFile = null;
+const DAILY_LIMIT = 96;
 
 
-  // ==========================================================
-  // FILE UPLOAD
-  // ==========================================================
+// =========================================================
+// STORAGE
+// =========================================================
 
-  document
-    .getElementById("imageInput")
-    .addEventListener("change", function () {
+function todayUTC() {
 
-      const file = this.files[0];
+  const now =
+    new Date();
+
+  return now
+    .toISOString()
+    .slice(0, 10);
+}
+
+
+function getStats() {
+
+  const today =
+    todayUTC();
+
+  let stats;
+
+  try {
+
+    stats =
+      JSON.parse(
+        localStorage.getItem(
+          "locerDailyStats"
+        ) || "null"
+      );
+
+  } catch {
+
+    stats = null;
+  }
+
+
+  if (
+    !stats ||
+    stats.date !== today
+  ) {
+
+    stats = {
+
+      date: today,
+
+      generated: 0,
+
+      edited: 0
+    };
+
+    localStorage.setItem(
+      "locerDailyStats",
+      JSON.stringify(stats)
+    );
+  }
+
+
+  return stats;
+}
+
+
+function saveStats(stats) {
+
+  localStorage.setItem(
+    "locerDailyStats",
+    JSON.stringify(stats)
+  );
+}
+
+
+// =========================================================
+// LIMIT UI
+// =========================================================
+
+function updateLimitUI() {
+
+  const stats =
+    getStats();
+
+
+  const generated =
+    Number(stats.generated || 0);
+
+
+  const edited =
+    Number(stats.edited || 0);
+
+
+  const total =
+    generated + edited;
+
+
+  const remaining =
+    Math.max(
+      0,
+      DAILY_LIMIT - total
+    );
+
+
+  document.getElementById(
+    "generatedCount"
+  ).textContent =
+    generated;
+
+
+  document.getElementById(
+    "editedCount"
+  ).textContent =
+    edited;
+
+
+  document.getElementById(
+    "totalCount"
+  ).textContent =
+    total;
+
+
+  document.getElementById(
+    "remaining"
+  ).textContent =
+    remaining;
+
+
+  document.getElementById(
+    "used"
+  ).textContent =
+    total;
+
+
+  document.getElementById(
+    "limit"
+  ).textContent =
+    DAILY_LIMIT;
+
+
+  const percent =
+    Math.min(
+      100,
+      (total / DAILY_LIMIT) * 100
+    );
+
+
+  document.getElementById(
+    "progressBar"
+  ).style.width =
+    percent + "%";
+
+
+  const disabled =
+    remaining <= 0;
+
+
+  document.getElementById(
+    "generateButton"
+  ).disabled =
+    disabled;
+
+
+  document.getElementById(
+    "editButton"
+  ).disabled =
+    disabled;
+
+
+  updateResetTime();
+}
+
+
+// =========================================================
+// RESET TIME
+// =========================================================
+
+function updateResetTime() {
+
+  const now =
+    new Date();
+
+
+  const tomorrow =
+    new Date(
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate() + 1
+      )
+    );
+
+
+  const diff =
+    tomorrow.getTime() -
+    now.getTime();
+
+
+  const hours =
+    Math.floor(
+      diff / 3600000
+    );
+
+
+  const minutes =
+    Math.floor(
+      (diff % 3600000) /
+      60000
+    );
+
+
+  document.getElementById(
+    "reset"
+  ).textContent =
+    `${hours} ч ${minutes} мин`;
+}
+
+
+// =========================================================
+// ADD OPERATION
+// =========================================================
+
+function addOperation(type) {
+
+  const stats =
+    getStats();
+
+
+  const total =
+    Number(stats.generated || 0) +
+    Number(stats.edited || 0);
+
+
+  if (
+    total >= DAILY_LIMIT
+  ) {
+
+    alert(
+      "Дневной лимит Locer исчерпан. Попробуй снова после сброса лимита."
+    );
+
+    return false;
+  }
+
+
+  if (type === "generated") {
+
+    stats.generated =
+      Number(stats.generated || 0) + 1;
+  }
+
+
+  if (type === "edited") {
+
+    stats.edited =
+      Number(stats.edited || 0) + 1;
+  }
+
+
+  saveStats(stats);
+
+  updateLimitUI();
+
+  return true;
+}
+
+
+// =========================================================
+// GENERATE IMAGE
+// =========================================================
+
+async function generateImage() {
+
+  const prompt =
+    document
+      .getElementById(
+        "generatePrompt"
+      )
+      .value
+      .trim();
+
+
+  if (!prompt) {
+
+    alert(
+      "Напиши описание изображения."
+    );
+
+    return;
+  }
+
+
+  if (
+    getStats().generated +
+    getStats().edited >=
+    DAILY_LIMIT
+  ) {
+
+    alert(
+      "Дневной лимит исчерпан."
+    );
+
+    return;
+  }
+
+
+  const button =
+    document.getElementById(
+      "generateButton"
+    );
+
+
+  const loading =
+    document.getElementById(
+      "generateLoading"
+    );
+
+
+  button.disabled =
+    true;
+
+  loading.style.display =
+    "block";
+
+
+  try {
+
+    const response =
+      await fetch(
+        WORKER + "/generate",
+        {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              prompt:
+                prompt,
+
+              width:
+                1024,
+
+              height:
+                1024
+
+            })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (
+      !response.ok ||
+      !data.ok ||
+      !data.image
+    ) {
+
+      throw new Error(
+        data.error ||
+        data.details ||
+        "Не удалось создать изображение."
+      );
+    }
+
+
+    document.getElementById(
+      "generatedImage"
+    ).src =
+      data.image;
+
+
+    document.getElementById(
+      "downloadGenerated"
+    ).href =
+      data.image;
+
+
+    document.getElementById(
+      "generateResult"
+    ).style.display =
+      "block";
+
+
+    // Считаем только успешную операцию
+    addOperation(
+      "generated"
+    );
+
+
+  } catch (error) {
+
+    alert(
+      "❌ " +
+      error.message
+    );
+
+  } finally {
+
+    loading.style.display =
+      "none";
+
+    updateLimitUI();
+  }
+}
+
+
+// =========================================================
+// IMAGE UPLOAD
+// =========================================================
+
+let selectedFile =
+  null;
+
+
+document
+  .getElementById(
+    "imageInput"
+  )
+  .addEventListener(
+    "change",
+    function(event) {
+
+      const file =
+        event.target.files[0];
+
 
       if (!file) {
-        selectedFile = null;
-
-        document.getElementById("preview").style.display =
-          "none";
 
         return;
       }
 
-      selectedFile = file;
+
+      selectedFile =
+        file;
+
 
       const reader =
         new FileReader();
 
-      reader.onload = function (event) {
 
-        document.getElementById(
-          "previewImage"
-        ).src = event.target.result;
+      reader.onload =
+        function(e) {
 
-        document.getElementById(
-          "preview"
-        ).style.display = "block";
-      };
-
-      reader.readAsDataURL(file);
-    });
+          const preview =
+            document.getElementById(
+              "preview"
+            );
 
 
-  // ==========================================================
-  // GENERATE
-  // ==========================================================
-
-  async function generateImage() {
-
-    const prompt =
-      document
-        .getElementById("generatePrompt")
-        .value
-        .trim();
-
-    const button =
-      document.getElementById("generateButton");
-
-    const message =
-      document.getElementById("generateMessage");
-
-    const result =
-      document.getElementById("generateResult");
+          preview.src =
+            e.target.result;
 
 
-    if (!prompt) {
+          preview.style.display =
+            "block";
+        };
 
-      showMessage(
-        message,
-        "❌ Напиши промпт.",
-        true
+
+      reader.readAsDataURL(
+        file
       );
-
-      return;
     }
+  );
 
 
-    button.disabled = true;
+// =========================================================
+// EDIT IMAGE
+// =========================================================
 
-    button.textContent =
-      "⏳ Создаю...";
+async function editImage() {
 
-    message.style.display =
-      "block";
+  if (!selectedFile) {
 
-    message.textContent =
-      "Locer создаёт изображение...";
+    alert(
+      "Сначала загрузи изображение."
+    );
 
-    result.style.display =
-      "none";
-
-
-    try {
-
-      const response =
-        await fetch(
-          WORKER + "/generate",
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body: JSON.stringify({
-              prompt: prompt,
-              model: "flux",
-              size: "1024x1024"
-            })
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      if (!response.ok || !data.ok) {
-
-        throw new Error(
-          formatError(data)
-        );
-      }
-
-
-      generatedImageData =
-        data.image;
-
-
-      document.getElementById(
-        "generatedImage"
-      ).src =
-        generatedImageData;
-
-
-      result.style.display =
-        "block";
-
-
-      message.style.display =
-        "none";
-
-    } catch (error) {
-
-      showMessage(
-        message,
-        "❌ " + error.message,
-        true
-      );
-
-    } finally {
-
-      button.disabled =
-        false;
-
-      button.textContent =
-        "✨ Создать изображение";
-    }
+    return;
   }
 
 
-  // ==========================================================
-  // EDIT
-  // ==========================================================
-
-  async function editImage() {
-
-    const prompt =
-      document
-        .getElementById("editPrompt")
-        .value
-        .trim();
-
-    const button =
-      document.getElementById("editButton");
-
-    const message =
-      document.getElementById("editMessage");
-
-    const result =
-      document.getElementById("editResult");
+  const prompt =
+    document
+      .getElementById(
+        "editPrompt"
+      )
+      .value
+      .trim();
 
 
-    if (!selectedFile) {
+  if (!prompt) {
 
-      showMessage(
-        message,
-        "❌ Сначала загрузи изображение.",
-        true
-      );
+    alert(
+      "Напиши, что нужно изменить."
+    );
 
-      return;
-    }
-
-
-    if (!prompt) {
-
-      showMessage(
-        message,
-        "❌ Напиши, что нужно изменить.",
-        true
-      );
-
-      return;
-    }
-
-
-    button.disabled =
-      true;
-
-    button.textContent =
-      "⏳ Редактирую...";
-
-    message.style.display =
-      "block";
-
-    message.textContent =
-      "Locer отправляет изображение на редактирование...";
-
-    result.style.display =
-      "none";
-
-
-    try {
-
-      const form =
-        new FormData();
-
-
-      form.append(
-        "image",
-        selectedFile
-      );
-
-
-      form.append(
-        "prompt",
-        prompt
-      );
-
-
-      form.append(
-        "size",
-        "1024x1024"
-      );
-
-
-      const response =
-        await fetch(
-          WORKER + "/edit",
-          {
-            method: "POST",
-            body: form
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      if (!response.ok || !data.ok) {
-
-        throw new Error(
-          formatError(data)
-        );
-      }
-
-
-      editedImageData =
-        data.image;
-
-
-      document.getElementById(
-        "editedImage"
-      ).src =
-        editedImageData;
-
-
-      result.style.display =
-        "block";
-
-
-      message.style.display =
-        "none";
-
-    } catch (error) {
-
-      showMessage(
-        message,
-        "❌ " + error.message,
-        true
-      );
-
-    } finally {
-
-      button.disabled =
-        false;
-
-      button.textContent =
-        "✏️ Редактировать";
-    }
+    return;
   }
 
 
-  // ==========================================================
-  // STATUS
-  // ==========================================================
+  const stats =
+    getStats();
 
-  async function checkStatus() {
 
-    const box =
-      document.getElementById("statusBox");
+  const total =
+    Number(stats.generated || 0) +
+    Number(stats.edited || 0);
 
-    const worker =
-      document.getElementById("statusWorker");
 
-    const key =
-      document.getElementById("statusKey");
+  if (
+    total >= DAILY_LIMIT
+  ) {
 
-    const generation =
-      document.getElementById("statusGeneration");
+    alert(
+      "Дневной лимит исчерпан."
+    );
 
-    const editing =
-      document.getElementById("statusEditing");
-
-    const details =
-      document.getElementById("statusDetails");
-
-
-    box.style.display =
-      "block";
-
-
-    worker.textContent =
-      "⏳ Проверка...";
-
-    worker.className =
-      "yellow";
-
-
-    key.textContent =
-      "⏳ Проверка...";
-
-    key.className =
-      "yellow";
-
-
-    generation.textContent =
-      "⏳ Проверка...";
-
-    generation.className =
-      "yellow";
-
-
-    editing.textContent =
-      "⏳ Проверка...";
-
-    editing.className =
-      "yellow";
-
-
-    details.style.display =
-      "none";
-
-
-    try {
-
-      const response =
-        await fetch(
-          WORKER,
-          {
-            method: "GET",
-            cache: "no-store"
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      if (!response.ok || !data.ok) {
-
-        throw new Error(
-          formatError(data)
-        );
-      }
-
-
-      worker.textContent =
-        "🟢 Работает";
-
-      worker.className =
-        "green";
-
-
-      if (data.pollinationsKeyExists) {
-
-        key.textContent =
-          "🟢 Найден";
-
-        key.className =
-          "green";
-
-      } else {
-
-        key.textContent =
-          "🔴 Не найден";
-
-        key.className =
-          "red";
-      }
-
-
-      if (data.imageGeneration) {
-
-        generation.textContent =
-          "🟢 Доступна";
-
-        generation.className =
-          "green";
-
-      } else {
-
-        generation.textContent =
-          "🔴 Недоступна";
-
-        generation.className =
-          "red";
-      }
-
-
-      if (data.imageEditing) {
-
-        editing.textContent =
-          "🟢 Доступно";
-
-        editing.className =
-          "green";
-
-      } else {
-
-        editing.textContent =
-          "🔴 Недоступно";
-
-        editing.className =
-          "red";
-      }
-
-
-      details.textContent =
-        "Worker отвечает нормально.";
-
-      details.style.display =
-        "block";
-
-
-    } catch (error) {
-
-      worker.textContent =
-        "🔴 Ошибка";
-
-      worker.className =
-        "red";
-
-
-      key.textContent =
-        "❔ Неизвестно";
-
-      key.className =
-        "yellow";
-
-
-      generation.textContent =
-        "❔ Неизвестно";
-
-      generation.className =
-        "yellow";
-
-
-      editing.textContent =
-        "❔ Неизвестно";
-
-      editing.className =
-        "yellow";
-
-
-      details.textContent =
-        "Ошибка: " +
-        error.message;
-
-      details.style.display =
-        "block";
-    }
+    return;
   }
 
 
-  // ==========================================================
-  // OPEN IMAGES
-  // ==========================================================
-
-  function openGeneratedImage() {
-
-    if (!generatedImageData) {
-      return;
-    }
-
-    const win =
-      window.open();
-
-    if (win) {
-      win.document.write(
-        '<title>Locer — изображение</title>' +
-        '<img src="' +
-        generatedImageData +
-        '" style="max-width:100%;height:auto;">'
-      );
-    }
-  }
-
-
-  function openEditedImage() {
-
-    if (!editedImageData) {
-      return;
-    }
-
-    const win =
-      window.open();
-
-    if (win) {
-      win.document.write(
-        '<title>Locer — изображение</title>' +
-        '<img src="' +
-        editedImageData +
-        '" style="max-width:100%;height:auto;">'
-      );
-    }
-  }
-
-
-  // ==========================================================
-  // CLEAR
-  // ==========================================================
-
-  function clearGeneration() {
-
-    generatedImageData =
-      null;
-
+  const button =
     document.getElementById(
-      "generatedImage"
-    ).src = "";
+      "editButton"
+    );
 
+
+  const loading =
     document.getElementById(
-      "generateResult"
-    ).style.display = "none";
-
-    document.getElementById(
-      "generatePrompt"
-    ).value = "";
-  }
+      "editLoading"
+    );
 
 
-  function clearEditing() {
+  button.disabled =
+    true;
 
-    editedImageData =
-      null;
+  loading.style.display =
+    "block";
+
+
+  try {
+
+    const form =
+      new FormData();
+
+
+    form.append(
+      "image",
+      selectedFile
+    );
+
+
+    form.append(
+      "prompt",
+      prompt
+    );
+
+
+    form.append(
+      "width",
+      "1024"
+    );
+
+
+    form.append(
+      "height",
+      "1024"
+    );
+
+
+    const response =
+      await fetch(
+        WORKER + "/edit",
+        {
+
+          method: "POST",
+
+          body:
+            form
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (
+      !response.ok ||
+      !data.ok ||
+      !data.image
+    ) {
+
+      throw new Error(
+        data.error ||
+        data.details ||
+        "Не удалось отредактировать изображение."
+      );
+    }
+
 
     document.getElementById(
       "editedImage"
-    ).src = "";
+    ).src =
+      data.image;
+
+
+    document.getElementById(
+      "downloadEdited"
+    ).href =
+      data.image;
+
 
     document.getElementById(
       "editResult"
-    ).style.display = "none";
-  }
-
-
-  // ==========================================================
-  // HELPERS
-  // ==========================================================
-
-  function showMessage(
-    element,
-    text,
-    isError
-  ) {
-
-    element.textContent =
-      text;
-
-    element.style.display =
+    ).style.display =
       "block";
 
-    element.style.color =
-      isError
-        ? "#ff7777"
-        : "#cbd1dc";
+
+    addOperation(
+      "edited"
+    );
+
+
+  } catch (error) {
+
+    alert(
+      "❌ " +
+      error.message
+    );
+
+  } finally {
+
+    loading.style.display =
+      "none";
+
+    updateLimitUI();
   }
+}
 
 
-  function formatError(data) {
+// =========================================================
+// STATUS
+// =========================================================
 
-    if (!data) {
-      return "Неизвестная ошибка.";
-    }
+async function checkStatus() {
+
+  const status =
+    document.getElementById(
+      "status"
+    );
 
 
-    if (data.details) {
+  status.textContent =
+    "⏳ Проверяю Worker...";
 
-      if (
-        typeof data.details ===
-        "string"
-      ) {
-        return data.details;
-      }
 
-      return JSON.stringify(
-        data.details,
+  try {
+
+    const response =
+      await fetch(
+        WORKER
+      );
+
+
+    const data =
+      await response.json();
+
+
+    status.textContent =
+      JSON.stringify(
+        data,
         null,
         2
       );
-    }
 
+  } catch (error) {
 
-    if (data.error) {
-      return data.error;
-    }
-
-
-    return JSON.stringify(
-      data,
-      null,
-      2
-    );
+    status.textContent =
+      "❌ Worker недоступен\n\n" +
+      error.message;
   }
+}
+
+
+// =========================================================
+// START
+// =========================================================
+
+updateLimitUI();
+
+setInterval(
+  updateLimitUI,
+  30000
+);
 
 </script>
 
 </body>
+
 </html>
-```
