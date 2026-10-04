@@ -1,175 +1,158 @@
-```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Locer — AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<title>Locer — AI</title>
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0d12;
-      color: #fff;
-      min-height: 100vh;
-    }
+<style>
 
-    header {
-      height: 64px;
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      border-bottom: 1px solid #242936;
-      background: #10131a;
-      font-size: 22px;
-      font-weight: bold;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .logo {
-      color: #8b7cff;
-    }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0d12;
+  color: white;
+}
 
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 30px 18px 60px;
-    }
+header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  background: #10131a;
+  border-bottom: 1px solid #272d3a;
+  font-size: 22px;
+  font-weight: bold;
+}
 
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
+.logo {
+  color: #8b7cff;
+}
 
-    .subtitle {
-      text-align: center;
-      color: #9ca3af;
-      margin-bottom: 30px;
-    }
+main {
+  max-width: 1050px;
+  margin: auto;
+  padding: 30px 18px 60px;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
+h1 {
+  text-align: center;
+}
 
-    .card {
-      background: #121620;
-      border: 1px solid #272d3a;
-      border-radius: 18px;
-      padding: 22px;
-    }
+.subtitle {
+  text-align: center;
+  color: #9ca3af;
+  margin-bottom: 30px;
+}
 
-    .card h2 {
-      margin-top: 0;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
 
-    textarea {
-      width: 100%;
-      min-height: 130px;
-      resize: vertical;
-      border: 1px solid #303747;
-      border-radius: 12px;
-      background: #0b0e14;
-      color: white;
-      padding: 14px;
-      font-size: 16px;
-      outline: none;
-    }
+.card {
+  background: #121620;
+  border: 1px solid #292f3c;
+  border-radius: 18px;
+  padding: 22px;
+}
 
-    textarea:focus {
-      border-color: #8b7cff;
-    }
+textarea {
+  width: 100%;
+  min-height: 130px;
+  padding: 14px;
+  resize: vertical;
+  background: #090c11;
+  border: 1px solid #303747;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+}
 
-    input[type="file"] {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      background: #0b0e14;
-      color: #ddd;
-      border: 1px solid #303747;
-      margin-bottom: 12px;
-    }
+input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  background: #090c11;
+  color: white;
+  border: 1px solid #303747;
+  border-radius: 10px;
+}
 
-    button {
-      width: 100%;
-      margin-top: 14px;
-      padding: 14px;
-      border: 0;
-      border-radius: 12px;
-      background: #7567ff;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #7567ff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    button:hover {
-      background: #8a7dff;
-      transform: translateY(-1px);
-    }
+button:hover {
+  background: #8b7cff;
+}
 
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
+button:disabled {
+  opacity: .5;
+  cursor: wait;
+}
 
-    .status {
-      margin-top: 14px;
-      color: #aeb5c3;
-      min-height: 22px;
-      font-size: 14px;
-    }
+.status {
+  margin-top: 14px;
+  color: #b7bdca;
+  min-height: 22px;
+}
 
-    .preview,
-    .result {
-      margin-top: 18px;
-      text-align: center;
-    }
+.image-box {
+  margin-top: 18px;
+  text-align: center;
+}
 
-    .preview img,
-    .result img {
-      max-width: 100%;
-      max-height: 500px;
-      border-radius: 14px;
-      border: 1px solid #303747;
-      display: none;
-    }
+.image-box img {
+  display: none;
+  max-width: 100%;
+  max-height: 550px;
+  border-radius: 14px;
+  border: 1px solid #303747;
+}
 
-    .result a {
-      display: none;
-      margin-top: 12px;
-      color: #a99fff;
-      text-decoration: none;
-    }
+.open-link {
+  display: none;
+  margin-top: 12px;
+  color: #aaa0ff;
+  text-decoration: none;
+}
 
-    .result a:hover {
-      text-decoration: underline;
-    }
+.preview {
+  margin-top: 15px;
+  text-align: center;
+}
 
-    .footer {
-      text-align: center;
-      color: #6f7685;
-      margin-top: 35px;
-      font-size: 13px;
-    }
+.preview img {
+  display: none;
+  max-width: 100%;
+  max-height: 350px;
+  border-radius: 12px;
+}
 
-    @media (max-width: 750px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
+@media(max-width:750px) {
 
-      main {
-        padding-top: 20px;
-      }
-    }
-  </style>
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
@@ -180,333 +163,383 @@
 
 <main>
 
-  <h1>🖼️ Locer AI Images</h1>
+<h1>🖼️ Locer AI Images</h1>
 
-  <div class="subtitle">
-    Создавай изображения и редактируй свои картинки с помощью AI
-  </div>
+<div class="subtitle">
+  Генерация и редактирование изображений
+</div>
 
-  <div class="grid">
+<div class="grid">
 
-    <!-- ГЕНЕРАЦИЯ -->
+<!-- ================= GENERATE ================= -->
 
-    <section class="card">
+<section class="card">
 
-      <h2>🎨 Создать изображение</h2>
+<h2>🎨 Создать изображение</h2>
 
-      <textarea
-        id="generatePrompt"
-        placeholder="Например: реалистичный оранжевый леопард в неоновом городе ночью, кинематографический свет"
-      ></textarea>
+<textarea
+id="generatePrompt"
+placeholder="Опиши изображение..."
+></textarea>
 
-      <button id="generateButton">
-        ✨ Создать изображение
-      </button>
+<button id="generateButton">
+✨ Создать изображение
+</button>
 
-      <div class="status" id="generateStatus"></div>
+<div
+id="generateStatus"
+class="status"
+></div>
 
-      <div class="result">
-        <img id="generateResult" alt="Сгенерированное изображение">
-        <br>
-        <a id="generateOpen" target="_blank" rel="noopener">
-          🔗 Открыть изображение
-        </a>
-      </div>
+<div class="image-box">
 
-    </section>
+<img
+id="generateResult"
+alt="Generated image"
+>
+
+<a
+id="generateOpen"
+class="open-link"
+target="_blank"
+>
+🔗 Открыть изображение
+</a>
+
+</div>
+
+</section>
 
 
-    <!-- РЕДАКТИРОВАНИЕ -->
+<!-- ================= EDIT ================= -->
 
-    <section class="card">
+<section class="card">
 
-      <h2>✏️ Редактировать изображение</h2>
+<h2>✏️ Редактировать изображение</h2>
 
-      <input
-        type="file"
-        id="editFile"
-        accept="image/*"
-      >
+<input
+id="editFile"
+type="file"
+accept="image/*"
+>
 
-      <div class="preview">
-        <img id="editPreview" alt="Предпросмотр">
-      </div>
+<div class="preview">
 
-      <textarea
-        id="editPrompt"
-        placeholder="Например: добавь рядом со мной большого оранжевого леопарда"
-      ></textarea>
+<img
+id="editPreview"
+alt="Preview"
+>
 
-      <button id="editButton">
-        🪄 Редактировать изображение
-      </button>
+</div>
 
-      <div class="status" id="editStatus"></div>
+<textarea
+id="editPrompt"
+placeholder="Например: замени животное на большого реалистичного оранжевого леопарда, сохрани фон"
+></textarea>
 
-      <div class="result">
-        <img id="editResult" alt="Отредактированное изображение">
-        <br>
-        <a id="editOpen" target="_blank" rel="noopener">
-          🔗 Открыть изображение
-        </a>
-      </div>
+<button id="editButton">
+🪄 Редактировать
+</button>
 
-    </section>
+<div
+id="editStatus"
+class="status"
+></div>
 
-  </div>
+<div class="image-box">
 
-  <div class="footer">
-    Locer AI • генерация и редактирование изображений
-  </div>
+<img
+id="editResult"
+alt="Edited image"
+>
+
+<a
+id="editOpen"
+class="open-link"
+target="_blank"
+>
+🔗 Открыть изображение
+</a>
+
+</div>
+
+</section>
+
+</div>
 
 </main>
 
+
 <script>
 
-  const WORKER_URL =
-    "https://locer-ai.ivan-ostanin1914.workers.dev";
+const WORKER =
+"https://locer-ai.ivan-ostanin1914.workers.dev";
 
 
-  // ==========================================
-  // ГЕНЕРАЦИЯ
-  // ==========================================
+// ==========================================
+// ГЕНЕРАЦИЯ
+// ==========================================
 
-  const generateButton =
-    document.getElementById("generateButton");
+const generateButton =
+document.getElementById("generateButton");
 
-  const generatePrompt =
-    document.getElementById("generatePrompt");
+const generatePrompt =
+document.getElementById("generatePrompt");
 
-  const generateStatus =
-    document.getElementById("generateStatus");
+const generateStatus =
+document.getElementById("generateStatus");
 
-  const generateResult =
-    document.getElementById("generateResult");
+const generateResult =
+document.getElementById("generateResult");
 
-  const generateOpen =
-    document.getElementById("generateOpen");
+const generateOpen =
+document.getElementById("generateOpen");
 
 
-  generateButton.addEventListener("click", async () => {
+generateButton.onclick = async () => {
 
-    const prompt = generatePrompt.value.trim();
+  const prompt =
+    generatePrompt.value.trim();
 
-    if (!prompt) {
-      generateStatus.textContent =
-        "⚠️ Напиши описание изображения.";
-      return;
+  if (!prompt) {
+    generateStatus.textContent =
+      "⚠️ Напиши описание изображения.";
+    return;
+  }
+
+  generateButton.disabled = true;
+
+  generateStatus.textContent =
+    "⏳ Генерирую изображение...";
+
+  generateResult.style.display = "none";
+  generateOpen.style.display = "none";
+
+  try {
+
+    const res = await fetch(
+      WORKER + "/generate",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+
+        body: JSON.stringify({
+          prompt,
+          model: "flux",
+          size: "1024x1024"
+        })
+      }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok || !data.ok) {
+      throw new Error(
+        data.error ||
+        "Ошибка генерации"
+      );
     }
 
-    generateButton.disabled = true;
+    generateResult.src =
+      data.image;
+
+    generateResult.style.display =
+      "inline-block";
+
+    generateOpen.href =
+      data.image;
+
+    generateOpen.style.display =
+      "inline-block";
 
     generateStatus.textContent =
-      "⏳ Создаю изображение...";
+      "✅ Изображение готово!";
 
-    generateResult.style.display = "none";
-    generateOpen.style.display = "none";
+  } catch (error) {
 
-    try {
+    console.error(error);
 
-      const response = await fetch(
-        `${WORKER_URL}/generate`,
-        {
-          method: "POST",
+    generateStatus.textContent =
+      "❌ " + error.message;
 
-          headers: {
-            "Content-Type": "application/json"
-          },
+  } finally {
 
-          body: JSON.stringify({
-            prompt: prompt,
-            model: "flux",
-            size: "1024x1024"
-          })
-        }
-      );
+    generateButton.disabled = false;
 
-      const data = await response.json();
+  }
 
-      if (!response.ok || !data.ok) {
-        throw new Error(
-          data.error ||
-          "Не удалось создать изображение."
-        );
-      }
-
-      generateResult.src = data.image;
-      generateResult.style.display = "inline-block";
-
-      generateOpen.href = data.image;
-      generateOpen.style.display = "inline-block";
-
-      generateStatus.textContent =
-        "✅ Изображение готово!";
-
-    } catch (error) {
-
-      console.error(error);
-
-      generateStatus.textContent =
-        "❌ " + error.message;
-
-    } finally {
-
-      generateButton.disabled = false;
-
-    }
-
-  });
+};
 
 
-  // ==========================================
-  // ПРЕДПРОСМОТР ЗАГРУЖЕННОЙ КАРТИНКИ
-  // ==========================================
+// ==========================================
+// ПРЕДПРОСМОТР
+// ==========================================
 
-  const editFile =
-    document.getElementById("editFile");
+const editFile =
+document.getElementById("editFile");
 
-  const editPreview =
-    document.getElementById("editPreview");
-
-
-  editFile.addEventListener("change", () => {
-
-    const file = editFile.files[0];
-
-    if (!file) {
-      editPreview.style.display = "none";
-      return;
-    }
-
-    const url = URL.createObjectURL(file);
-
-    editPreview.src = url;
-    editPreview.style.display = "inline-block";
-
-  });
+const editPreview =
+document.getElementById("editPreview");
 
 
-  // ==========================================
-  // РЕДАКТИРОВАНИЕ
-  // ==========================================
+editFile.onchange = () => {
 
-  const editButton =
-    document.getElementById("editButton");
+  const file =
+    editFile.files[0];
 
-  const editPrompt =
-    document.getElementById("editPrompt");
+  if (!file) {
+    editPreview.style.display =
+      "none";
+    return;
+  }
 
-  const editStatus =
-    document.getElementById("editStatus");
+  editPreview.src =
+    URL.createObjectURL(file);
 
-  const editResult =
-    document.getElementById("editResult");
-
-  const editOpen =
-    document.getElementById("editOpen");
+  editPreview.style.display =
+    "inline-block";
+};
 
 
-  editButton.addEventListener("click", async () => {
+// ==========================================
+// РЕДАКТИРОВАНИЕ
+// ==========================================
 
-    const file = editFile.files[0];
-    const prompt = editPrompt.value.trim();
+const editButton =
+document.getElementById("editButton");
 
-    if (!file) {
-      editStatus.textContent =
-        "⚠️ Сначала выбери изображение.";
-      return;
-    }
+const editPrompt =
+document.getElementById("editPrompt");
 
-    if (!prompt) {
-      editStatus.textContent =
-        "⚠️ Напиши, что нужно изменить.";
-      return;
-    }
+const editStatus =
+document.getElementById("editStatus");
 
-    editButton.disabled = true;
+const editResult =
+document.getElementById("editResult");
+
+const editOpen =
+document.getElementById("editOpen");
+
+
+editButton.onclick = async () => {
+
+  const file =
+    editFile.files[0];
+
+  const prompt =
+    editPrompt.value.trim();
+
+  if (!file) {
 
     editStatus.textContent =
-      "⏳ Редактирую изображение...";
+      "⚠️ Сначала выбери изображение.";
 
-    editResult.style.display = "none";
-    editOpen.style.display = "none";
+    return;
+  }
+
+  if (!prompt) {
+
+    editStatus.textContent =
+      "⚠️ Напиши, что изменить.";
+
+    return;
+  }
+
+  editButton.disabled = true;
+
+  editStatus.textContent =
+    "⏳ Редактирую изображение...";
+
+  editResult.style.display =
+    "none";
+
+  editOpen.style.display =
+    "none";
+
+  try {
+
+    const form =
+      new FormData();
+
+    form.append(
+      "image",
+      file
+    );
+
+    form.append(
+      "prompt",
+      prompt
+    );
+
+    form.append(
+      "model",
+      "black-forest-labs/flux.1-kontext-pro"
+    );
+
+    form.append(
+      "size",
+      "1024x1024"
+    );
 
 
-    try {
-
-      const formData = new FormData();
-
-      formData.append(
-        "image",
-        file
-      );
-
-      formData.append(
-        "prompt",
-        prompt
-      );
-
-      formData.append(
-        "model",
-        "kontext"
-      );
-
-      formData.append(
-        "size",
-        "1024x1024"
-      );
-
-
-      const response = await fetch(
-        `${WORKER_URL}/edit`,
-        {
-          method: "POST",
-          body: formData
-        }
-      );
-
-
-      const data = await response.json();
-
-
-      if (!response.ok || !data.ok) {
-
-        throw new Error(
-          data.error ||
-          "Не удалось отредактировать изображение."
-        );
-
+    const res = await fetch(
+      WORKER + "/edit",
+      {
+        method: "POST",
+        body: form
       }
+    );
 
 
-      editResult.src = data.image;
-      editResult.style.display = "inline-block";
-
-      editOpen.href = data.image;
-      editOpen.style.display = "inline-block";
+    const data =
+      await res.json();
 
 
-      editStatus.textContent =
-        "✅ Изображение отредактировано!";
+    if (!res.ok || !data.ok) {
 
-
-    } catch (error) {
-
-      console.error(error);
-
-      editStatus.textContent =
-        "❌ " + error.message;
-
-    } finally {
-
-      editButton.disabled = false;
+      throw new Error(
+        data.error ||
+        "Ошибка редактирования"
+      );
 
     }
 
-  });
+
+    editResult.src =
+      data.image;
+
+    editResult.style.display =
+      "inline-block";
+
+    editOpen.href =
+      data.image;
+
+    editOpen.style.display =
+      "inline-block";
+
+    editStatus.textContent =
+      "✅ Готово!";
+
+  } catch (error) {
+
+    console.error(error);
+
+    editStatus.textContent =
+      "❌ " + error.message;
+
+  } finally {
+
+    editButton.disabled = false;
+
+  }
+
+};
 
 </script>
 
 </body>
 </html>
-```
