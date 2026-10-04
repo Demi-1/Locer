@@ -163,6 +163,29 @@ button {
   border: 1px solid rgba(255,255,255,.06);
 }
 
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.user-avatar {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #252b39;
+  border: 2px solid rgba(255,255,255,.12);
+}
+
+.user-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
 .user-name {
   font-size: 13px;
   font-weight: 600;
@@ -475,6 +498,47 @@ button {
 }
 
 /* =========================
+   CLOUDFLARE QUOTA
+========================= */
+
+.cloudflare-quota {
+  margin: 0 24px 15px;
+  padding: 13px 15px;
+  border-radius: 13px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(36,48,78,.72),
+      rgba(31,25,52,.72)
+    );
+  border: 1px solid rgba(120,140,255,.14);
+}
+
+.cloudflare-quota-title {
+  font-size: 12px;
+  color: #9ea8bd;
+}
+
+.cloudflare-quota-value {
+  margin-top: 4px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.cloudflare-quota-warning {
+  margin-top: 5px;
+  font-size: 10px;
+  color: #7f8799;
+  line-height: 1.4;
+}
+
+.cloudflare-quota-reset {
+  margin-top: 5px;
+  font-size: 10px;
+  color: #8e97aa;
+}
+
+/* =========================
    IMAGE PAGE
 ========================= */
 
@@ -631,7 +695,8 @@ textarea.field {
     margin-right: 12px;
   }
 
-  .reset-box {
+  .reset-box,
+  .cloudflare-quota {
     margin-left: 12px;
     margin-right: 12px;
   }
@@ -710,10 +775,31 @@ textarea.field {
     </button>
 
     <div class="user-box" id="userBox">
-      <div class="user-name" id="userName"></div>
+
+      <div class="user-profile">
+
+        <img
+          class="user-avatar"
+          id="userAvatar"
+          alt="Аватар Google"
+          style="display:none;"
+        >
+
+        <div
+          class="user-avatar user-avatar-fallback"
+          id="userAvatarFallback"
+        >
+          👤
+        </div>
+
+        <div class="user-name" id="userName"></div>
+
+      </div>
+
       <button class="logout-btn" id="logoutBtn">
         Выйти
       </button>
+
     </div>
 
     <div class="saved-title">
@@ -786,6 +872,36 @@ textarea.field {
         </div>
 
       </div>
+
+
+      <!-- CLOUDFLARE QUOTA -->
+
+      <div class="cloudflare-quota">
+
+        <div class="cloudflare-quota-title">
+          ⚡ Cloudflare AI
+        </div>
+
+        <div
+          class="cloudflare-quota-value"
+          id="cloudflareQuota"
+        >
+          Загрузка...
+        </div>
+
+        <div class="cloudflare-quota-warning">
+          ⚠️ Остаток квоты указан примерно. Фактический расход может отличаться.
+        </div>
+
+        <div
+          class="cloudflare-quota-reset"
+          id="cloudflareQuotaReset"
+        >
+          ⏰ Сброс: 00:00 UTC
+        </div>
+
+      </div>
+
 
       <div class="reset-box">
         🔄 Сброс лимитов:
@@ -868,6 +984,34 @@ textarea.field {
           </div>
 
         </div>
+
+
+        <div class="cloudflare-quota" style="margin:0 0 15px;">
+
+          <div class="cloudflare-quota-title">
+            ⚡ Cloudflare AI
+          </div>
+
+          <div
+            class="cloudflare-quota-value"
+            id="cloudflareQuotaImage"
+          >
+            Загрузка...
+          </div>
+
+          <div class="cloudflare-quota-warning">
+            ⚠️ Остаток квоты указан примерно.
+          </div>
+
+          <div
+            class="cloudflare-quota-reset"
+            id="cloudflareQuotaResetImage"
+          >
+            ⏰ Сброс: 00:00 UTC
+          </div>
+
+        </div>
+
 
         <div class="reset-box" style="margin:0 0 15px;">
           🔄 Сброс:
@@ -1065,6 +1209,38 @@ const WORKER =
 
 
 /* =========================================================
+   CLOUDFLARE ESTIMATE
+========================================================= */
+
+/*
+  Cloudflare Workers AI:
+  Free allocation = 10,000 Neurons/day.
+
+  Current Locer image size = 1024x1024.
+
+  FLUX.2 Klein 4B:
+  output ≈ 26.05 neurons per 512x512 tile
+  input  ≈ 5.37 neurons per 512x512 tile
+
+  1024x1024 = 4 tiles.
+
+  Generation:
+  4 × 26.05 ≈ 104.2 neurons
+
+  Editing:
+  4 × 26.05 + 4 × 5.37 ≈ 125.68 neurons
+
+  This is an ESTIMATE.
+*/
+
+const CLOUDFLARE_DAILY_QUOTA = 10000;
+
+const EST_IMAGE_NEURONS = 104.2;
+
+const EST_EDIT_NEURONS = 125.68;
+
+
+/* =========================================================
    STATE
 ========================================================= */
 
@@ -1113,6 +1289,12 @@ const userBox =
 
 const userName =
   document.getElementById("userName");
+
+const userAvatar =
+  document.getElementById("userAvatar");
+
+const userAvatarFallback =
+  document.getElementById("userAvatarFallback");
 
 const savedChats =
   document.getElementById("savedChats");
@@ -1210,10 +1392,42 @@ onAuthStateChanged(auth, async user => {
 
     userBox.style.display = "block";
 
+
+    /* =========================
+       GOOGLE AVATAR
+    ========================= */
+
     userName.textContent =
       user.displayName ||
       user.email ||
       "Пользователь";
+
+
+    if (user.photoURL) {
+
+      userAvatar.src = user.photoURL;
+
+      userAvatar.style.display = "block";
+
+      userAvatarFallback.style.display = "none";
+
+    } else {
+
+      userAvatar.style.display = "none";
+
+      userAvatarFallback.style.display = "flex";
+
+    }
+
+
+    userAvatar.onerror = () => {
+
+      userAvatar.style.display = "none";
+
+      userAvatarFallback.style.display = "flex";
+
+    };
+
 
     await loadSavedChats();
 
@@ -1222,6 +1436,10 @@ onAuthStateChanged(auth, async user => {
     loginBtn.style.display = "block";
 
     userBox.style.display = "none";
+
+    userAvatar.style.display = "none";
+
+    userAvatarFallback.style.display = "flex";
 
     savedChats.innerHTML = `
       <div class="no-chats">
@@ -1654,11 +1872,6 @@ async function sendMessage() {
       (error.message ||
        "Ошибка подключения");
 
-    /*
-      Удаляем последнее пользовательское
-      сообщение из локальной истории,
-      если сервер его не обработал.
-    */
 
     history.pop();
 
@@ -1714,6 +1927,137 @@ async function loadLimits() {
 
 
 /* =========================================================
+   CLOUDFLARE ESTIMATE
+========================================================= */
+
+function updateCloudflareEstimate(data) {
+
+  if (!data) return;
+
+
+  const imageLimit =
+    Number(data.image?.limit ?? 96);
+
+  const imageRemaining =
+    Number(data.image?.remaining ?? imageLimit);
+
+
+  const editLimit =
+    Number(data.edit?.limit ?? 96);
+
+  const editRemaining =
+    Number(data.edit?.remaining ?? editLimit);
+
+
+  const imageUsed =
+    Math.max(
+      0,
+      imageLimit - imageRemaining
+    );
+
+
+  const editUsed =
+    Math.max(
+      0,
+      editLimit - editRemaining
+    );
+
+
+  const estimatedUsed =
+    (imageUsed * EST_IMAGE_NEURONS) +
+    (editUsed * EST_EDIT_NEURONS);
+
+
+  const estimatedRemaining =
+    Math.max(
+      0,
+      CLOUDFLARE_DAILY_QUOTA -
+      estimatedUsed
+    );
+
+
+  const roundedRemaining =
+    Math.round(
+      estimatedRemaining
+    );
+
+
+  const roundedUsed =
+    Math.round(
+      Math.min(
+        CLOUDFLARE_DAILY_QUOTA,
+        estimatedUsed
+      )
+    );
+
+
+  const mainText =
+    `Примерно осталось: ${roundedRemaining.toLocaleString("ru-RU")} / ${CLOUDFLARE_DAILY_QUOTA.toLocaleString("ru-RU")} Neurons`;
+
+
+  const imageQuota =
+    document.getElementById(
+      "cloudflareQuota"
+    );
+
+  const imagePageQuota =
+    document.getElementById(
+      "cloudflareQuotaImage"
+    );
+
+
+  if (imageQuota) {
+    imageQuota.textContent =
+      mainText;
+  }
+
+
+  if (imagePageQuota) {
+    imagePageQuota.textContent =
+      mainText;
+  }
+
+
+  const resetText =
+    "⏰ Сброс: 00:00 UTC";
+
+
+  const reset1 =
+    document.getElementById(
+      "cloudflareQuotaReset"
+    );
+
+  const reset2 =
+    document.getElementById(
+      "cloudflareQuotaResetImage"
+    );
+
+
+  if (reset1) {
+    reset1.textContent =
+      resetText;
+  }
+
+
+  if (reset2) {
+    reset2.textContent =
+      resetText;
+  }
+
+
+  console.log(
+    "Cloudflare estimate:",
+    {
+      quota: CLOUDFLARE_DAILY_QUOTA,
+      estimatedUsed: roundedUsed,
+      estimatedRemaining: roundedRemaining
+    }
+  );
+
+}
+
+
+/* =========================================================
    APPLY LIMITS
 ========================================================= */
 
@@ -1760,6 +2104,9 @@ function applyLimits(data) {
     .getElementById("editRemainingText")
     .textContent =
       `${editRemaining} / ${data.edit?.limit ?? 96}`;
+
+
+  updateCloudflareEstimate(data);
 
 
   updateResetDisplay(
