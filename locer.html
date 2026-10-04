@@ -53,6 +53,10 @@ body {
 }
 
 
+/* =========================================================
+   HEADER
+========================================================= */
+
 .header {
 
   text-align:
@@ -63,13 +67,226 @@ body {
 }
 
 
+/* Профессиональный переливающийся фон */
+
+.logo-box {
+
+  position:
+    relative;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  min-width:
+    280px;
+
+  padding:
+    16px 34px;
+
+  border-radius:
+    20px;
+
+  overflow:
+    hidden;
+
+  background:
+    linear-gradient(
+      120deg,
+      #111827,
+      #1e1b4b,
+      #312e81,
+      #172554,
+      #111827
+    );
+
+  background-size:
+    300% 300%;
+
+  animation:
+    locerGradient
+    8s ease
+    infinite;
+
+  border:
+    1px solid
+    rgba(255,255,255,.12);
+
+  box-shadow:
+    0 0 35px
+    rgba(79,70,229,.22);
+}
+
+
+/* Мягкое движущееся свечение */
+
+.logo-box::before {
+
+  content:
+    "";
+
+  position:
+    absolute;
+
+  width:
+    180px;
+
+  height:
+    180px;
+
+  left:
+    -80px;
+
+  top:
+    -100px;
+
+  border-radius:
+    50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(129,140,248,.35),
+      transparent 70%
+    );
+
+  filter:
+    blur(10px);
+
+  animation:
+    locerGlow
+    6s ease-in-out
+    infinite alternate;
+
+  pointer-events:
+    none;
+}
+
+
+.logo-box::after {
+
+  content:
+    "";
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  background:
+    linear-gradient(
+      110deg,
+      transparent 30%,
+      rgba(255,255,255,.10) 50%,
+      transparent 70%
+    );
+
+  transform:
+    translateX(-120%);
+
+  animation:
+    locerShine
+    5s ease-in-out
+    infinite;
+
+  pointer-events:
+    none;
+}
+
+
 .logo {
+
+  position:
+    relative;
+
+  z-index:
+    2;
 
   font-size:
     42px;
 
   font-weight:
     800;
+
+  letter-spacing:
+    -.5px;
+
+  text-shadow:
+    0 0 20px
+    rgba(255,255,255,.18);
+}
+
+
+@keyframes locerGradient {
+
+  0% {
+    background-position:
+      0% 50%;
+  }
+
+  50% {
+    background-position:
+      100% 50%;
+  }
+
+  100% {
+    background-position:
+      0% 50%;
+  }
+
+}
+
+
+@keyframes locerGlow {
+
+  0% {
+
+    transform:
+      translate(
+        0,
+        0
+      )
+      scale(1);
+
+  }
+
+  100% {
+
+    transform:
+      translate(
+        190px,
+        110px
+      )
+      scale(1.35);
+
+  }
+
+}
+
+
+@keyframes locerShine {
+
+  0% {
+
+    transform:
+      translateX(-120%);
+
+  }
+
+  35%,
+  100% {
+
+    transform:
+      translateX(120%);
+
+  }
+
 }
 
 
@@ -79,7 +296,7 @@ body {
     #9ca3af;
 
   margin-top:
-    8px;
+    10px;
 }
 
 
@@ -134,6 +351,9 @@ body {
 
   cursor:
     pointer;
+
+  margin-top:
+    0;
 }
 
 
@@ -199,6 +419,10 @@ h2 {
 }
 
 
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
 textarea {
 
   width:
@@ -242,6 +466,10 @@ textarea::placeholder {
     #6b7280;
 }
 
+
+/* =========================================================
+   BUTTON
+========================================================= */
 
 button {
 
@@ -472,7 +700,7 @@ input[type=file] {
 
 
 /* =========================================================
-   LIMIT
+   LIMITS
 ========================================================= */
 
 .limit {
@@ -491,6 +719,62 @@ input[type=file] {
 
   color:
     #d1d5db;
+}
+
+
+.limit-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap:
+    10px;
+
+  margin-bottom:
+    15px;
+}
+
+
+.limit-box {
+
+  background:
+    rgba(255,255,255,.04);
+
+  border:
+    1px solid
+    rgba(255,255,255,.06);
+
+  border-radius:
+    14px;
+
+  padding:
+    14px;
+}
+
+
+.limit-title {
+
+  color:
+    #9ca3af;
+
+  font-size:
+    13px;
+
+  margin-bottom:
+    6px;
+}
+
+
+.limit-value {
+
+  font-size:
+    22px;
+
+  font-weight:
+    800;
 }
 
 
@@ -521,6 +805,10 @@ input[type=file] {
 }
 
 
+/* =========================================================
+   STATUS
+========================================================= */
+
 .status {
 
   background:
@@ -546,6 +834,10 @@ input[type=file] {
 }
 
 
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media(max-width:600px) {
 
   .tabs {
@@ -554,16 +846,42 @@ input[type=file] {
       column;
   }
 
+
   .message.user {
 
     margin-left:
       5%;
   }
 
+
   .message.ai {
 
     margin-right:
       5%;
+  }
+
+
+  .logo-box {
+
+    min-width:
+      0;
+
+    width:
+      100%;
+  }
+
+
+  .logo {
+
+    font-size:
+      34px;
+  }
+
+
+  .limit-grid {
+
+    grid-template-columns:
+      1fr;
   }
 
 }
@@ -579,10 +897,18 @@ input[type=file] {
 <div class="container">
 
 
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
 <div class="header">
 
-  <div class="logo">
-    Locer AI
+  <div class="logo-box">
+
+    <div class="logo">
+      Locer AI
+    </div>
+
   </div>
 
   <div class="subtitle">
@@ -631,7 +957,6 @@ input[type=file] {
   class="page active"
 >
 
-
 <div class="card">
 
   <h2>
@@ -639,15 +964,45 @@ input[type=file] {
   </h2>
 
 
-  <div class="limit">
+  <div class="limit-grid">
 
-    💬 Текстовый лимит:
+    <div class="limit-box">
 
-    <b id="textRemaining">
-      50
-    </b>
+      <div class="limit-title">
+        💬 Текстовый лимит
+      </div>
 
-    запросов осталось сегодня
+      <div class="limit-value">
+
+        <b id="textRemaining">
+          50
+        </b>
+
+        <span style="font-size:13px;color:#9ca3af;">
+          осталось
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="limit-box">
+
+      <div class="limit-title">
+        📅 Лимит
+      </div>
+
+      <div
+        style="
+          color:#9ca3af;
+          margin-top:7px;
+        "
+      >
+        50 запросов в сутки
+      </div>
+
+    </div>
 
   </div>
 
@@ -710,15 +1065,65 @@ input[type=file] {
   </h2>
 
 
+  <div class="limit-grid">
+
+    <div class="limit-box">
+
+      <div class="limit-title">
+        🎨 Генерация
+      </div>
+
+      <div class="limit-value">
+
+        <b id="imageRemaining">
+          96
+        </b>
+
+        <span style="font-size:13px;color:#9ca3af;">
+          осталось
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="limit-box">
+
+      <div class="limit-title">
+        ✏️ Редактирование
+      </div>
+
+      <div class="limit-value">
+
+        <b id="editRemaining">
+          96
+        </b>
+
+        <span style="font-size:13px;color:#9ca3af;">
+          осталось
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
   <div class="limit">
 
-    ⚡ Ориентировочный лимит:
+    📊 Дневной лимит:
 
-    <b id="imageRemaining">
-      96
+    <b>
+      96 генераций
     </b>
 
-    операций
+    и
+
+    <b>
+      96 редактирований
+    </b>
 
   </div>
 
@@ -770,6 +1175,8 @@ input[type=file] {
 
 </div>
 
+
+<!-- EDIT -->
 
 <div class="card">
 
@@ -926,30 +1333,36 @@ input[type=file] {
 
 <script>
 
-
 const WORKER =
   "https://locer-ai.ivan-ostanin1914.workers.dev";
 
 
+/*
+=========================================================
+  ЛИМИТЫ LOCER
+=========================================================
+*/
+
 const TEXT_LIMIT =
   50;
 
-
 const IMAGE_LIMIT =
+  96;
+
+const EDIT_LIMIT =
   96;
 
 
 let selectedFile =
   null;
 
-
 let chatHistory =
   [];
 
 
-// =========================================================
-// TABS
-// =========================================================
+/* =========================================================
+   TABS
+========================================================= */
 
 function openTab(
   name,
@@ -960,9 +1373,7 @@ function openTab(
     .querySelectorAll(".page")
     .forEach(
       page =>
-        page.classList.remove(
-          "active"
-        )
+        page.classList.remove("active")
     );
 
 
@@ -970,9 +1381,7 @@ function openTab(
     .querySelectorAll(".tab")
     .forEach(
       tab =>
-        tab.classList.remove(
-          "active"
-        )
+        tab.classList.remove("active")
     );
 
 
@@ -985,20 +1394,29 @@ function openTab(
 }
 
 
-// =========================================================
-// TEXT STORAGE
-// =========================================================
+/* =========================================================
+   DATE
+========================================================= */
+
+function getToday() {
+
+  return new Date()
+    .toISOString()
+    .slice(0, 10);
+
+}
+
+
+/* =========================================================
+   TEXT STATS
+========================================================= */
 
 function getTextStats() {
 
   const today =
-    new Date()
-      .toISOString()
-      .slice(0, 10);
-
+    getToday();
 
   let stats;
-
 
   try {
 
@@ -1012,6 +1430,7 @@ function getTextStats() {
   } catch {
 
     stats = null;
+
   }
 
 
@@ -1027,12 +1446,14 @@ function getTextStats() {
 
       used:
         0
+
     };
 
     localStorage.setItem(
       "locerTextStats",
       JSON.stringify(stats)
     );
+
   }
 
 
@@ -1064,10 +1485,11 @@ function updateTextLimit() {
     "sendButton"
   ).disabled =
     remaining <= 0;
+
 }
 
 
-function useTextRequest() {
+function reserveTextRequest() {
 
   const stats =
     getTextStats();
@@ -1079,7 +1501,19 @@ function useTextRequest() {
   ) {
 
     return false;
+
   }
+
+
+  return true;
+
+}
+
+
+function confirmTextRequest() {
+
+  const stats =
+    getTextStats();
 
 
   stats.used =
@@ -1094,13 +1528,12 @@ function useTextRequest() {
 
   updateTextLimit();
 
-  return true;
 }
 
 
-// =========================================================
-// CHAT
-// =========================================================
+/* =========================================================
+   CHAT
+========================================================= */
 
 function addMessage(
   text,
@@ -1134,6 +1567,7 @@ function addMessage(
 
   chat.scrollTop =
     chat.scrollHeight;
+
 }
 
 
@@ -1152,16 +1586,18 @@ async function sendMessage() {
   if (!message) {
 
     return;
+
   }
 
 
-  if (!useTextRequest()) {
+  if (!reserveTextRequest()) {
 
     alert(
       "Дневной лимит текста исчерпан."
     );
 
     return;
+
   }
 
 
@@ -1243,6 +1679,7 @@ async function sendMessage() {
         "Ошибка текстового ИИ."
 
       );
+
     }
 
 
@@ -1278,6 +1715,13 @@ async function sendMessage() {
       chatHistory.slice(-12);
 
 
+    /*
+      СПИСЫВАЕМ ТОЛЬКО ПОСЛЕ УСПЕШНОГО ОТВЕТА
+    */
+
+    confirmTextRequest();
+
+
     status.textContent =
       "";
 
@@ -1307,12 +1751,16 @@ async function sendMessage() {
 
       button.disabled =
         false;
+
     }
+
   }
+
 }
 
 
-// Enter = send
+/* Enter = send */
+
 document
   .getElementById(
     "textInput"
@@ -1329,15 +1777,16 @@ document
         event.preventDefault();
 
         sendMessage();
+
       }
 
     }
   );
 
 
-// =========================================================
-// CLEAR CHAT
-// =========================================================
+/* =========================================================
+   CLEAR CHAT
+========================================================= */
 
 function clearChat() {
 
@@ -1355,23 +1804,20 @@ function clearChat() {
     "chatStatus"
   ).textContent =
     "";
+
 }
 
 
-// =========================================================
-// IMAGE STATS
-// =========================================================
+/* =========================================================
+   IMAGE STATS
+========================================================= */
 
 function getImageStats() {
 
   const today =
-    new Date()
-      .toISOString()
-      .slice(0, 10);
-
+    getToday();
 
   let stats;
-
 
   try {
 
@@ -1385,6 +1831,7 @@ function getImageStats() {
   } catch {
 
     stats = null;
+
   }
 
 
@@ -1399,17 +1846,35 @@ function getImageStats() {
         today,
 
       used:
+        0,
+
+      editUsed:
         0
+
     };
+
 
     localStorage.setItem(
       "locerImageStats",
       JSON.stringify(stats)
     );
+
+  }
+
+
+  if (
+    typeof stats.editUsed !==
+    "number"
+  ) {
+
+    stats.editUsed =
+      0;
+
   }
 
 
   return stats;
+
 }
 
 
@@ -1419,7 +1884,7 @@ function updateImageLimit() {
     getImageStats();
 
 
-  const remaining =
+  const imageRemaining =
     Math.max(
       0,
       IMAGE_LIMIT -
@@ -1427,38 +1892,62 @@ function updateImageLimit() {
     );
 
 
+  const editRemaining =
+    Math.max(
+      0,
+      EDIT_LIMIT -
+      Number(stats.editUsed || 0)
+    );
+
+
   document.getElementById(
     "imageRemaining"
   ).textContent =
-    remaining;
+    imageRemaining;
+
+
+  document.getElementById(
+    "editRemaining"
+  ).textContent =
+    editRemaining;
 
 
   document.getElementById(
     "generateButton"
   ).disabled =
-    remaining <= 0;
+    imageRemaining <= 0;
 
 
   document.getElementById(
     "editButton"
   ).disabled =
-    remaining <= 0;
+    editRemaining <= 0;
+
 }
 
 
-function useImageRequest() {
+/* =========================================================
+   GENERATION RESERVATION
+========================================================= */
+
+function reserveImageRequest() {
 
   const stats =
     getImageStats();
 
 
-  if (
+  return (
     Number(stats.used || 0)
-    >= IMAGE_LIMIT
-  ) {
+    < IMAGE_LIMIT
+  );
 
-    return false;
-  }
+}
+
+
+function confirmImageRequest() {
+
+  const stats =
+    getImageStats();
 
 
   stats.used =
@@ -1473,13 +1962,51 @@ function useImageRequest() {
 
   updateImageLimit();
 
-  return true;
 }
 
 
-// =========================================================
-// GENERATE IMAGE
-// =========================================================
+/* =========================================================
+   EDIT RESERVATION
+========================================================= */
+
+function reserveEditRequest() {
+
+  const stats =
+    getImageStats();
+
+
+  return (
+    Number(stats.editUsed || 0)
+    < EDIT_LIMIT
+  );
+
+}
+
+
+function confirmEditRequest() {
+
+  const stats =
+    getImageStats();
+
+
+  stats.editUsed =
+    Number(stats.editUsed || 0) + 1;
+
+
+  localStorage.setItem(
+    "locerImageStats",
+    JSON.stringify(stats)
+  );
+
+
+  updateImageLimit();
+
+}
+
+
+/* =========================================================
+   GENERATE IMAGE
+========================================================= */
 
 async function generateImage() {
 
@@ -1499,16 +2026,18 @@ async function generateImage() {
     );
 
     return;
+
   }
 
 
-  if (!useImageRequest()) {
+  if (!reserveImageRequest()) {
 
     alert(
-      "Дневной лимит изображений исчерпан."
+      "Лимит генерации изображений исчерпан."
     );
 
     return;
+
   }
 
 
@@ -1584,6 +2113,7 @@ async function generateImage() {
         "Не удалось создать изображение."
 
       );
+
     }
 
 
@@ -1605,6 +2135,13 @@ async function generateImage() {
       "block";
 
 
+    /*
+      Списываем только успешную генерацию.
+    */
+
+    confirmImageRequest();
+
+
   } catch (error) {
 
     alert(
@@ -1618,13 +2155,15 @@ async function generateImage() {
       "none";
 
     updateImageLimit();
+
   }
+
 }
 
 
-// =========================================================
-// IMAGE UPLOAD
-// =========================================================
+/* =========================================================
+   IMAGE UPLOAD
+========================================================= */
 
 document
   .getElementById(
@@ -1641,6 +2180,7 @@ document
       if (!file) {
 
         return;
+
       }
 
 
@@ -1667,19 +2207,21 @@ document
 
           preview.style.display =
             "block";
+
         };
 
 
       reader.readAsDataURL(
         file
       );
+
     }
   );
 
 
-// =========================================================
-// EDIT IMAGE
-// =========================================================
+/* =========================================================
+   EDIT IMAGE
+========================================================= */
 
 async function editImage() {
 
@@ -1690,6 +2232,7 @@ async function editImage() {
     );
 
     return;
+
   }
 
 
@@ -1709,16 +2252,18 @@ async function editImage() {
     );
 
     return;
+
   }
 
 
-  if (!useImageRequest()) {
+  if (!reserveEditRequest()) {
 
     alert(
-      "Дневной лимит изображений исчерпан."
+      "Лимит редактирования изображений исчерпан."
     );
 
     return;
+
   }
 
 
@@ -1804,6 +2349,7 @@ async function editImage() {
         "Не удалось отредактировать изображение."
 
       );
+
     }
 
 
@@ -1825,6 +2371,13 @@ async function editImage() {
       "block";
 
 
+    /*
+      Списываем только успешное редактирование.
+    */
+
+    confirmEditRequest();
+
+
   } catch (error) {
 
     alert(
@@ -1838,13 +2391,15 @@ async function editImage() {
       "none";
 
     updateImageLimit();
+
   }
+
 }
 
 
-// =========================================================
-// STATUS
-// =========================================================
+/* =========================================================
+   STATUS
+========================================================= */
 
 async function checkStatus() {
 
@@ -1882,13 +2437,15 @@ async function checkStatus() {
     status.textContent =
       "❌ Worker недоступен\n\n" +
       error.message;
+
   }
+
 }
 
 
-// =========================================================
-// START
-// =========================================================
+/* =========================================================
+   START
+========================================================= */
 
 updateTextLimit();
 
