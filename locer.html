@@ -4,10 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Locer — AI изображения</title>
-
-  <!-- Puter.js -->
-  <script src="https://js.puter.com/v2/"></script>
+  <title>Locer — AI</title>
 
   <style>
     * {
@@ -17,7 +14,7 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #0f1117;
+      background: #0b0d12;
       color: #fff;
       min-height: 100vh;
     }
@@ -26,11 +23,11 @@
       height: 64px;
       display: flex;
       align-items: center;
-      padding: 0 22px;
-      background: #171a23;
-      border-bottom: 1px solid #292d38;
+      padding: 0 24px;
+      border-bottom: 1px solid #242936;
+      background: #10131a;
       font-size: 22px;
-      font-weight: 700;
+      font-weight: bold;
     }
 
     .logo {
@@ -40,140 +37,137 @@
     main {
       max-width: 1000px;
       margin: 0 auto;
-      padding: 35px 20px 60px;
+      padding: 30px 18px 60px;
     }
 
     h1 {
-      margin-top: 0;
-      font-size: 32px;
+      text-align: center;
+      margin-bottom: 10px;
     }
 
     .subtitle {
-      color: #a9afbd;
+      text-align: center;
+      color: #9ca3af;
       margin-bottom: 30px;
     }
 
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
     .card {
-      background: #171a23;
-      border: 1px solid #292d38;
+      background: #121620;
+      border: 1px solid #272d3a;
       border-radius: 18px;
       padding: 22px;
-      margin-bottom: 20px;
     }
 
     .card h2 {
       margin-top: 0;
-      font-size: 21px;
     }
 
     textarea {
       width: 100%;
-      min-height: 110px;
+      min-height: 130px;
       resize: vertical;
-      border: 1px solid #343947;
+      border: 1px solid #303747;
       border-radius: 12px;
-      padding: 15px;
-      background: #0f1117;
+      background: #0b0e14;
       color: white;
-      outline: none;
+      padding: 14px;
       font-size: 16px;
+      outline: none;
     }
 
     textarea:focus {
       border-color: #8b7cff;
     }
 
-    button,
-    label.upload {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border: 0;
-      border-radius: 12px;
-      padding: 13px 18px;
-      margin-top: 14px;
-      background: #7567ff;
-      color: white;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: .15s;
+    input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      background: #0b0e14;
+      color: #ddd;
+      border: 1px solid #303747;
+      margin-bottom: 12px;
     }
 
-    button:hover,
-    label.upload:hover {
+    button {
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px;
+      border: 0;
+      border-radius: 12px;
+      background: #7567ff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #8a7dff;
       transform: translateY(-1px);
-      filter: brightness(1.08);
     }
 
     button:disabled {
-      opacity: .55;
+      opacity: 0.5;
       cursor: not-allowed;
       transform: none;
     }
 
-    .secondary {
-      background: #292d38;
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-
     .status {
-      margin-top: 15px;
-      color: #a9afbd;
+      margin-top: 14px;
+      color: #aeb5c3;
       min-height: 22px;
+      font-size: 14px;
     }
 
-    .preview {
-      margin-top: 20px;
+    .preview,
+    .result {
+      margin-top: 18px;
       text-align: center;
     }
 
-    .preview img {
+    .preview img,
+    .result img {
       max-width: 100%;
-      max-height: 600px;
-      border-radius: 16px;
-      border: 1px solid #343947;
+      max-height: 500px;
+      border-radius: 14px;
+      border: 1px solid #303747;
       display: none;
-      margin: auto;
     }
 
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .result a {
+      display: none;
+      margin-top: 12px;
+      color: #a99fff;
+      text-decoration: none;
     }
 
-    .hidden {
-      display: none !important;
+    .result a:hover {
+      text-decoration: underline;
     }
 
-    .error {
-      color: #ff7070;
-    }
-
-    .success {
-      color: #73e6a4;
-    }
-
-    .info {
-      background: #11151e;
-      border: 1px solid #292d38;
-      padding: 13px;
-      border-radius: 12px;
-      color: #a9afbd;
-      margin-top: 15px;
-      line-height: 1.5;
-    }
-
-    footer {
+    .footer {
       text-align: center;
-      color: #777e8d;
-      padding: 20px;
+      color: #6f7685;
+      margin-top: 35px;
       font-size: 13px;
+    }
+
+    @media (max-width: 750px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        padding-top: 20px;
+      }
     }
   </style>
 </head>
@@ -181,365 +175,331 @@
 <body>
 
 <header>
-  <span class="logo">Locer</span>&nbsp; — AI изображения
+  <span class="logo">Locer</span>&nbsp; — AI
 </header>
 
 <main>
 
-  <!-- GENERATION -->
-  <section class="card">
-    <h2>🖼️ Создать изображение</h2>
+  <h1>🖼️ Locer AI Images</h1>
 
-    <p class="subtitle">
-      Напиши, что ты хочешь увидеть, и Puter создаст изображение.
-    </p>
+  <div class="subtitle">
+    Создавай изображения и редактируй свои картинки с помощью AI
+  </div>
 
-    <textarea
-      id="prompt"
-      placeholder="Например: космический леопард на Марсе, мультяшный стиль, яркие цвета">
-    </textarea>
+  <div class="grid">
 
-    <div class="actions">
-      <button id="generateBtn">
+    <!-- ГЕНЕРАЦИЯ -->
+
+    <section class="card">
+
+      <h2>🎨 Создать изображение</h2>
+
+      <textarea
+        id="generatePrompt"
+        placeholder="Например: реалистичный оранжевый леопард в неоновом городе ночью, кинематографический свет"
+      ></textarea>
+
+      <button id="generateButton">
         ✨ Создать изображение
       </button>
-    </div>
 
-    <div id="generateStatus" class="status"></div>
+      <div class="status" id="generateStatus"></div>
 
-    <div class="preview">
-      <img id="generatedImage" alt="Сгенерированное изображение">
-    </div>
-  </section>
+      <div class="result">
+        <img id="generateResult" alt="Сгенерированное изображение">
+        <br>
+        <a id="generateOpen" target="_blank" rel="noopener">
+          🔗 Открыть изображение
+        </a>
+      </div>
+
+    </section>
 
 
-  <!-- EDIT -->
-  <section class="card">
+    <!-- РЕДАКТИРОВАНИЕ -->
 
-    <h2>✏️ Изменить изображение</h2>
+    <section class="card">
 
-    <p class="subtitle">
-      Загрузи картинку и напиши, что нужно изменить.
-    </p>
+      <h2>✏️ Редактировать изображение</h2>
 
-    <label class="upload" for="imageInput">
-      📁 Выбрать изображение
-    </label>
+      <input
+        type="file"
+        id="editFile"
+        accept="image/*"
+      >
 
-    <input
-      id="imageInput"
-      type="file"
-      accept="image/png,image/jpeg,image/webp"
-    >
+      <div class="preview">
+        <img id="editPreview" alt="Предпросмотр">
+      </div>
 
-    <div class="preview">
-      <img id="uploadedImage" alt="Загруженное изображение">
-    </div>
+      <textarea
+        id="editPrompt"
+        placeholder="Например: добавь рядом со мной большого оранжевого леопарда"
+      ></textarea>
 
-    <textarea
-      id="editPrompt"
-      class="hidden"
-      placeholder="Например: добавь солнечные очки и сделай фон космическим">
-    </textarea>
-
-    <div class="actions">
-      <button id="editBtn" class="hidden">
-        ✨ Изменить изображение
+      <button id="editButton">
+        🪄 Редактировать изображение
       </button>
-    </div>
 
-    <div id="editStatus" class="status"></div>
+      <div class="status" id="editStatus"></div>
 
-    <div class="preview">
-      <img id="editedImage" alt="Изменённое изображение">
-    </div>
+      <div class="result">
+        <img id="editResult" alt="Отредактированное изображение">
+        <br>
+        <a id="editOpen" target="_blank" rel="noopener">
+          🔗 Открыть изображение
+        </a>
+      </div>
 
-  </section>
+    </section>
 
+  </div>
 
-  <div class="info">
-    ℹ️ Для работы с Puter может потребоваться авторизация Puter.
-    Если появится окно входа, просто следуй инструкциям на экране.
+  <div class="footer">
+    Locer AI • генерация и редактирование изображений
   </div>
 
 </main>
 
-<footer>
-  Locer AI • Image generation powered by Puter
-</footer>
-
-
 <script>
 
-  const generateBtn =
-    document.getElementById("generateBtn");
+  const WORKER_URL =
+    "https://locer-ai.ivan-ostanin1914.workers.dev";
 
-  const promptInput =
-    document.getElementById("prompt");
 
-  const generatedImage =
-    document.getElementById("generatedImage");
+  // ==========================================
+  // ГЕНЕРАЦИЯ
+  // ==========================================
+
+  const generateButton =
+    document.getElementById("generateButton");
+
+  const generatePrompt =
+    document.getElementById("generatePrompt");
 
   const generateStatus =
     document.getElementById("generateStatus");
 
+  const generateResult =
+    document.getElementById("generateResult");
 
-  const imageInput =
-    document.getElementById("imageInput");
-
-  const uploadedImage =
-    document.getElementById("uploadedImage");
-
-  const editPrompt =
-    document.getElementById("editPrompt");
-
-  const editBtn =
-    document.getElementById("editBtn");
-
-  const editedImage =
-    document.getElementById("editedImage");
-
-  const editStatus =
-    document.getElementById("editStatus");
+  const generateOpen =
+    document.getElementById("generateOpen");
 
 
-  // -----------------------------
-  // GENERATE
-  // -----------------------------
+  generateButton.addEventListener("click", async () => {
 
-  generateBtn.addEventListener("click", async () => {
-
-    const prompt =
-      promptInput.value.trim();
+    const prompt = generatePrompt.value.trim();
 
     if (!prompt) {
       generateStatus.textContent =
-        "⚠️ Сначала напиши описание изображения.";
-      generateStatus.className =
-        "status error";
+        "⚠️ Напиши описание изображения.";
       return;
     }
 
-    generateBtn.disabled = true;
+    generateButton.disabled = true;
 
     generateStatus.textContent =
-      "🎨 Создаю изображение...";
+      "⏳ Создаю изображение...";
 
-    generateStatus.className =
-      "status";
-
-    generatedImage.style.display = "none";
+    generateResult.style.display = "none";
+    generateOpen.style.display = "none";
 
     try {
 
-      const image =
-        await puter.ai.txt2img(prompt);
+      const response = await fetch(
+        `${WORKER_URL}/generate`,
+        {
+          method: "POST",
 
-      let imageUrl = null;
+          headers: {
+            "Content-Type": "application/json"
+          },
 
-      if (typeof image === "string") {
-        imageUrl = image;
-      }
+          body: JSON.stringify({
+            prompt: prompt,
+            model: "flux",
+            size: "1024x1024"
+          })
+        }
+      );
 
-      if (image?.url) {
-        imageUrl = image.url;
-      }
+      const data = await response.json();
 
-      if (image?.src) {
-        imageUrl = image.src;
-      }
-
-      if (!imageUrl) {
+      if (!response.ok || !data.ok) {
         throw new Error(
-          "Puter не вернул адрес изображения."
+          data.error ||
+          "Не удалось создать изображение."
         );
       }
 
-      generatedImage.src = imageUrl;
-      generatedImage.style.display = "block";
+      generateResult.src = data.image;
+      generateResult.style.display = "inline-block";
+
+      generateOpen.href = data.image;
+      generateOpen.style.display = "inline-block";
 
       generateStatus.textContent =
         "✅ Изображение готово!";
 
-      generateStatus.className =
-        "status success";
-
     } catch (error) {
 
       console.error(error);
 
       generateStatus.textContent =
-        "❌ Не удалось создать изображение: " +
-        (error?.message || error);
-
-      generateStatus.className =
-        "status error";
+        "❌ " + error.message;
 
     } finally {
 
-      generateBtn.disabled = false;
+      generateButton.disabled = false;
 
     }
 
   });
 
 
-  // -----------------------------
-  // SELECT IMAGE
-  // -----------------------------
+  // ==========================================
+  // ПРЕДПРОСМОТР ЗАГРУЖЕННОЙ КАРТИНКИ
+  // ==========================================
 
-  imageInput.addEventListener("change", () => {
+  const editFile =
+    document.getElementById("editFile");
 
-    const file =
-      imageInput.files[0];
+  const editPreview =
+    document.getElementById("editPreview");
 
-    if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
+  editFile.addEventListener("change", () => {
 
-      editStatus.textContent =
-        "❌ Выбери изображение.";
+    const file = editFile.files[0];
 
-      editStatus.className =
-        "status error";
-
+    if (!file) {
+      editPreview.style.display = "none";
       return;
     }
 
-    const url =
-      URL.createObjectURL(file);
+    const url = URL.createObjectURL(file);
 
-    uploadedImage.src = url;
-
-    uploadedImage.style.display =
-      "block";
-
-    editPrompt.classList.remove(
-      "hidden"
-    );
-
-    editBtn.classList.remove(
-      "hidden"
-    );
-
-    editStatus.textContent =
-      "✅ Изображение загружено.";
-
-    editStatus.className =
-      "status success";
+    editPreview.src = url;
+    editPreview.style.display = "inline-block";
 
   });
 
 
-  // -----------------------------
-  // EDIT IMAGE
-  // -----------------------------
+  // ==========================================
+  // РЕДАКТИРОВАНИЕ
+  // ==========================================
 
-  editBtn.addEventListener("click", async () => {
+  const editButton =
+    document.getElementById("editButton");
 
-    const file =
-      imageInput.files[0];
+  const editPrompt =
+    document.getElementById("editPrompt");
 
-    const prompt =
-      editPrompt.value.trim();
+  const editStatus =
+    document.getElementById("editStatus");
+
+  const editResult =
+    document.getElementById("editResult");
+
+  const editOpen =
+    document.getElementById("editOpen");
+
+
+  editButton.addEventListener("click", async () => {
+
+    const file = editFile.files[0];
+    const prompt = editPrompt.value.trim();
 
     if (!file) {
-
       editStatus.textContent =
         "⚠️ Сначала выбери изображение.";
-
-      editStatus.className =
-        "status error";
-
       return;
     }
 
     if (!prompt) {
-
       editStatus.textContent =
         "⚠️ Напиши, что нужно изменить.";
-
-      editStatus.className =
-        "status error";
-
       return;
     }
 
-    editBtn.disabled = true;
+    editButton.disabled = true;
 
     editStatus.textContent =
-      "🪄 Изменяю изображение...";
+      "⏳ Редактирую изображение...";
 
-    editStatus.className =
-      "status";
+    editResult.style.display = "none";
+    editOpen.style.display = "none";
 
-    editedImage.style.display =
-      "none";
 
     try {
 
-      /*
-       * Передаём исходный файл непосредственно
-       * в Puter.
-       *
-       * В зависимости от модели Puter может
-       * использовать изображение как input.
-       */
+      const formData = new FormData();
 
-      const result =
-        await puter.ai.txt2img(
-          prompt,
-          {
-            input_image: file
-          }
-        );
+      formData.append(
+        "image",
+        file
+      );
 
-      let imageUrl = null;
+      formData.append(
+        "prompt",
+        prompt
+      );
 
-      if (typeof result === "string") {
-        imageUrl = result;
-      }
+      formData.append(
+        "model",
+        "kontext"
+      );
 
-      if (result?.url) {
-        imageUrl = result.url;
-      }
+      formData.append(
+        "size",
+        "1024x1024"
+      );
 
-      if (result?.src) {
-        imageUrl = result.src;
-      }
 
-      if (!imageUrl) {
+      const response = await fetch(
+        `${WORKER_URL}/edit`,
+        {
+          method: "POST",
+          body: formData
+        }
+      );
+
+
+      const data = await response.json();
+
+
+      if (!response.ok || !data.ok) {
+
         throw new Error(
-          "Puter не вернул изменённое изображение."
+          data.error ||
+          "Не удалось отредактировать изображение."
         );
+
       }
 
-      editedImage.src =
-        imageUrl;
 
-      editedImage.style.display =
-        "block";
+      editResult.src = data.image;
+      editResult.style.display = "inline-block";
+
+      editOpen.href = data.image;
+      editOpen.style.display = "inline-block";
+
 
       editStatus.textContent =
-        "✅ Изображение изменено!";
+        "✅ Изображение отредактировано!";
 
-      editStatus.className =
-        "status success";
 
     } catch (error) {
 
       console.error(error);
 
       editStatus.textContent =
-        "❌ Не удалось изменить изображение: " +
-        (error?.message || error);
-
-      editStatus.className =
-        "status error";
+        "❌ " + error.message;
 
     } finally {
 
-      editBtn.disabled = false;
+      editButton.disabled = false;
 
     }
 
@@ -550,4 +510,3 @@
 </body>
 </html>
 ```
-
