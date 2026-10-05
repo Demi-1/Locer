@@ -45,10 +45,6 @@ button {
   height: 100vh;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
-
 .sidebar {
   width: 245px;
   min-width: 245px;
@@ -251,10 +247,6 @@ button {
   padding: 10px 3px;
 }
 
-/* =========================
-   MAIN
-========================= */
-
 .main {
   flex: 1;
   min-width: 0;
@@ -282,10 +274,6 @@ button {
   margin-top: 3px;
 }
 
-/* =========================
-   TABS
-========================= */
-
 .tabs {
   display: flex;
   gap: 8px;
@@ -309,10 +297,6 @@ button {
   border-color: rgba(140,150,255,.25);
 }
 
-/* =========================
-   PAGES
-========================= */
-
 .page {
   display: none;
   flex: 1;
@@ -324,10 +308,6 @@ button {
   display: flex;
   flex-direction: column;
 }
-
-/* =========================
-   CHAT
-========================= */
 
 .chat {
   flex: 1;
@@ -370,10 +350,6 @@ button {
   margin-top: 8px;
   display: block;
 }
-
-/* =========================
-   INPUT
-========================= */
 
 .input-area {
   padding: 12px 24px 20px;
@@ -452,10 +428,6 @@ button {
   color: #7e8799;
 }
 
-/* =========================
-   LIMITS
-========================= */
-
 .limits-panel {
   margin: 0 24px 15px;
   display: flex;
@@ -497,10 +469,6 @@ button {
   color: #fff;
 }
 
-/* =========================
-   CLOUDFLARE QUOTA
-========================= */
-
 .cloudflare-quota {
   margin: 0 24px 15px;
   padding: 13px 15px;
@@ -537,10 +505,6 @@ button {
   font-size: 10px;
   color: #8e97aa;
 }
-
-/* =========================
-   IMAGE PAGE
-========================= */
 
 .image-page-inner,
 .video-page-inner {
@@ -622,10 +586,6 @@ textarea.field {
   margin-top: 8px;
 }
 
-/* =========================
-   VIDEO
-========================= */
-
 .video-placeholder {
   text-align: center;
   padding: 60px 20px;
@@ -640,10 +600,6 @@ textarea.field {
 .video-placeholder h2 {
   color: #fff;
 }
-
-/* =========================
-   DEVELOPER
-========================= */
 
 .developer {
   margin: 0 24px 14px;
@@ -675,10 +631,6 @@ textarea.field {
   background: transparent;
   color: #8e96a8;
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 800px) {
   .sidebar {
@@ -758,439 +710,407 @@ textarea.field {
 
 <div class="app">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-
-    <div class="logo-box">
-      <div class="logo">Locer AI</div>
-      <div class="logo-subtitle">Твой AI-помощник</div>
-    </div>
-
-    <button class="new-chat" id="newChatBtn">
-      ＋ Новый чат
-    </button>
-
-    <button class="login-btn" id="loginBtn">
-      🔐 Войти через Google
-    </button>
-
-    <div class="user-box" id="userBox">
-
-      <div class="user-profile">
-
-        <img
-          class="user-avatar"
-          id="userAvatar"
-          alt="Аватар Google"
-          style="display:none;"
-        >
-
-        <div
-          class="user-avatar user-avatar-fallback"
-          id="userAvatarFallback"
-        >
-          👤
-        </div>
-
-        <div class="user-name" id="userName"></div>
-
-      </div>
-
-      <button class="logout-btn" id="logoutBtn">
-        Выйти
-      </button>
-
-    </div>
-
-    <div class="saved-title">
-      💾 Сохранённые чаты
-    </div>
-
-    <div class="saved-chats" id="savedChats">
-      <div class="no-chats">
-        Войди через Google, чтобы сохранять чаты.
-      </div>
-    </div>
-
-  </aside>
-
-
-  <!-- MAIN -->
-  <main class="main">
-
-    <header class="header">
-      <div class="header-title">Locer AI</div>
-      <div class="header-subtitle">
-        Текст, изображения и другие AI-инструменты
-      </div>
-    </header>
-
-
-    <!-- TABS -->
-    <div class="tabs">
-
-      <button class="tab active" data-page="textPage">
-        💬 Текст
-      </button>
-
-      <button class="tab" data-page="imagePage">
-        🎨 Изображения
-      </button>
-
-      <button class="tab" data-page="videoPage">
-        🎬 Видео
-      </button>
-
-    </div>
-
-
-    <!-- ================= TEXT ================= -->
-
-    <section class="page active" id="textPage">
-
-      <div class="limits-panel">
-
-        <div class="limit-card">
-          <div class="limit-name">💬 Текст</div>
-          <div class="limit-value" id="textRemaining">
-            Загрузка...
-          </div>
-        </div>
-
-        <div class="limit-card">
-          <div class="limit-name">🎨 Генерация</div>
-          <div class="limit-value" id="imageRemainingText">
-            Загрузка...
-          </div>
-        </div>
-
-        <div class="limit-card">
-          <div class="limit-name">✏️ Редактирование</div>
-          <div class="limit-value" id="editRemainingText">
-            Загрузка...
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- CLOUDFLARE QUOTA -->
-
-      <div class="cloudflare-quota">
-
-        <div class="cloudflare-quota-title">
-          ⚡ Cloudflare AI
-        </div>
-
-        <div
-          class="cloudflare-quota-value"
-          id="cloudflareQuota"
-        >
-          Загрузка...
-        </div>
-
-        <div class="cloudflare-quota-warning">
-          ⚠️ Остаток квоты указан примерно. Фактический расход может отличаться.
-        </div>
-
-        <div
-          class="cloudflare-quota-reset"
-          id="cloudflareQuotaReset"
-        >
-          ⏰ Сброс: 00:00 UTC
-        </div>
-
-      </div>
-
-
-      <div class="reset-box">
-        🔄 Сброс лимитов:
-        <b id="resetCountdown">Загрузка...</b>
-        <span id="resetDate"></span>
-      </div>
-
-
-      <div class="chat" id="chat"></div>
-
-
-      <div class="input-area">
-
-        <div class="input-box">
-
-          <input
-            type="file"
-            id="photoInput"
-            accept="image/*"
-            hidden
-          >
-
-          <button
-            class="icon-btn"
-            id="photoBtn"
-            title="Добавить изображение"
-          >
-            📷
-          </button>
-
-          <textarea
-            class="text-input"
-            id="textInput"
-            placeholder="Напиши сообщение..."
-          ></textarea>
-
-          <button
-            class="send-btn"
-            id="sendBtn"
-            title="Отправить"
-          >
-            ➤
-          </button>
-
-        </div>
-
-        <img
-          id="photoPreview"
-          class="photo-preview"
-          alt="Предпросмотр"
-        >
-
-        <div class="status" id="status"></div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= IMAGES ================= -->
-
-    <section class="page" id="imagePage">
-
-      <div class="image-page-inner">
-
-        <div class="limits-panel" style="margin:0 0 15px;">
-
-          <div class="limit-card">
-            <div class="limit-name">🎨 Генерация</div>
-            <div class="limit-value" id="imageRemaining">
-              Загрузка...
-            </div>
-          </div>
-
-          <div class="limit-card">
-            <div class="limit-name">✏️ Редактирование</div>
-            <div class="limit-value" id="editRemaining">
-              Загрузка...
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="cloudflare-quota" style="margin:0 0 15px;">
-
-          <div class="cloudflare-quota-title">
-            ⚡ Cloudflare AI
-          </div>
-
-          <div
-            class="cloudflare-quota-value"
-            id="cloudflareQuotaImage"
-          >
-            Загрузка...
-          </div>
-
-          <div class="cloudflare-quota-warning">
-            ⚠️ Остаток квоты указан примерно.
-          </div>
-
-          <div
-            class="cloudflare-quota-reset"
-            id="cloudflareQuotaResetImage"
-          >
-            ⏰ Сброс: 00:00 UTC
-          </div>
-
-        </div>
-
-
-        <div class="reset-box" style="margin:0 0 15px;">
-          🔄 Сброс:
-          <b id="imageResetCountdown">Загрузка...</b>
-        </div>
-
-
-        <div class="card">
-
-          <h2>🎨 Создать изображение</h2>
-
-          <p>
-            Опиши изображение, которое хочешь получить.
-          </p>
-
-          <textarea
-            class="field"
-            id="generatePrompt"
-            placeholder="Например: космический город будущего на другой планете..."
-          ></textarea>
-
-          <button
-            class="primary-btn"
-            id="generateBtn"
-          >
-            ✨ Создать изображение
-          </button>
-
-          <div class="status" id="generateStatus"></div>
-
-          <img
-            class="image-result"
-            id="generatedImage"
-            style="display:none;"
-            alt="Созданное изображение"
-          >
-
-        </div>
-
-
-        <div class="card">
-
-          <h2>✏️ Редактировать изображение</h2>
-
-          <p>
-            Загрузи изображение и напиши, что нужно изменить.
-          </p>
-
-          <input
-            class="image-file"
-            type="file"
-            id="editImageInput"
-            accept="image/*"
-          >
-
-          <textarea
-            class="field"
-            id="editPrompt"
-            placeholder="Например: сделай фон космическим..."
-          ></textarea>
-
-          <button
-            class="primary-btn"
-            id="editBtn"
-          >
-            🪄 Редактировать
-          </button>
-
-          <div class="status" id="editStatus"></div>
-
-          <img
-            class="image-result"
-            id="editedImage"
-            style="display:none;"
-            alt="Отредактированное изображение"
-          >
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= VIDEO ================= -->
-
-    <section class="page" id="videoPage">
-
-      <div class="video-page-inner">
-
-        <div class="card video-placeholder">
-
-          <div class="big">🎬</div>
-
-          <h2>Генерация видео</h2>
-
-          <p>
-            Раздел готовится.
-          </p>
-
-          <p>
-            Скоро здесь появится создание видео через Locer AI.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= DEVELOPER ================= -->
-
-    <div class="developer">
-
-      <div class="developer-header">
-        🛠️ Для разработчиков
-
-        <button
-          class="dev-toggle"
-          id="devToggle"
-        >
-          Показать
-        </button>
-      </div>
-
-      <div
-        class="developer-body"
-        id="developerBody"
-      >
-        Проверка Worker...
-      </div>
-
-    </div>
-
-  </main>
+<aside class="sidebar">
+
+<div class="logo-box">
+<div class="logo">Locer AI</div>
+<div class="logo-subtitle">Твой AI-помощник</div>
+</div>
+
+<button class="new-chat" id="newChatBtn">
+＋ Новый чат
+</button>
+
+<button class="login-btn" id="loginBtn">
+🔐 Войти через Google
+</button>
+
+<div class="user-box" id="userBox">
+
+<div class="user-profile">
+
+<img
+class="user-avatar"
+id="userAvatar"
+alt="Аватар Google"
+style="display:none;"
+>
+
+<div
+class="user-avatar user-avatar-fallback"
+id="userAvatarFallback"
+>
+👤
+</div>
+
+<div class="user-name" id="userName"></div>
 
 </div>
 
+<button class="logout-btn" id="logoutBtn">
+Выйти
+</button>
+
+</div>
+
+<div class="saved-title">
+💾 Сохранённые чаты
+</div>
+
+<div class="saved-chats" id="savedChats">
+<div class="no-chats">
+Войди через Google, чтобы сохранять чаты.
+</div>
+</div>
+
+</aside>
+
+<main class="main">
+
+<header class="header">
+<div class="header-title">Locer AI</div>
+<div class="header-subtitle">
+Текст, изображения и другие AI-инструменты
+</div>
+</header>
+
+<div class="tabs">
+
+<button class="tab active" data-page="textPage">
+💬 Текст
+</button>
+
+<button class="tab" data-page="imagePage">
+🎨 Изображения
+</button>
+
+<button class="tab" data-page="videoPage">
+🎬 Видео
+</button>
+
+</div>
+
+<section class="page active" id="textPage">
+
+<div class="limits-panel">
+
+<div class="limit-card">
+<div class="limit-name">💬 Текст</div>
+<div class="limit-value" id="textRemaining">
+Загрузка...
+</div>
+</div>
+
+<div class="limit-card">
+<div class="limit-name">🎨 Генерация</div>
+<div class="limit-value" id="imageRemainingText">
+Загрузка...
+</div>
+</div>
+
+<div class="limit-card">
+<div class="limit-name">✏️ Редактирование</div>
+<div class="limit-value" id="editRemainingText">
+Загрузка...
+</div>
+</div>
+
+</div>
+
+<div class="cloudflare-quota">
+
+<div class="cloudflare-quota-title">
+⚡ Cloudflare AI
+</div>
+
+<div
+class="cloudflare-quota-value"
+id="cloudflareQuota"
+>
+Загрузка...
+</div>
+
+<div class="cloudflare-quota-warning">
+⚠️ Остаток квоты указан примерно. Фактический расход может отличаться.
+</div>
+
+<div
+class="cloudflare-quota-reset"
+id="cloudflareQuotaReset"
+>
+⏰ Сброс: 00:00 UTC
+</div>
+
+</div>
+
+<div class="reset-box">
+🔄 Сброс лимитов:
+<b id="resetCountdown">Загрузка...</b>
+<span id="resetDate"></span>
+</div>
+
+<div class="chat" id="chat"></div>
+
+<div class="input-area">
+
+<div class="input-box">
+
+<input
+type="file"
+id="photoInput"
+accept="image/*"
+hidden
+>
+
+<button
+class="icon-btn"
+id="photoBtn"
+title="Добавить изображение"
+>
+📷
+</button>
+
+<textarea
+class="text-input"
+id="textInput"
+placeholder="Напиши сообщение..."
+></textarea>
+
+<button
+class="send-btn"
+id="sendBtn"
+title="Отправить"
+>
+➤
+</button>
+
+</div>
+
+<img
+id="photoPreview"
+class="photo-preview"
+alt="Предпросмотр"
+>
+
+<div class="status" id="status"></div>
+
+</div>
+
+</section>
+
+<section class="page" id="imagePage">
+
+<div class="image-page-inner">
+
+<div class="limits-panel" style="margin:0 0 15px;">
+
+<div class="limit-card">
+<div class="limit-name">🎨 Генерация</div>
+<div class="limit-value" id="imageRemaining">
+Загрузка...
+</div>
+</div>
+
+<div class="limit-card">
+<div class="limit-name">✏️ Редактирование</div>
+<div class="limit-value" id="editRemaining">
+Загрузка...
+</div>
+</div>
+
+</div>
+
+<div class="cloudflare-quota" style="margin:0 0 15px;">
+
+<div class="cloudflare-quota-title">
+⚡ Cloudflare AI
+</div>
+
+<div
+class="cloudflare-quota-value"
+id="cloudflareQuotaImage"
+>
+Загрузка...
+</div>
+
+<div class="cloudflare-quota-warning">
+⚠️ Остаток квоты указан примерно.
+</div>
+
+<div
+class="cloudflare-quota-reset"
+id="cloudflareQuotaResetImage"
+>
+⏰ Сброс: 00:00 UTC
+</div>
+
+</div>
+
+<div class="reset-box" style="margin:0 0 15px;">
+🔄 Сброс:
+<b id="imageResetCountdown">Загрузка...</b>
+</div>
+
+<div class="card">
+
+<h2>🎨 Создать изображение</h2>
+
+<p>
+Опиши изображение, которое хочешь получить.
+</p>
+
+<textarea
+class="field"
+id="generatePrompt"
+placeholder="Например: космический город будущего на другой планете..."
+></textarea>
+
+<button
+class="primary-btn"
+id="generateBtn"
+>
+✨ Создать изображение
+</button>
+
+<div class="status" id="generateStatus"></div>
+
+<img
+class="image-result"
+id="generatedImage"
+style="display:none;"
+alt="Созданное изображение"
+>
+
+</div>
+
+<div class="card">
+
+<h2>✏️ Редактировать изображение</h2>
+
+<p>
+Загрузи изображение и напиши, что нужно изменить.
+</p>
+
+<input
+class="image-file"
+type="file"
+id="editImageInput"
+accept="image/*"
+>
+
+<textarea
+class="field"
+id="editPrompt"
+placeholder="Например: сделай фон космическим..."
+></textarea>
+
+<button
+class="primary-btn"
+id="editBtn"
+>
+🪄 Редактировать
+</button>
+
+<div class="status" id="editStatus"></div>
+
+<img
+class="image-result"
+id="editedImage"
+style="display:none;"
+alt="Отредактированное изображение"
+>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="page" id="videoPage">
+
+<div class="video-page-inner">
+
+<div class="card video-placeholder">
+
+<div class="big">🎬</div>
+
+<h2>Генерация видео</h2>
+
+<p>
+Раздел готовится.
+</p>
+
+<p>
+Скоро здесь появится создание видео через Locer AI.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="developer">
+
+<div class="developer-header">
+🛠️ Для разработчиков
+
+<button
+class="dev-toggle"
+id="devToggle"
+>
+Показать
+</button>
+
+</div>
+
+<div
+class="developer-body"
+id="developerBody"
+>
+Проверка Worker...
+</div>
+
+</div>
+
+</main>
+
+</div>
 
 <script type="module">
 
-/* =========================================================
-   FIREBASE
-========================================================= */
-
 import {
-  initializeApp
+initializeApp
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 
 import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged
+getAuth,
+GoogleAuthProvider,
+signInWithPopup,
+signOut,
+onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  query,
-  orderBy,
-  serverTimestamp
+getFirestore,
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc,
+query,
+orderBy,
+serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-
 const firebaseConfig = {
-  apiKey: "AIzaSyCRlSjT9cwWyFD_rx_vqiGahEuZkeMHsRI",
-  authDomain: "locer-5b749.firebaseapp.com",
-  projectId: "locer-5b749",
-  storageBucket: "locer-5b749.firebasestorage.app",
-  messagingSenderId: "81394379218",
-  appId: "1:81394379218:web:545d4e8390f630a5ee400b",
-  measurementId: "G-6GZ1HZPR65"
+apiKey: "AIzaSyCRlSjT9cwWyFD_rx_vqiGahEuZkeMHsRI",
+authDomain: "locer-5b749.firebaseapp.com",
+projectId: "locer-5b749",
+storageBucket: "locer-5b749.firebasestorage.app",
+messagingSenderId: "81394379218",
+appId: "1:81394379218:web:545d4e8390f630a5ee400b",
+measurementId: "G-6GZ1HZPR65"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -1199,1440 +1119,1275 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-
-/* =========================================================
-   WORKER
-========================================================= */
-
 const WORKER =
-  "https://locer-ai.ivan-ostanin1914.workers.dev";
-
-
-/* =========================================================
-   CLOUDFLARE ESTIMATE
-========================================================= */
-
-/*
-  Cloudflare Workers AI:
-  Free allocation = 10,000 Neurons/day.
-
-  Current Locer image size = 1024x1024.
-
-  FLUX.2 Klein 4B:
-  output ≈ 26.05 neurons per 512x512 tile
-  input  ≈ 5.37 neurons per 512x512 tile
-
-  1024x1024 = 4 tiles.
-
-  Generation:
-  4 × 26.05 ≈ 104.2 neurons
-
-  Editing:
-  4 × 26.05 + 4 × 5.37 ≈ 125.68 neurons
-
-  This is an ESTIMATE.
-*/
+"https://locer-ai.ivan-ostanin1914.workers.dev";
 
 const CLOUDFLARE_DAILY_QUOTA = 10000;
-
 const EST_IMAGE_NEURONS = 104.2;
-
 const EST_EDIT_NEURONS = 125.68;
 
-
-/* =========================================================
-   STATE
-========================================================= */
-
 let currentUser = null;
-
 let history = [];
-
 let selectedPhoto = null;
-
 let limits = null;
 
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
 const chat =
-  document.getElementById("chat");
+document.getElementById("chat");
 
 const textInput =
-  document.getElementById("textInput");
+document.getElementById("textInput");
 
 const sendBtn =
-  document.getElementById("sendBtn");
+document.getElementById("sendBtn");
 
 const status =
-  document.getElementById("status");
+document.getElementById("status");
 
 const photoInput =
-  document.getElementById("photoInput");
+document.getElementById("photoInput");
 
 const photoBtn =
-  document.getElementById("photoBtn");
+document.getElementById("photoBtn");
 
 const photoPreview =
-  document.getElementById("photoPreview");
+document.getElementById("photoPreview");
 
 const loginBtn =
-  document.getElementById("loginBtn");
+document.getElementById("loginBtn");
 
 const logoutBtn =
-  document.getElementById("logoutBtn");
+document.getElementById("logoutBtn");
 
 const userBox =
-  document.getElementById("userBox");
+document.getElementById("userBox");
 
 const userName =
-  document.getElementById("userName");
+document.getElementById("userName");
 
 const userAvatar =
-  document.getElementById("userAvatar");
+document.getElementById("userAvatar");
 
 const userAvatarFallback =
-  document.getElementById("userAvatarFallback");
+document.getElementById("userAvatarFallback");
 
 const savedChats =
-  document.getElementById("savedChats");
-
-
-/* =========================================================
-   TABS
-========================================================= */
+document.getElementById("savedChats");
 
 document.querySelectorAll(".tab").forEach(tab => {
 
-  tab.addEventListener("click", () => {
+tab.addEventListener("click", () => {
 
-    document
-      .querySelectorAll(".tab")
-      .forEach(x => x.classList.remove("active"));
+document
+.querySelectorAll(".tab")
+.forEach(x =>
+x.classList.remove("active"));
 
-    document
-      .querySelectorAll(".page")
-      .forEach(x => x.classList.remove("active"));
+document
+.querySelectorAll(".page")
+.forEach(x =>
+x.classList.remove("active"));
 
-    tab.classList.add("active");
+tab.classList.add("active");
 
-    const page =
-      document.getElementById(tab.dataset.page);
+const page =
+document.getElementById(tab.dataset.page);
 
-    if (page) {
-      page.classList.add("active");
-    }
-
-  });
+if (page) {
+page.classList.add("active");
+}
 
 });
 
-
-/* =========================================================
-   NEW CHAT
-========================================================= */
+});
 
 document
-  .getElementById("newChatBtn")
-  .addEventListener("click", () => {
+.getElementById("newChatBtn")
+.addEventListener("click", () => {
 
-    history = [];
+history = [];
 
-    chat.innerHTML = "";
+chat.innerHTML = "";
 
-    textInput.value = "";
+textInput.value = "";
 
-    selectedPhoto = null;
+selectedPhoto = null;
 
-    photoPreview.style.display = "none";
+photoPreview.style.display = "none";
 
-    status.textContent = "";
+photoInput.value = "";
 
-  });
+status.textContent = "";
 
-
-/* =========================================================
-   GOOGLE LOGIN
-========================================================= */
+});
 
 loginBtn.addEventListener("click", async () => {
 
-  try {
+try {
 
-    await signInWithPopup(auth, provider);
+await signInWithPopup(auth, provider);
 
-  } catch (error) {
+} catch (error) {
 
-    console.error(error);
+console.error(error);
 
-    status.textContent =
-      "❌ Не удалось войти через Google";
+status.textContent =
+"❌ Не удалось войти через Google";
 
-  }
+}
 
 });
-
 
 logoutBtn.addEventListener("click", async () => {
 
-  await signOut(auth);
+await signOut(auth);
 
 });
-
 
 onAuthStateChanged(auth, async user => {
 
-  currentUser = user;
+currentUser = user;
 
-  if (user) {
+if (user) {
 
-    loginBtn.style.display = "none";
+loginBtn.style.display = "none";
 
-    userBox.style.display = "block";
+userBox.style.display = "block";
 
+userName.textContent =
+user.displayName ||
+user.email ||
+"Пользователь";
 
-    /* =========================
-       GOOGLE AVATAR
-    ========================= */
+if (user.photoURL) {
 
-    userName.textContent =
-      user.displayName ||
-      user.email ||
-      "Пользователь";
+userAvatar.src = user.photoURL;
 
+userAvatar.style.display = "block";
 
-    if (user.photoURL) {
+userAvatarFallback.style.display = "none";
 
-      userAvatar.src = user.photoURL;
+} else {
 
-      userAvatar.style.display = "block";
+userAvatar.style.display = "none";
 
-      userAvatarFallback.style.display = "none";
+userAvatarFallback.style.display = "flex";
 
-    } else {
+}
 
-      userAvatar.style.display = "none";
+userAvatar.onerror = () => {
 
-      userAvatarFallback.style.display = "flex";
+userAvatar.style.display = "none";
 
-    }
+userAvatarFallback.style.display = "flex";
 
+};
 
-    userAvatar.onerror = () => {
+await loadSavedChats();
 
-      userAvatar.style.display = "none";
+} else {
 
-      userAvatarFallback.style.display = "flex";
+loginBtn.style.display = "block";
 
-    };
+userBox.style.display = "none";
 
+userAvatar.style.display = "none";
 
-    await loadSavedChats();
+userAvatarFallback.style.display = "flex";
 
-  } else {
+savedChats.innerHTML = `
+<div class="no-chats">
+Войди через Google, чтобы сохранять чаты.
+</div>
+`;
 
-    loginBtn.style.display = "block";
-
-    userBox.style.display = "none";
-
-    userAvatar.style.display = "none";
-
-    userAvatarFallback.style.display = "flex";
-
-    savedChats.innerHTML = `
-      <div class="no-chats">
-        Войди через Google, чтобы сохранять чаты.
-      </div>
-    `;
-
-  }
+}
 
 });
-
-
-/* =========================================================
-   FIRESTORE — SAVE CHAT
-========================================================= */
 
 async function saveChat() {
 
-  if (!currentUser || history.length === 0) {
-    return;
-  }
+if (!currentUser || history.length === 0) {
+return;
+}
 
-  try {
+try {
 
-    const firstUserMessage =
-      history.find(x => x.role === "user");
+const firstUserMessage =
+history.find(x => x.role === "user");
 
-    const title =
-      firstUserMessage?.content
-        ?.slice(0, 45) ||
-      "Новый чат";
+const title =
+firstUserMessage?.content
+?.slice(0, 45) ||
+"Новый чат";
 
-    await addDoc(
-      collection(
-        db,
-        "users",
-        currentUser.uid,
-        "chats"
-      ),
-      {
-        title,
-        history,
-        createdAt: serverTimestamp()
-      }
-    );
+await addDoc(
+collection(
+db,
+"users",
+currentUser.uid,
+"chats"
+),
+{
+title,
+history,
+createdAt: serverTimestamp()
+}
+);
 
-    await loadSavedChats();
+await loadSavedChats();
 
-  } catch (error) {
+} catch (error) {
 
-    console.error(
-      "Ошибка сохранения чата:",
-      error
-    );
-
-  }
+console.error(
+"Ошибка сохранения чата:",
+error
+);
 
 }
 
-
-/* =========================================================
-   FIRESTORE — LOAD CHATS
-========================================================= */
+}
 
 async function loadSavedChats() {
 
-  if (!currentUser) return;
+if (!currentUser) return;
 
-  try {
+try {
 
-    const q = query(
-      collection(
-        db,
-        "users",
-        currentUser.uid,
-        "chats"
-      ),
-      orderBy("createdAt", "desc")
-    );
+const q = query(
+collection(
+db,
+"users",
+currentUser.uid,
+"chats"
+),
+orderBy("createdAt", "desc")
+);
 
-    const snapshot =
-      await getDocs(q);
+const snapshot =
+await getDocs(q);
 
-    savedChats.innerHTML = "";
+savedChats.innerHTML = "";
 
-    if (snapshot.empty) {
+if (snapshot.empty) {
 
-      savedChats.innerHTML = `
-        <div class="no-chats">
-          Сохранённых чатов пока нет.
-        </div>
-      `;
+savedChats.innerHTML = `
+<div class="no-chats">
+Сохранённых чатов пока нет.
+</div>
+`;
 
-      return;
-    }
-
-    snapshot.forEach(item => {
-
-      const data = item.data();
-
-      const row =
-        document.createElement("div");
-
-      row.className = "chat-item";
-
-      const open =
-        document.createElement("button");
-
-      open.className = "chat-open";
-
-      open.textContent =
-        data.title || "Чат";
-
-      open.addEventListener("click", () => {
-
-        history =
-          Array.isArray(data.history)
-            ? data.history
-            : [];
-
-        renderHistory();
-
-      });
-
-
-      const del =
-        document.createElement("button");
-
-      del.className = "chat-delete";
-
-      del.textContent = "×";
-
-      del.title = "Удалить чат";
-
-      del.addEventListener("click", async () => {
-
-        try {
-
-          await deleteDoc(
-            doc(
-              db,
-              "users",
-              currentUser.uid,
-              "chats",
-              item.id
-            )
-          );
-
-          await loadSavedChats();
-
-        } catch (error) {
-
-          console.error(error);
-
-        }
-
-      });
-
-
-      row.appendChild(open);
-
-      row.appendChild(del);
-
-      savedChats.appendChild(row);
-
-    });
-
-  } catch (error) {
-
-    console.error(
-      "Ошибка загрузки чатов:",
-      error
-    );
-
-  }
+return;
 
 }
 
+snapshot.forEach(item => {
 
-/* =========================================================
-   RENDER HISTORY
-========================================================= */
+const data = item.data();
+
+const row =
+document.createElement("div");
+
+row.className = "chat-item";
+
+const open =
+document.createElement("button");
+
+open.className = "chat-open";
+
+open.textContent =
+data.title || "Чат";
+
+open.addEventListener("click", () => {
+
+history =
+Array.isArray(data.history)
+? data.history
+: [];
+
+renderHistory();
+
+});
+
+const del =
+document.createElement("button");
+
+del.className = "chat-delete";
+
+del.textContent = "×";
+
+del.title = "Удалить чат";
+
+del.addEventListener("click", async () => {
+
+try {
+
+await deleteDoc(
+doc(
+db,
+"users",
+currentUser.uid,
+"chats",
+item.id
+)
+);
+
+await loadSavedChats();
+
+} catch (error) {
+
+console.error(error);
+
+}
+
+});
+
+row.appendChild(open);
+row.appendChild(del);
+savedChats.appendChild(row);
+
+});
+
+} catch (error) {
+
+console.error(
+"Ошибка загрузки чатов:",
+error
+);
+
+}
+
+}
 
 function renderHistory() {
 
-  chat.innerHTML = "";
+chat.innerHTML = "";
 
-  history.forEach(item => {
+history.forEach(item => {
 
-    addMessage(
-      item.role,
-      item.content
-    );
+addMessage(
+item.role,
+item.content
+);
 
-  });
+});
 
 }
-
-
-/* =========================================================
-   ADD MESSAGE
-========================================================= */
 
 function addMessage(
-  role,
-  content,
-  image = null
+role,
+content,
+image = null
 ) {
 
-  const wrapper =
-    document.createElement("div");
+const wrapper =
+document.createElement("div");
 
-  wrapper.className =
-    "message " +
-    (role === "user"
-      ? "user"
-      : "assistant");
+wrapper.className =
+"message " +
+(role === "user"
+? "user"
+: "assistant");
 
-  const box =
-    document.createElement("div");
+const box =
+document.createElement("div");
 
-  box.className =
-    "message-content";
+box.className =
+"message-content";
 
-  box.textContent =
-    content || "";
+box.textContent =
+content || "";
 
-  if (image) {
+if (image) {
 
-    const img =
-      document.createElement("img");
+const img =
+document.createElement("img");
 
-    img.className =
-      "message-image";
+img.className =
+"message-image";
 
-    img.src = image;
+img.src = image;
 
-    box.appendChild(img);
-
-  }
-
-  wrapper.appendChild(box);
-
-  chat.appendChild(wrapper);
-
-  chat.scrollTop =
-    chat.scrollHeight;
+box.appendChild(img);
 
 }
 
+wrapper.appendChild(box);
 
-/* =========================================================
-   PHOTO
-========================================================= */
+chat.appendChild(wrapper);
+
+chat.scrollTop =
+chat.scrollHeight;
+
+}
 
 photoBtn.addEventListener("click", () => {
 
-  photoInput.click();
+photoInput.click();
 
 });
-
 
 photoInput.addEventListener("change", () => {
 
-  const file =
-    photoInput.files?.[0];
+const file =
+photoInput.files?.[0];
 
-  if (!file) return;
+if (!file) return;
 
-  selectedPhoto = file;
+selectedPhoto = file;
 
-  photoPreview.src =
-    URL.createObjectURL(file);
+photoPreview.src =
+URL.createObjectURL(file);
 
-  photoPreview.style.display =
-    "block";
+photoPreview.style.display =
+"block";
 
 });
 
-
-/* =========================================================
-   SEND TEXT
-========================================================= */
-
 sendBtn.addEventListener(
-  "click",
-  sendMessage
+"click",
+sendMessage
 );
-
 
 textInput.addEventListener(
-  "keydown",
-  event => {
+"keydown",
+event => {
 
-    if (
-      event.key === "Enter" &&
-      !event.shiftKey
-    ) {
+if (
+event.key === "Enter" &&
+!event.shiftKey
+) {
 
-      event.preventDefault();
+event.preventDefault();
 
-      sendMessage();
+sendMessage();
 
-    }
+}
 
-  }
+}
 );
-
 
 async function sendMessage() {
 
-  const message =
-    textInput.value.trim();
+const message =
+textInput.value.trim();
 
-  if (!message) return;
+if (!message) return;
 
-  if (
-    limits &&
-    limits.text.remaining <= 0
-  ) {
+if (
+limits &&
+limits.text.remaining <= 0
+) {
 
-    status.textContent =
-      "❌ Текстовый лимит на сегодня исчерпан.";
+status.textContent =
+"❌ Текстовый лимит на сегодня исчерпан.";
 
-    return;
+return;
 
-  }
+}
 
+sendBtn.disabled = true;
 
-  sendBtn.disabled = true;
+status.textContent =
+"⏳ Locer думает...";
 
-  status.textContent =
-    "⏳ Locer думает...";
+addMessage(
+"user",
+message
+);
 
+history.push({
+role: "user",
+content: message
+});
 
-  addMessage(
-    "user",
-    message
-  );
+textInput.value = "";
 
+const historyForServer =
+history.slice(0, -1);
 
-  history.push({
-    role: "user",
-    content: message
-  });
+try {
 
+const response =
+await fetch(
+WORKER + "/chat",
+{
+method: "POST",
+headers: {
+"Content-Type":
+"application/json"
+},
+body: JSON.stringify({
+message,
+history:
+historyForServer
+.slice(-20)
+})
+}
+);
 
-  textInput.value = "";
+const data =
+await response.json();
 
-  const historyForServer =
-    history.slice(0, -1);
+if (!response.ok) {
 
+if (data.limits) {
+applyLimits(data.limits);
+}
 
-  try {
+throw new Error(
+data.error ||
+"Ошибка сервера"
+);
 
-    const response =
-      await fetch(
-        WORKER + "/chat",
-        {
-          method: "POST",
+}
 
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
+const answer =
+data.answer || "";
 
-          body: JSON.stringify({
-            message,
-            history:
-              historyForServer
-                .slice(-20)
-          })
-        }
-      );
+addMessage(
+"assistant",
+answer
+);
 
+history.push({
+role: "assistant",
+content: answer
+});
 
-    const data =
-      await response.json();
+if (data.limits) {
+applyLimits(data.limits);
+} else {
+await loadLimits();
+}
 
+status.textContent = "";
 
-    if (!response.ok) {
+await saveChat();
 
-      if (data.limits) {
-        applyLimits(data.limits);
-      }
+} catch (error) {
 
-      throw new Error(
-        data.error ||
-        "Ошибка сервера"
-      );
+console.error(error);
 
-    }
+status.textContent =
+"❌ " +
+(error.message ||
+"Ошибка подключения");
 
+history.pop();
 
-    const answer =
-      data.answer || "";
+} finally {
 
+sendBtn.disabled = false;
 
-    addMessage(
-      "assistant",
-      answer
-    );
-
-
-    history.push({
-      role: "assistant",
-      content: answer
-    });
-
-
-    if (data.limits) {
-      applyLimits(data.limits);
-    } else {
-      await loadLimits();
-    }
-
-
-    status.textContent = "";
-
-
-    await saveChat();
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    status.textContent =
-      "❌ " +
-      (error.message ||
-       "Ошибка подключения");
-
-
-    history.pop();
-
-  } finally {
-
-    sendBtn.disabled = false;
-
-  }
+}
 
 }
 
 
 /* =========================================================
-   LOAD SERVER LIMITS
+   FIXED LOAD LIMITS
 ========================================================= */
 
 async function loadLimits() {
 
-  try {
+try {
 
-    const response =
-      await fetch(
-        WORKER + "/limits",
-        {
-          cache: "no-store"
-        }
-      );
+const response =
+await fetch(
+WORKER + "/limits",
+{
+method: "GET",
+cache: "no-store"
+}
+);
 
-    const data =
-      await response.json();
+const data =
+await response.json();
 
-    if (
-      response.ok &&
-      data.limits
-    ) {
+console.log(
+"Locer /limits:",
+data
+);
 
-      applyLimits(
-        data.limits
-      );
+if (!response.ok) {
 
-    }
-
-  } catch (error) {
-
-    console.error(
-      "Ошибка получения лимитов:",
-      error
-    );
-
-  }
+throw new Error(
+data.error ||
+`HTTP ${response.status}`
+);
 
 }
 
+if (
+data &&
+data.text &&
+data.image &&
+data.edit
+) {
 
-/* =========================================================
-   CLOUDFLARE ESTIMATE
-========================================================= */
+applyLimits(data);
+
+} else {
+
+console.error(
+"Неожиданный формат /limits:",
+data
+);
+
+}
+
+} catch (error) {
+
+console.error(
+"Ошибка получения лимитов:",
+error
+);
+
+const elements = [
+"textRemaining",
+"imageRemainingText",
+"editRemainingText",
+"imageRemaining",
+"editRemaining"
+];
+
+elements.forEach(id => {
+
+const element =
+document.getElementById(id);
+
+if (element) {
+element.textContent = "Ошибка";
+}
+
+});
+
+const cloudflareQuota =
+document.getElementById(
+"cloudflareQuota"
+);
+
+const cloudflareQuotaImage =
+document.getElementById(
+"cloudflareQuotaImage"
+);
+
+if (cloudflareQuota) {
+cloudflareQuota.textContent =
+"Не удалось загрузить";
+}
+
+if (cloudflareQuotaImage) {
+cloudflareQuotaImage.textContent =
+"Не удалось загрузить";
+}
+
+}
+
+}
 
 function updateCloudflareEstimate(data) {
 
-  if (!data) return;
+if (!data) return;
 
+const imageLimit =
+Number(data.image?.limit ?? 96);
 
-  const imageLimit =
-    Number(data.image?.limit ?? 96);
+const imageRemaining =
+Number(data.image?.remaining ?? imageLimit);
 
-  const imageRemaining =
-    Number(data.image?.remaining ?? imageLimit);
+const editLimit =
+Number(data.edit?.limit ?? 96);
 
+const editRemaining =
+Number(data.edit?.remaining ?? editLimit);
 
-  const editLimit =
-    Number(data.edit?.limit ?? 96);
+const imageUsed =
+Math.max(
+0,
+imageLimit - imageRemaining
+);
 
-  const editRemaining =
-    Number(data.edit?.remaining ?? editLimit);
+const editUsed =
+Math.max(
+0,
+editLimit - editRemaining
+);
 
+const estimatedUsed =
+(imageUsed * EST_IMAGE_NEURONS) +
+(editUsed * EST_EDIT_NEURONS);
 
-  const imageUsed =
-    Math.max(
-      0,
-      imageLimit - imageRemaining
-    );
+const estimatedRemaining =
+Math.max(
+0,
+CLOUDFLARE_DAILY_QUOTA -
+estimatedUsed
+);
 
+const roundedRemaining =
+Math.round(
+estimatedRemaining
+);
 
-  const editUsed =
-    Math.max(
-      0,
-      editLimit - editRemaining
-    );
+const roundedUsed =
+Math.round(
+Math.min(
+CLOUDFLARE_DAILY_QUOTA,
+estimatedUsed
+)
+);
 
+const mainText =
+`Примерно осталось: ${roundedRemaining.toLocaleString("ru-RU")} / ${CLOUDFLARE_DAILY_QUOTA.toLocaleString("ru-RU")} Neurons`;
 
-  const estimatedUsed =
-    (imageUsed * EST_IMAGE_NEURONS) +
-    (editUsed * EST_EDIT_NEURONS);
+const imageQuota =
+document.getElementById(
+"cloudflareQuota"
+);
 
+const imagePageQuota =
+document.getElementById(
+"cloudflareQuotaImage"
+);
 
-  const estimatedRemaining =
-    Math.max(
-      0,
-      CLOUDFLARE_DAILY_QUOTA -
-      estimatedUsed
-    );
-
-
-  const roundedRemaining =
-    Math.round(
-      estimatedRemaining
-    );
-
-
-  const roundedUsed =
-    Math.round(
-      Math.min(
-        CLOUDFLARE_DAILY_QUOTA,
-        estimatedUsed
-      )
-    );
-
-
-  const mainText =
-    `Примерно осталось: ${roundedRemaining.toLocaleString("ru-RU")} / ${CLOUDFLARE_DAILY_QUOTA.toLocaleString("ru-RU")} Neurons`;
-
-
-  const imageQuota =
-    document.getElementById(
-      "cloudflareQuota"
-    );
-
-  const imagePageQuota =
-    document.getElementById(
-      "cloudflareQuotaImage"
-    );
-
-
-  if (imageQuota) {
-    imageQuota.textContent =
-      mainText;
-  }
-
-
-  if (imagePageQuota) {
-    imagePageQuota.textContent =
-      mainText;
-  }
-
-
-  const resetText =
-    "⏰ Сброс: 00:00 UTC";
-
-
-  const reset1 =
-    document.getElementById(
-      "cloudflareQuotaReset"
-    );
-
-  const reset2 =
-    document.getElementById(
-      "cloudflareQuotaResetImage"
-    );
-
-
-  if (reset1) {
-    reset1.textContent =
-      resetText;
-  }
-
-
-  if (reset2) {
-    reset2.textContent =
-      resetText;
-  }
-
-
-  console.log(
-    "Cloudflare estimate:",
-    {
-      quota: CLOUDFLARE_DAILY_QUOTA,
-      estimatedUsed: roundedUsed,
-      estimatedRemaining: roundedRemaining
-    }
-  );
-
+if (imageQuota) {
+imageQuota.textContent =
+mainText;
 }
 
+if (imagePageQuota) {
+imagePageQuota.textContent =
+mainText;
+}
 
-/* =========================================================
-   APPLY LIMITS
-========================================================= */
+const resetText =
+"⏰ Сброс: 00:00 UTC";
+
+const reset1 =
+document.getElementById(
+"cloudflareQuotaReset"
+);
+
+const reset2 =
+document.getElementById(
+"cloudflareQuotaResetImage"
+);
+
+if (reset1) {
+reset1.textContent =
+resetText;
+}
+
+if (reset2) {
+reset2.textContent =
+resetText;
+}
+
+console.log(
+"Cloudflare estimate:",
+{
+quota: CLOUDFLARE_DAILY_QUOTA,
+estimatedUsed: roundedUsed,
+estimatedRemaining: roundedRemaining
+}
+);
+
+}
 
 function applyLimits(data) {
 
-  limits = data;
+limits = data;
 
+const textRemaining =
+data.text?.remaining ?? 0;
 
-  const textRemaining =
-    data.text?.remaining ?? 0;
+const imageRemaining =
+data.image?.remaining ?? 0;
 
-  const imageRemaining =
-    data.image?.remaining ?? 0;
+const editRemaining =
+data.edit?.remaining ?? 0;
 
-  const editRemaining =
-    data.edit?.remaining ?? 0;
+document
+.getElementById("textRemaining")
+.textContent =
+`${textRemaining} / ${data.text?.limit ?? 50}`;
 
+document
+.getElementById("imageRemaining")
+.textContent =
+`${imageRemaining} / ${data.image?.limit ?? 96}`;
 
-  document
-    .getElementById("textRemaining")
-    .textContent =
-      `${textRemaining} / ${data.text?.limit ?? 50}`;
+document
+.getElementById("editRemaining")
+.textContent =
+`${editRemaining} / ${data.edit?.limit ?? 96}`;
 
+document
+.getElementById("imageRemainingText")
+.textContent =
+`${imageRemaining} / ${data.image?.limit ?? 96}`;
 
-  document
-    .getElementById("imageRemaining")
-    .textContent =
-      `${imageRemaining} / ${data.image?.limit ?? 96}`;
+document
+.getElementById("editRemainingText")
+.textContent =
+`${editRemaining} / ${data.edit?.limit ?? 96}`;
 
+updateCloudflareEstimate(data);
 
-  document
-    .getElementById("editRemaining")
-    .textContent =
-      `${editRemaining} / ${data.edit?.limit ?? 96}`;
-
-
-  document
-    .getElementById("imageRemainingText")
-    .textContent =
-      `${imageRemaining} / ${data.image?.limit ?? 96}`;
-
-
-  document
-    .getElementById("editRemainingText")
-    .textContent =
-      `${editRemaining} / ${data.edit?.limit ?? 96}`;
-
-
-  updateCloudflareEstimate(data);
-
-
-  updateResetDisplay(
-    data.resetAt,
-    data.resetInSeconds
-  );
+updateResetDisplay(
+data.resetAt,
+data.resetInSeconds
+);
 
 }
-
-
-/* =========================================================
-   RESET COUNTDOWN
-========================================================= */
 
 let resetAt = null;
 
-
 function updateResetDisplay(
-  isoDate,
-  seconds
+isoDate,
+seconds
 ) {
 
-  if (!isoDate) return;
+if (!isoDate) return;
 
-  resetAt =
-    new Date(isoDate);
+resetAt =
+new Date(isoDate);
 
-  updateCountdown();
+updateCountdown();
 
 }
-
 
 function updateCountdown() {
 
-  if (!resetAt) return;
+if (!resetAt) return;
 
-  const now =
-    Date.now();
+const now =
+Date.now();
 
-  const difference =
-    Math.max(
-      0,
-      resetAt.getTime() - now
-    );
+const difference =
+Math.max(
+0,
+resetAt.getTime() - now
+);
 
+const totalSeconds =
+Math.floor(
+difference / 1000
+);
 
-  const totalSeconds =
-    Math.floor(
-      difference / 1000
-    );
+const hours =
+Math.floor(
+totalSeconds / 3600
+);
 
+const minutes =
+Math.floor(
+(totalSeconds % 3600) / 60
+);
 
-  const hours =
-    Math.floor(
-      totalSeconds / 3600
-    );
+const seconds =
+totalSeconds % 60;
 
+const text =
+`${hours} ч ${minutes} мин ${seconds} сек`;
 
-  const minutes =
-    Math.floor(
-      (totalSeconds % 3600) / 60
-    );
+const resetCountdown =
+document.getElementById(
+"resetCountdown"
+);
 
+const imageResetCountdown =
+document.getElementById(
+"imageResetCountdown"
+);
 
-  const seconds =
-    totalSeconds % 60;
+if (resetCountdown) {
+resetCountdown.textContent = text;
+}
 
+if (imageResetCountdown) {
+imageResetCountdown.textContent = text;
+}
 
-  const text =
-    `${hours} ч ${minutes} мин ${seconds} сек`;
+const dateText =
+resetAt.toLocaleString(
+"ru-RU",
+{
+day: "2-digit",
+month: "2-digit",
+year: "numeric",
+hour: "2-digit",
+minute: "2-digit",
+timeZone: "UTC"
+}
+) + " UTC";
 
+const resetDate =
+document.getElementById(
+"resetDate"
+);
 
-  document
-    .getElementById("resetCountdown")
-    .textContent = text;
-
-
-  document
-    .getElementById("imageResetCountdown")
-    .textContent = text;
-
-
-  const dateText =
-    resetAt.toLocaleString(
-      "ru-RU",
-      {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: "UTC"
-      }
-    ) + " UTC";
-
-
-  document
-    .getElementById("resetDate")
-    .textContent =
-      ` — ${dateText}`;
+if (resetDate) {
+resetDate.textContent =
+` — ${dateText}`;
+}
 
 }
 
-
 setInterval(
-  updateCountdown,
-  1000
+updateCountdown,
+1000
 );
 
-
-/* =========================================================
-   GENERATE IMAGE
-========================================================= */
-
 document
-  .getElementById("generateBtn")
-  .addEventListener(
-    "click",
-    generateImage
-  );
-
+.getElementById("generateBtn")
+.addEventListener(
+"click",
+generateImage
+);
 
 async function generateImage() {
 
-  const prompt =
-    document
-      .getElementById("generatePrompt")
-      .value
-      .trim();
+const prompt =
+document
+.getElementById("generatePrompt")
+.value
+.trim();
 
+const generateStatus =
+document
+.getElementById("generateStatus");
 
-  const generateStatus =
-    document
-      .getElementById("generateStatus");
+const result =
+document
+.getElementById("generatedImage");
 
+if (!prompt) {
 
-  const result =
-    document
-      .getElementById("generatedImage");
+generateStatus.textContent =
+"❌ Напиши описание изображения.";
 
-
-  if (!prompt) {
-
-    generateStatus.textContent =
-      "❌ Напиши описание изображения.";
-
-    return;
-
-  }
-
-
-  if (
-    limits &&
-    limits.image.remaining <= 0
-  ) {
-
-    generateStatus.textContent =
-      "❌ Лимит генераций на сегодня исчерпан.";
-
-    return;
-
-  }
-
-
-  const button =
-    document
-      .getElementById("generateBtn");
-
-
-  button.disabled = true;
-
-  generateStatus.textContent =
-    "🎨 Создаю изображение...";
-
-
-  try {
-
-    const response =
-      await fetch(
-        WORKER + "/generate",
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-            prompt,
-            width: 1024,
-            height: 1024
-          })
-        }
-      );
-
-
-    if (!response.ok) {
-
-      let data = {};
-
-      try {
-        data =
-          await response.json();
-      } catch {}
-
-      if (data.limits) {
-        applyLimits(data.limits);
-      }
-
-      throw new Error(
-        data.error ||
-        `Ошибка сервера: ${response.status}`
-      );
-
-    }
-
-
-    const blob =
-      await response.blob();
-
-
-    const url =
-      URL.createObjectURL(blob);
-
-
-    result.src = url;
-
-    result.style.display =
-      "block";
-
-
-    generateStatus.textContent =
-      "✅ Изображение создано.";
-
-
-    await loadLimits();
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    generateStatus.textContent =
-      "❌ " +
-      (error.message ||
-       "Ошибка генерации");
-
-  } finally {
-
-    button.disabled = false;
-
-  }
+return;
 
 }
 
+if (
+limits &&
+limits.image.remaining <= 0
+) {
 
-/* =========================================================
-   EDIT IMAGE
-========================================================= */
+generateStatus.textContent =
+"❌ Лимит генераций на сегодня исчерпан.";
+
+return;
+
+}
+
+const button =
+document
+.getElementById("generateBtn");
+
+button.disabled = true;
+
+generateStatus.textContent =
+"🎨 Создаю изображение...";
+
+try {
+
+const response =
+await fetch(
+WORKER + "/generate",
+{
+method: "POST",
+headers: {
+"Content-Type":
+"application/json"
+},
+body: JSON.stringify({
+prompt,
+width: 1024,
+height: 1024
+})
+}
+);
+
+if (!response.ok) {
+
+let data = {};
+
+try {
+data =
+await response.json();
+} catch {}
+
+if (data.limits) {
+applyLimits(data.limits);
+}
+
+throw new Error(
+data.error ||
+`Ошибка сервера: ${response.status}`
+);
+
+}
+
+const blob =
+await response.blob();
+
+const url =
+URL.createObjectURL(blob);
+
+result.src = url;
+
+result.style.display =
+"block";
+
+generateStatus.textContent =
+"✅ Изображение создано.";
+
+await loadLimits();
+
+} catch (error) {
+
+console.error(error);
+
+generateStatus.textContent =
+"❌ " +
+(error.message ||
+"Ошибка генерации");
+
+} finally {
+
+button.disabled = false;
+
+}
+
+}
 
 document
-  .getElementById("editBtn")
-  .addEventListener(
-    "click",
-    editImage
-  );
-
+.getElementById("editBtn")
+.addEventListener(
+"click",
+editImage
+);
 
 async function editImage() {
 
-  const file =
-    document
-      .getElementById("editImageInput")
-      .files?.[0];
-
-
-  const prompt =
-    document
-      .getElementById("editPrompt")
-      .value
-      .trim();
-
-
-  const editStatus =
-    document
-      .getElementById("editStatus");
-
-
-  const result =
-    document
-      .getElementById("editedImage");
-
-
-  if (!file) {
-
-    editStatus.textContent =
-      "❌ Выбери изображение.";
-
-    return;
-
-  }
-
-
-  if (!prompt) {
-
-    editStatus.textContent =
-      "❌ Напиши, что изменить.";
-
-    return;
-
-  }
-
-
-  if (
-    limits &&
-    limits.edit.remaining <= 0
-  ) {
-
-    editStatus.textContent =
-      "❌ Лимит редактирования на сегодня исчерпан.";
-
-    return;
-
-  }
-
-
-  const button =
-    document
-      .getElementById("editBtn");
-
-
-  button.disabled = true;
-
-  editStatus.textContent =
-    "🪄 Редактирую изображение...";
-
-
-  try {
-
-    const form =
-      new FormData();
-
-
-    form.append(
-      "image",
-      file
-    );
-
-
-    form.append(
-      "prompt",
-      prompt
-    );
-
-
-    form.append(
-      "width",
-      "1024"
-    );
-
-
-    form.append(
-      "height",
-      "1024"
-    );
-
-
-    const response =
-      await fetch(
-        WORKER + "/edit",
-        {
-          method: "POST",
-          body: form
-        }
-      );
-
-
-    if (!response.ok) {
-
-      let data = {};
-
-      try {
-        data =
-          await response.json();
-      } catch {}
-
-      if (data.limits) {
-        applyLimits(data.limits);
-      }
-
-      throw new Error(
-        data.error ||
-        `Ошибка сервера: ${response.status}`
-      );
-
-    }
-
-
-    const blob =
-      await response.blob();
-
-
-    const url =
-      URL.createObjectURL(blob);
-
-
-    result.src = url;
-
-    result.style.display =
-      "block";
-
-
-    editStatus.textContent =
-      "✅ Изображение отредактировано.";
-
-
-    await loadLimits();
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    editStatus.textContent =
-      "❌ " +
-      (error.message ||
-       "Ошибка редактирования");
-
-  } finally {
-
-    button.disabled = false;
-
-  }
+const file =
+document
+.getElementById("editImageInput")
+.files?.[0];
+
+const prompt =
+document
+.getElementById("editPrompt")
+.value
+.trim();
+
+const editStatus =
+document
+.getElementById("editStatus");
+
+const result =
+document
+.getElementById("editedImage");
+
+if (!file) {
+
+editStatus.textContent =
+"❌ Выбери изображение.";
+
+return;
 
 }
 
+if (!prompt) {
 
-/* =========================================================
-   DEVELOPER PANEL
-========================================================= */
+editStatus.textContent =
+"❌ Напиши, что изменить.";
 
-const devToggle =
-  document.getElementById("devToggle");
+return;
 
-const developerBody =
-  document.getElementById("developerBody");
+}
 
+if (
+limits &&
+limits.edit.remaining <= 0
+) {
 
-devToggle.addEventListener(
-  "click",
-  async () => {
+editStatus.textContent =
+"❌ Лимит редактирования на сегодня исчерпан.";
 
-    const visible =
-      developerBody.style.display === "block";
+return;
 
+}
 
-    if (visible) {
+const button =
+document
+.getElementById("editBtn");
 
-      developerBody.style.display =
-        "none";
+button.disabled = true;
 
-      devToggle.textContent =
-        "Показать";
+editStatus.textContent =
+"🪄 Редактирую изображение...";
 
-      return;
+try {
 
-    }
+const form =
+new FormData();
 
-
-    developerBody.style.display =
-      "block";
-
-    devToggle.textContent =
-      "Скрыть";
-
-
-    developerBody.textContent =
-      "⏳ Проверка Worker...";
-
-
-    try {
-
-      const response =
-        await fetch(
-          WORKER + "/",
-          {
-            cache: "no-store"
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      developerBody.textContent =
-        JSON.stringify(
-          data,
-          null,
-          2
-        );
-
-
-    } catch (error) {
-
-      developerBody.textContent =
-        "❌ Ошибка подключения к Worker\n\n" +
-        error.message;
-
-    }
-
-  }
+form.append(
+"image",
+file
 );
 
+form.append(
+"prompt",
+prompt
+);
 
-/* =========================================================
-   START
-========================================================= */
+form.append(
+"width",
+"1024"
+);
+
+form.append(
+"height",
+"1024"
+);
+
+const response =
+await fetch(
+WORKER + "/edit",
+{
+method: "POST",
+body: form
+}
+);
+
+if (!response.ok) {
+
+let data = {};
+
+try {
+data =
+await response.json();
+} catch {}
+
+if (data.limits) {
+applyLimits(data.limits);
+}
+
+throw new Error(
+data.error ||
+`Ошибка сервера: ${response.status}`
+);
+
+}
+
+const blob =
+await response.blob();
+
+const url =
+URL.createObjectURL(blob);
+
+result.src = url;
+
+result.style.display =
+"block";
+
+editStatus.textContent =
+"✅ Изображение отредактировано.";
+
+await loadLimits();
+
+} catch (error) {
+
+console.error(error);
+
+editStatus.textContent =
+"❌ " +
+(error.message ||
+"Ошибка редактирования");
+
+} finally {
+
+button.disabled = false;
+
+}
+
+}
+
+const devToggle =
+document.getElementById("devToggle");
+
+const developerBody =
+document.getElementById("developerBody");
+
+devToggle.addEventListener(
+"click",
+async () => {
+
+const visible =
+developerBody.style.display === "block";
+
+if (visible) {
+
+developerBody.style.display =
+"none";
+
+devToggle.textContent =
+"Показать";
+
+return;
+
+}
+
+developerBody.style.display =
+"block";
+
+devToggle.textContent =
+"Скрыть";
+
+developerBody.textContent =
+"⏳ Проверка Worker...";
+
+try {
+
+const response =
+await fetch(
+WORKER + "/",
+{
+cache: "no-store"
+}
+);
+
+const data =
+await response.json();
+
+developerBody.textContent =
+JSON.stringify(
+data,
+null,
+2
+);
+
+} catch (error) {
+
+developerBody.textContent =
+"❌ Ошибка подключения к Worker\n\n" +
+error.message;
+
+}
+
+});
 
 async function startLocer() {
 
-  await loadLimits();
+await loadLimits();
 
 }
-
 
 startLocer();
 
